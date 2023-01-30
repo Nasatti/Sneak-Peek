@@ -1,3 +1,9 @@
+<?php
+session_start();
+if(!isset($_SESSION['email'])){
+    header("Location:login.php?error=accesso");
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,6 +15,11 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
         <link href="styles.css" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Unbounded&display=swap" rel="stylesheet">
         <title>Sneak Peek</title>
     </head>
     <body>
@@ -22,6 +33,7 @@
                     <button class="btn_list"><i class="bi bi-bell"></i> Notifics</button><br><br>
                     <button class="btn_list"><i class="bi bi-plus-square"></i>  Post</button><br><br>
                     <button class="btn_list"><i class="bi bi-person"></i>  Profile</button><br><br>
+                    <button class="btn_list" onclick="window.location='index.php';"><i class="bi bi-box-arrow-in-left"></i>  Log out</button><br><br>
                 </div>
             </div>
             <div id="main">

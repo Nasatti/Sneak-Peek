@@ -25,57 +25,65 @@ session_start();
         <div id="menu">
             <h1 id="title">Sneak Peek</h1>
             <div id="list">
-                <button class="btn_list" id="Log_in"><i class="bi bi-box-arrow-in-left"></i> Log in</button><br><br>
+                <button class="btn_list" id="Log_in"><i class="bi bi-box-arrow-right"></i> Log in</button><br><br>
                 <a href="./index.php"><button class="btn_list"><i class="bi bi-arrow-return-left"></i> Back</button></a><br><br>
             </div>
         </div><br>
-        <div id="form"></div>
-        <?php
-        $ip = '127.0.0.1';
-        $username = 'root';
-        $pwd = '';
-        $database ='credenziali';
-        $connection= new mysqli($ip, $username, $pwd, $database);
-        if($connection->connect_error){
-            die('c\è stato un errore: '.$connection->connect_error);
-        }
+        <div id="main">
+            <div id="form"></div>
+            <?php
 
-        if(isset($_POST['em']) and isset($_POST['psw'])){
-            $email = $_POST['em'];
-            $password = $_POST['psw'];
-            $sql = 'SELECT * FROM credentials WHERE email="'.$email.'" AND password="'.md5($password).'";';
-            $response = $connection->query($sql);
-            if ($response->num_rows > 0) {
-                $data = $response->fetch_array();
-                $_SESSION['nome']=$data['nome'];
-                $_SESSION['cognome']=$data['cognome'];
-                $_SESSION['email']=$data['email'];
-                $_SESSION['password']=$data['password'];
-                header('Location: dashboard.php');
+            $ip = '127.0.0.1';
+            $username = 'root';
+            $pwd = '';
+            $database ='utenti';
+            $connection= new mysqli($ip, $username, $pwd, $database);
+            if($connection->connect_error){
+                die('c\è stato un errore: '.$connection->connect_error);
             }
-            else {
-                echo '<div class="alert alert-danger my-4">Credenziali sbagliate</div>';
+            if(isset($_POST['username']) and isset($_POST['psw'])){
+
+                $user = $_POST['username'];
+                $password = $_POST['psw'];
+                $sql = 'SELECT * FROM credenziali WHERE username="'.$user.'" AND password="'.md5($password).'";';
+                $response = $connection->query($sql);
+                if ($response->num_rows > 0) {
+                    $data = $response->fetch_array();
+                    $_SESSION['nome']=$data['nome'];
+                    $_SESSION['cognome']=$data['cognome'];
+                    $_SESSION['email']=$data['email'];
+                    $_SESSION['password']=$data['password'];
+                    $_SESSION['data']=$data['data'];
+                    $_SESSION['username']=$data['username'];
+                    header('Location: home.php');
+                }
+                else {
+                    header('Location: login.php?error=credenziali');
+                }
             }
-        }
-        else if(isset($_POST['email'])){
-            $nome = $_POST['nome'];
-            $cognome = $_POST['cognome'];
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            
-            $sql = 'INSERT INTO credentials (email, password, nome, cognome) VALUES ("'.$_POST['email'].'","'.md5($_POST['password']).'", "'.$_POST['nome'].'", "'.$_POST['cognome'].'")';
-            echo $sql;
-            if ($connection->query($sql)) {
-                header('Location: index.php?error=none');
+            else if(isset($_POST['email'])){
+                $nome = $_POST['nome'];
+                $cognome = $_POST['cognome'];
+                $email = $_POST['email'];
+                $password = $_POST['password'];
+                $data=$_POST['data'];
+                $user=$_POST['username'];
+
+                $sql = 'INSERT INTO credenziali (username, nome, cognome, data, email, password) VALUES ("'.$_POST['user'].'","'.$_POST['nome'].'","'.$_POST['cognome'].'","'.$_POST['data'].'","'.$_POST['email'].'","'.md5($_POST['password']).'")';
+                if ($connection->query($sql)) {
+                    header('Location: login.php?error=none');
+                }
             }
-        }
-        else if(isset($_GET['error'])){
-            if ($_GET['error'] == 'credenziali') {
-                echo '<div class="alert alert-danger" role="alert">Login incoretto!</div>';
+            if(isset($_GET['error'])){
+                if ($_GET['error'] == 'credenziali') {
+                    echo '<div class=center_form><div class="alert alert-danger errore" role="alert"><p><i class="bi bi-exclamation-triangle-fill"></i> Login incoretto!</p></div></div>';
+                }
+                if ($_GET['error'] == 'accesso') {
+                    echo '<div class=center_form><div class="alert alert-danger errore" role="alert"><p><i class="bi bi-exclamation-triangle-fill"></i> Effettuare il login!</p></div></div>';
+                }
             }
-        }
-        
-        ?>
+            ?>
+        </div>
     <script src="script.js"></script>
     </body>
 </html>
