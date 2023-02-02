@@ -25,7 +25,7 @@ session_start();
         <div id="menu">
             <h1 id="title">Sneak Peek</h1>
             <div id="list">
-                <button class="btn_list" id="Log_in"><i class="bi bi-box-arrow-right"></i> Log in</button><br><br>
+                <button class="btn_list" id="Log_in"><i class="bi bi-box-arrow-right"></i> Sign up</button><br><br>
                 <a href="./index.php"><button class="btn_list"><i class="bi bi-arrow-return-left"></i> Back</button></a><br><br>
             </div>
         </div><br>

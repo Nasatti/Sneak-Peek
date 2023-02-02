@@ -17,11 +17,11 @@ document.getElementById('Log_in').onclick = () => {
 function Change(login){
     if(login){
         document.getElementById('form').innerHTML = log_in;
-        document.getElementById("Log_in").innerHTML = "<i class='bi bi-box-arrow-in-left'></i> Login in";
+        document.getElementById("Log_in").innerHTML = "<i class='bi bi-box-arrow-in-left'></i> Sign up";
     }
     else{
         document.getElementById("form").innerHTML = sign_up;
-        document.getElementById("Log_in").innerHTML = "<i class='bi bi-box-arrow-in-left'></i> Sign up";
+        document.getElementById("Log_in").innerHTML = "<i class='bi bi-box-arrow-in-left'></i> Log in";
     }
 }
 //<i class="bi bi-pencil-square"></i>
