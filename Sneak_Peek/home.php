@@ -44,23 +44,20 @@ if(!isset($_SESSION['username'])){
                     </form>
                 </div>
                 <div class="profile">
-                    <a href="profile.php" class="name" value="b"><img class="prof_img" align="left" id="img_profile"><p id="name_profile">bb</p></a>
+                <?php
+                    $path = getcwd();
+                    $handle = opendir($path."/".$_SESSION['username']);
+                    while (false !==($entry = readdir($handle))){
+
+                        $img = pathinfo($entry);
+                        if($img['filename']=="user"){
+                            echo "<a href='profile.php' class='name' value='b'><img class='prof_img' align='left' src='".$_SESSION['username']."/".$img['basename']."'> ".$_SESSION['username']."</a>";
+                        }
+                    }
+                ?>            
                 </div>
             </div>
         </div>
     </body>
-    <?php
-        echo "<script>document.getElementById('name_profile').textContent =' ".$_SESSION['username']."';</script>";
-        $path = getcwd();
-        $handle = opendir($path."/".$_SESSION['username']);
-        while (false !==($entry = readdir($handle))){
-            
-            $img = pathinfo($entry);
-            if($img['filename']=="user"){
-                $_img = $path."/".$_SESSION['username']."/".$img['basename'];
-                echo "<script>document.getElementById('img_profile').src ='".$_img."';</script>";
-            }
-        }
-        
-    ?>
+
 </html>
