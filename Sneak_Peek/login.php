@@ -62,16 +62,10 @@ session_start();
                 }
             }
             else if(isset($_POST['email'])){
-                $nome = $_POST['nome'];
-                $cognome = $_POST['cognome'];
-                $email = $_POST['email'];
-                $password = $_POST['password'];
-                $data=$_POST['data'];
-                $user=$_POST['username'];
-
-                $sql = 'INSERT INTO credenziali (username, nome, cognome, data, email, password) VALUES ("'.$_POST['user'].'","'.$_POST['nome'].'","'.$_POST['cognome'].'","'.$_POST['data'].'","'.$_POST['email'].'","'.md5($_POST['password']).'")';
+                echo "<script>alert(".$user.")</script>";
+                $sql = 'INSERT INTO credenziali (username, nome, cognome, data, email, password) VALUES ("'.$_POST['username'].'","'.$_POST['nome'].'","'.$_POST['cognome'].'","'.$_POST['data'].'","'.$_POST['email'].'","'.md5($_POST['password']).'")';
                 if ($connection->query($sql)) {
-                    header('Location: login.php?error=none');
+                    header('Location: login.php');
                 }
             }
             if(isset($_GET['error'])){
