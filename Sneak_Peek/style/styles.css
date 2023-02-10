@@ -1,0 +1,223 @@
+#body{
+    width:100%;
+    height: 100vh;
+    display: flex;
+    min-width: 800px;
+    min-height: 800px;
+}
+#menu{
+    position: absolute;
+    background: rgb(211, 0, 0);
+    padding: 20px;
+    min-width: 200px;
+    min-height: 500px;;
+    width: 15%;
+    height: 100%;
+    justify-content: center;
+}
+#main{
+    position: absolute;
+    left:15%;
+    width: 85%;
+    height: 100%;
+    display: flex;
+}
+@media all and (max-width: 980px) {
+    #main{
+        margin-left: 0px;
+        left: 200px;
+    }
+}
+#title{
+    font-family: Impact, Charcoal, sans-serif;
+    color:white;
+    font-size: 40px;
+    text-align: center;
+}
+form{
+    display: inline-block;
+}
+.container{
+    position: absolute;
+    top:0;
+    width: 50%;
+    padding: 2%;
+    display:flex;
+    left: 18%;
+}
+.search{
+    top:20px;
+    width: 100%;
+    min-width: 400px;
+    height: 50px;
+    background: rgba(202, 185, 185, 0.2);
+    display:flex;
+    align-items: center;
+    border-radius: 60px;
+    padding: 10px, 20px;
+}
+@media all and (max-width: 980px) {
+    .container{
+        margin-left: 0px;
+        left: 150px;
+    }
+}
+.search input{
+    background: transparent;
+    flex: 1;
+    border: 0;
+    outline:none;
+    padding: 24px 20px;
+    font-size: 20px;
+    color: #797272;
+}
+.search button i{
+    width: 25px;
+}
+.search button{
+    border: 0;
+    border-radius:50%;
+    width: 45px;
+    height: 45px;
+
+    cursor: pointer;
+}
+.search button:hover{
+    background:rgba(110, 110, 110, 0.2);
+}
+#list{
+    padding:50%;
+}
+.btn_login{
+    position: absolute;
+    text-align: center;
+    font-size: 20px;
+    font-family: 'Unbounded', cursive;
+    background-color: rgb(211, 0, 0);
+    top:25px;
+    border: 0px;
+    border-radius: 100px;
+    width: 200px;
+    height: 47px;
+    min-width: 100px;
+    color: white;
+    transform: translate(-50%, -50%);
+    transition: .6s;
+    overflow: hidden;
+}
+.btn_list{
+    position: absolute;
+    text-align: left;
+    font-size: 20px;
+    font-family: 'Unbounded', cursive;
+    background-color: rgb(211, 0, 0);
+    border: 0px;
+    border-radius: 100px;
+    width: 100%;
+    height: 47px;
+    min-width: 200px;
+    color: white;
+    transform: translate(-50%, -50%);
+    transition: .6s;
+    overflow: hidden;
+}
+.btn_list:hover, .btn_login:hover, .sign_up:hover{
+    background-color: rgb(255, 0, 0);
+    cursor: pointer;
+}
+.btn_list::before, .btn_login::before, .sign_up::before{
+    content:'';
+    display:block;
+    position:absolute;
+    background: rgba(255,255,255,.5);
+    width: 60px;
+    height: 100%;
+    left:0;
+    top:0;
+    opacity: .5s;
+    filter:blur(30px);
+    transform: translateX(-130px) skew(-15deg);
+}
+.btn_list:after, .btn_login:after, .sign_up:after{
+    content:'';
+    display:block;
+    position:absolute;
+    background: rgba(255,255,255,.2);
+    width: 30px;
+    height: 100%;
+    left:30px;
+    top:0;
+    opacity: 0;
+    filter:blur(30px);
+    transform: translate(-100px) scakeX(-15deg);
+}
+.btn_list:hover:before, .btn_login:hover:before, .sign_up:hover:before{
+    transform: translateX(300px) skewX(-15deg);
+    opacity: .6;
+    transition: .7s;
+}
+.btn_list:hover:after, .btn_login:hover:after, .sign_up:hover:after{
+    transform: translateX(300px) skewX(-15deg);
+    opacity: 1;
+    transition: .7s;
+}
+i{
+    padding:10px;
+}
+.profile{
+
+    display:flex;
+    position: absolute;
+    top: 25px;
+    width: 100px;
+    left: 85%;
+}
+@media all and (max-width: 980px) {
+    .profile{
+        margin-left: 0px;
+        left: 700px;
+    }
+}
+.prof_img{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    padding: 10px, 20px;
+}
+.name{
+    position: absolute;
+    text-decoration: none;
+    color: black;
+    top:10px;
+
+}
+.name img{
+    position: absolute;
+    left:-60px;
+    top:-10px
+}
+.name:hover{
+    text-decoration:bold;
+}
+.log_in{
+    text-decoration: none;
+    color:white;
+}
+.page{
+    position: absolute;
+    top: 150px;
+    width: 100%;
+    align-items: center;
+    background-color: aliceblue;
+}
+.home{
+    position: absolute;
+    left:18%;
+    align-items: center; 
+    background-color: rgb(201, 201, 201, 0.2);
+    width: 50%;
+    min-width: 450px;
+    min-height: 500px;
+    border-radius: 40px;
+}

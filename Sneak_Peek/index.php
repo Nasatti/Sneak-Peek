@@ -12,7 +12,7 @@ session_destroy();
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-        <link href="styles.css" rel="stylesheet">
+        <link href="style/styles.css" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,7 +36,7 @@ session_destroy();
             <div id="main">
                 <div class="container">
                     <form action="" class="search">
-                        <input type="text" placeholder="Search..." name="q">
+                        <input type="text" placeholder="Search..." name="q" autocomplete='off'>
                         <button type="submit"><i class="bi bi-x-circle"></i></button>
                     </form>
                 </div>
