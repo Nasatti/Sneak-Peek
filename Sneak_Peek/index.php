@@ -28,7 +28,7 @@ session_destroy();
                     <button class="btn_list"><i class="bi bi-house"></i>  Home</button><br><br>
                     <button class="btn_list"><i class="bi bi-binoculars"></i>  Search</button><br><br>
                     <button class="btn_list"><i class="bi bi-chat"></i>  Message</button><br><br>
-                    <button class="btn_list"><i class="bi bi-bell"></i> Notifics</button><br><br>
+                    <button class="btn_list"><i class="bi bi-cart"></i> Cart</button><br><br>
                     <button class="btn_list"><i class="bi bi-plus-square"></i>  Post</button><br><br>
                     <button class="btn_list"><i class="bi bi-person"></i>  Profile</button><br><br>
                 </div>
@@ -37,7 +37,7 @@ session_destroy();
                 <div class="container">
                     <form action="" class="search">
                         <input type="text" placeholder="Search..." name="q" autocomplete='off'>
-                        <button type="submit"><i class="bi bi-x-circle"></i></button>
+                        <button type="submit"><i class="bi bi-search"></i></i></button>
                     </form>
                 </div>
                 <div class="profile">

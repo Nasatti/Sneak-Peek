@@ -88,6 +88,23 @@ form{
 #list{
     padding:50%;
 }
+.center_form{
+    position: absolute;
+    top:100px;
+    left:30%;
+    width: 60%;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+@media all and (max-width: 300px) {
+    .center_form{
+        margin-left: 0px;
+        left: 150px;
+    }
+}
 .btn_login{
     position: absolute;
     text-align: center;
@@ -225,10 +242,49 @@ i{
 }
 .image_post{
     margin: auto;
-    
     width: 80%;
+    min-width: 450px;
     max-height: 500px;
 }
 .img_post{
     width:450px;
+}
+.action{
+    text-align: center;  
+}
+.action button{
+    border:none;
+    background: transparent;
+    font-size: 20px;
+}           
+.r:hover{
+    color:#ff0000;
+}
+.g:hover{
+    color:rgb(204, 180, 45);
+}
+.b:hover{
+    color:rgb(0, 102, 255);
+}
+.search_box{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    border: none;
+    top:-60px;
+    left: 10%;
+    border-radius: 20px;
+    background-color: rgb(211, 0, 0);
+}
+.search_box label{
+    font-size: 20px;
+    font-family: 'Unbounded', cursive;
+    color:white;
+}
+.next{
+    height: 100px;
+    top: 40%;
 }

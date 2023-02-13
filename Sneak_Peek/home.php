@@ -28,9 +28,9 @@ if(!isset($_SESSION['username'])){
                 <h1 id="title">Sneak Peek</h1>
                 <div id="list">
                     <button id="Home" class="btn_list"><i class="bi bi-house"></i>  Home</button><br><br>
-                    <button id="Search" class="btn_list"><i class="bi bi-binoculars"></i>  Search</button><br><br>
+                    <button id="Search" class="btn_list" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-binoculars"></i>  Search</button><br><br>
                     <button id="Message" class="btn_list"><i class="bi bi-chat"></i>  Message</button><br><br>
-                    <button id="Notifictions" class="btn_list"><i class="bi bi-bell"></i> Notifictions</button><br><br>
+                    <button id="Cart" class="btn_list"><i class="bi bi-cart"></i> Cart</button><br><br>
                     <button id="Post" class="btn_list"><i class="bi bi-plus-square"></i>  Post</button><br><br>
                     <button id="Profile" class="btn_list"><i class="bi bi-person"></i>  Profile</button><br><br>
                     <button id="Logout" class="btn_list" onclick="window.location='index.php';"><i class="bi bi-box-arrow-in-left"></i>  Log out</button><br><br>
@@ -40,7 +40,7 @@ if(!isset($_SESSION['username'])){
                 <div class="container">
                     <form action="" class="search">
                         <input type="text" placeholder="Search..." name="q">
-                        <button type="submit"><i class="bi bi-x-circle"></i></button>
+                        <button type="submit"><i class="bi bi-search"></i></button>
                     </form>
                 </div>
                 <div class="profile">
@@ -65,39 +65,57 @@ if(!isset($_SESSION['username'])){
                                 <div class="image_post">
                                   <img src="img/user.png" class="img_post" height="450">
                                     <div class="action">
-                                        <!-- like, comments, buy... -->
-
+                                        <button id="like"><i class="bi bi-heart r"></i></button><!-- <i class="bi bi-heart-fill"></i> -->
+                                        <button id="prefer"><i class="bi bi-star g"></i></button><!-- <i class="bi bi-star-fill"></i> -->
+                                        <button><i class="bi bi-chat b"></i></button>
+                                    </div>
+                                    <div class="info">
+                                        <div class="us">
+                                            <!-- username -->
+                                        </div>
+                                        <div class="comm">
+                                            <!-- info on shoes -->
+                                        </div>
                                     </div>
                                   </div>
                             </div>
-                            <div class="carousel-item active" data-bs-interval="10000">
-                                <div class="image_post">
-                                  <img src="img/user.png" class="img_post" height="450">
-                                </div><br><br>
-                                  <div class="carousel-caption d-none d-md-block">
-                                    <h5>Second slide label</h5>
-                                    <p>Some representative placeholder content for the first slide.</p>
-                                  </div>
-                                
-                            </div>
+                            <?php
+                            //con ajax metti nupvi post
+                            ?>
                           </div>
-                          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                          <button class="carousel-control-prev next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                           </button>
-                          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                          <button class="carousel-control-next next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                           </button>
                         </div>
                     </div>
-                    <div id="search" class="home" style="display:none">
-                        <p>aaa</p>
+                    <div id="search" class="search_box">
+                        <div class="collapse" id="collapseExample">
+                                    <form>
+                                        <h1 id="title">Set Controls</h1>
+                                        <table class="table table-borderless">
+                                            <tr>
+                                                <th><label>Users</label></th>
+                                                <th><label>Shoes</label></th>
+                                                <th><label>On Sale</label><br></th>
+                                            </tr>
+                                            <tr>
+                                                <th><input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"></th>
+                                                <th><input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"></th>
+                                                <th><input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3"></th>
+                                            </tr>
+                                        </table>
+                                    </form>
+                        </div>
                     </div>
                     <div id="message" class="home" style="display:none">
                         <p>ao</p>
                     </div>
-                    <div id="notification" class="home" style="display:none">
+                    <div id="cart" class="home" style="display:none">
                         <p>ao</p>
                     </div>
                     <div id="post" class="home" style="display:none">
