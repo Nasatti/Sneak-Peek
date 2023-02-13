@@ -65,7 +65,7 @@ if(!isset($_SESSION['username'])){
                                 <div class="image_post">
                                   <img src="img/user.png" class="img_post" height="450">
                                     <div class="action">
-                                        <!-- like, commenti... -->
+                                        <!-- like, comments, buy... -->
 
                                     </div>
                                   </div>
