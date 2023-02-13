@@ -1,8 +1,8 @@
 <?php
 session_start();
-/*if(!isset($_SESSION['username'])){
+if(!isset($_SESSION['username'])){
     header("Location:login.php?error=accesso");
-}*/
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -43,19 +43,20 @@ session_start();
                         <button type="submit"><i class="bi bi-x-circle"></i></button>
                     </form>
                 </div>
-                <!--<div class="profile">
-                <?php/*
-                    $path = getcwd();
+                <div class="profile">
+                <?php
+                    $path = getcwd()."/users";
+
                     $handle = opendir($path."/".$_SESSION['username']);
                     while (false !==($entry = readdir($handle))){
 
                         $img = pathinfo($entry);
                         if($img['filename']=="user"){
-                            echo "<a href='profile.php' class='name' value='b'><img class='prof_img' align='left' src='".$_SESSION['username']."/".$img['basename']."'> ".$_SESSION['username']."</a>";
+                            echo "<a href='profile.php' class='name' value='b'><img class='prof_img' align='left' src='users/".$_SESSION['username']."/".$img['basename']."'> ".$_SESSION['username']."</a>";
                         }
-                    }*/
+                    }
                 ?>            
-                </div>-->
+                </div>
                 <div id="Page" class="page">
                     <div id="home" class="home">
                         <p>ao</p>

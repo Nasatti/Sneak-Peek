@@ -1,5 +1,45 @@
 <?php
 session_start();
+$ip = '127.0.0.1';
+$username = 'root';
+$pwd = '';
+$database ='utenti';
+$connection= new mysqli($ip, $username, $pwd, $database);
+if($connection->connect_error){
+    die('c\è stato un errore: '.$connection->connect_error);
+}
+if(isset($_POST['user']) and isset($_POST['psw'])){ 
+    $user = $_POST['user'];
+    $password = $_POST['psw'];
+    $sql = 'SELECT * FROM credenziali WHERE username="'.$user.'" AND password="'.md5($password).'";';
+    $response = $connection->query($sql);
+    if ($response->num_rows > 0) {
+        
+        $data = $response->fetch_array();
+        $_SESSION['nome']=$data['nome'];
+        $_SESSION['cognome']=$data['cognome'];
+        $_SESSION['email']=$data['email'];
+        $_SESSION['password']=$data['password'];
+        $_SESSION['data']=$data['data'];
+        $_SESSION['username']=$data['username'];
+        header("Location: home.php");
+    }
+    else {
+        header('Location: login.php?error=credenziali');
+    }
+}
+else if(isset($_POST['email'])){
+    $sql = 'INSERT INTO credenziali (username, nome, cognome, data, email, password) VALUES ("'.$_POST['username'].'","'.$_POST['nome'].'","'.$_POST['cognome'].'","'.$_POST['data'].'","'.$_POST['email'].'","'.md5($_POST['password']).'")';
+    if ($connection->query($sql)) {
+        $a = "a";
+        mkdir("./users/".$_POST['username']);
+        $img = "img/user.png";
+        $newimg = "./users/".$_POST['username']."/user.png";
+        copy($img, $newimg);
+        header('Location: login.php');
+    }
+}
+   
 ?>
 <!DOCTYPE html>
 <html>
@@ -33,8 +73,8 @@ session_start();
         <div id="log_in"class=center_form>
             <form method='POST' action='login.php'>
                 <h1  style='font-family: Impact, Charcoal, sans-serif;'>LOG IN</h1>
-                <input type='text' name='username' placeholder='username' required >
-                <input type='password' name='psw' placeholder='password' required>
+                <input type='text' name='user' placeholder='Username' required >
+                <input type='password' name='psw' placeholder='Password' required>
                 <input type='submit' style='font-family: Impact, Charcoal, sans-serif; font-size:20px;' class='sign_up' value='Log in'>
             </form>
         </div>
@@ -43,65 +83,31 @@ session_start();
                 <h1 style='font-family: Impact, Charcoal, sans-serif;'>SIGN UP</h1>
                 <div class='wrapper'>
                     <div class='item1'>
-                        <input type='text' name='nome' placeholder='nome' required autocomplete='off'>
+                        <input type='text' name='nome' placeholder='Nome' required autocomplete='off'>
                     </div>
                     <div class='item2'>
-                        <input type='text' name='cognome' placeholder='cognome' required autocomplete='off'>
+                        <input type='text' name='cognome' placeholder='Cognome' required autocomplete='off'>
                     </div>
                     <div class='item3'>
-                        <input type='email' name='email' placeholder='email' autocomplete='off' required>
+                        <input type='email' name='email' placeholder='Email' autocomplete='off' required>
                     </div>
                     <div class='item4'>
-                        <input type='password' name='password' placeholder='password' required autocomplete='off'>
+                        <input type='password' name='password' placeholder='Password' required autocomplete='off'>
                     </div>
                     <div class='item5' >
-                        <input type='text' name='username' placeholder='username' required autocomplete='off'>
+                        <input type='text' name='username' placeholder='Username' required autocomplete='off'>
                     </div>
                     <div class='item6'>
-                        <input type='date' name='data' placeholder='data di nascita' required autocomplete='off'>
+                        <input type='date' name='data' required autocomplete='off'>
                     </div>
                     <div class='item7'>
                         <input type='submit' style='font-family: Impact, Charcoal, sans-serif; font-size:20px;' class='sign_up' value='Sign up'>
                     </div>
                 </div>
             </form>
-            <?php
-
-            $ip = '127.0.0.1';
-            $username = 'root';
-            $pwd = '';
-            $database ='utenti';
-            $connection= new mysqli($ip, $username, $pwd, $database);
-            if($connection->connect_error){
-                die('c\è stato un errore: '.$connection->connect_error);
-            }
-            if(isset($_POST['username']) and isset($_POST['psw'])){
-
-                $user = $_POST['username'];
-                $password = $_POST['psw'];
-                $sql = 'SELECT * FROM credenziali WHERE username="'.$user.'" AND password="'.md5($password).'";';
-                $response = $connection->query($sql);
-                if ($response->num_rows > 0) {
-                    $data = $response->fetch_array();
-                    $_SESSION['nome']=$data['nome'];
-                    $_SESSION['cognome']=$data['cognome'];
-                    $_SESSION['email']=$data['email'];
-                    $_SESSION['password']=$data['password'];
-                    $_SESSION['data']=$data['data'];
-                    $_SESSION['username']=$data['username'];
-                    header('Location: home.php');
-                }
-                else {
-                    header('Location: login.php?error=credenziali');
-                }
-            }
-            else if(isset($_POST['email'])){
-                echo "<script>alert(".$user.")</script>";
-                $sql = 'INSERT INTO credenziali (username, nome, cognome, data, email, password) VALUES ("'.$_POST['username'].'","'.$_POST['nome'].'","'.$_POST['cognome'].'","'.$_POST['data'].'","'.$_POST['email'].'","'.md5($_POST['password']).'")';
-                if ($connection->query($sql)) {
-                    header('Location: login.php');
-                }
-            }
+            
+        </div>
+        <?php
             if(isset($_GET['error'])){
                 if ($_GET['error'] == 'credenziali') {
                     echo '<div class=center_form><div class="alert alert-danger errore" role="alert"><p><i class="bi bi-exclamation-triangle-fill"></i> Login incoretto!</p></div></div>';
@@ -110,8 +116,7 @@ session_start();
                     echo '<div class=center_form><div class="alert alert-danger errore" role="alert"><p><i class="bi bi-exclamation-triangle-fill"></i> Effettuare il login!</p></div></div>';
                 }
             }
-            ?>
-        </div>
+        ?>
     <script src="script/script_login.js"></script>
     </body>
 </html>
