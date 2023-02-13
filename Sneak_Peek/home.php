@@ -59,7 +59,37 @@ if(!isset($_SESSION['username'])){
                 </div>
                 <div id="Page" class="page">
                     <div id="home" class="home">
-                        <p>ao</p>
+                        <div id="carouselExampleDark" class="carousel carousel-dark slide">
+                          <div class="carousel-inner">
+                            <div class="carousel-item active" data-bs-interval="10000">
+                                <div class="image_post">
+                                  <img src="img/user.png" class="img_post" height="450">
+                                    <div class="action">
+                                        <!-- like, commenti... -->
+
+                                    </div>
+                                  </div>
+                            </div>
+                            <div class="carousel-item active" data-bs-interval="10000">
+                                <div class="image_post">
+                                  <img src="img/user.png" class="img_post" height="450">
+                                </div><br><br>
+                                  <div class="carousel-caption d-none d-md-block">
+                                    <h5>Second slide label</h5>
+                                    <p>Some representative placeholder content for the first slide.</p>
+                                  </div>
+                                
+                            </div>
+                          </div>
+                          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                          </button>
+                          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                          </button>
+                        </div>
                     </div>
                     <div id="search" class="home" style="display:none">
                         <p>aaa</p>

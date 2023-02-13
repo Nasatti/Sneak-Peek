@@ -1,32 +1,32 @@
 var home = document.getElementById("Home");
 var search = document.getElementById("Search");
 var message = document.getElementById("Message");
-var notification = document.getElementById("Notification");
+var notif = document.getElementById("Notification");
 var post = document.getElementById("Post");
 var profile = document.getElementById("Profile");
 
-document.getElementById('home').onclick = () => {
-    alert("")
+home.onclick = () => {
+    alert("");
     home.style.display="block";
 }
 
-document.getElementById('search').onclick = () => {
+search.onclick = () => {
     home.style.display = "block";
     search.style.display="none";
 }
 
-document.getElementById('message').onclick = () => {
+message.onclick = () => {
 
 }
 
-document.getElementById('notification').onclick = () => {
+notif.onclick = () => {
 
 }
 
-document.getElementById('post').onclick = () => {
+post.onclick = () => {
 
 }
 
-document.getElementById('profile').onclick = () => {
+profile.onclick = () => {
 
 }
