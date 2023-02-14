@@ -280,6 +280,13 @@ i{
     border-radius: 30px;
     background-color: rgb(214, 214, 214);
     z-index: 1;
+    min-width: 350px;
+}
+@media all and (max-width: 980px) {
+    .search_box{
+        margin-left: 0px;
+        left: 165px;
+    }
 }
 .search_box label{
     font-size: 20px;
