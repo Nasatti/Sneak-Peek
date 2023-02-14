@@ -50,11 +50,12 @@ form{
     width: 100%;
     min-width: 350px;
     height: 50px;
-    background: rgba(202, 185, 185, 0.2);
+    background: rgb(238, 237, 237);
     display:flex;
     align-items: center;
     border-radius: 60px;
     padding: 10px, 20px;
+    z-index: 2;
 }
 @media all and (max-width: 980px) {
     .container{
@@ -272,17 +273,19 @@ i{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 70%;
+    width: 46.5%;
     border: none;
-    top:-60px;
-    left: 10%;
-    border-radius: 20px;
-    background-color: rgb(211, 0, 0);
+    top:-133px;
+    left: 20%;
+    border-radius: 30px;
+    background-color: rgb(214, 214, 214);
+    z-index: 1;
 }
 .search_box label{
     font-size: 20px;
     font-family: 'Unbounded', cursive;
     color:white;
+    
 }
 .next{
     height: 100px;
