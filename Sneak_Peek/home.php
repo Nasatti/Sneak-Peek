@@ -28,7 +28,7 @@ if(!isset($_SESSION['username'])){
                 <h1 id="title">Sneak Peek</h1>
                 <div id="list">
                     <button id="Home" class="btn_list"><i class="bi bi-house"></i>  Home</button><br><br>
-                    <button id="Search" class="btn_list" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-binoculars"></i>  Search</button><br><br>
+                    <button id="Search" class="btn_list" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample"><i class="bi bi-binoculars"></i>  Search</button><br><br>
                     <button id="Message" class="btn_list"><i class="bi bi-chat"></i>  Message</button><br><br>
                     <button id="Cart" class="btn_list"><i class="bi bi-cart"></i> Cart</button><br><br>
                     <button id="Post" class="btn_list"><i class="bi bi-plus-square"></i>  Post</button><br><br>
@@ -37,12 +37,12 @@ if(!isset($_SESSION['username'])){
                 </div>
             </div>
             <div id="main">
-                <div class="container">
+                <!--<div class="container">
                     <form action="" class="search">
-                        <input type="text" placeholder="Search..." name="q">
+                        <input type="text" placeholder="Search..." name="q" autocomplete='off'>
                         <button type="submit"><i class="bi bi-search"></i></button>
                     </form>
-                </div>
+                </div>-->
                 <div class="profile">
                 <?php
                     $path = getcwd()."/users";
@@ -93,23 +93,33 @@ if(!isset($_SESSION['username'])){
                           </button>
                         </div>
                     </div>
-                    <div id="search" class="search_box">
-                        <div class="collapse" id="collapseExample">
-                                    <form>
-                                        <h1 id="title">Set Controls</h1>
+                    <div id="search">
+                        <div style="min-height: 500px;">
+                           <div class="collapse collapse-horizontal" id="collapseWidthExample">
+                               <div class="card search_box" style="width: 200px;">
+                                        <h1 id="title">Set Search</h1>
                                         <table class="table table-borderless">
-                                            <tr>
-                                                <th><label>Users</label></th>
-                                                <th><label>Shoes</label></th>
-                                                <th><label>On Sale</label><br></th>
-                                            </tr>
-                                            <tr>
-                                                <th><input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"></th>
-                                                <th><input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"></th>
-                                                <th><input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3"></th>
-                                            </tr>
+                                        <form action="">
+                                        <tr>
+                                            <td>
+                                                <div class="search">
+                                                    <input type="text" placeholder="Search..." name="q" autocomplete='off'>
+                                                    <button type="submit"><i class="bi bi-search"></i></button>
+                                                </div>
+                                                <br><br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <div class="radio">
+                                                <td><label><input class="form-check-input" type="radio" name="flexRadioDefault" id="Radio1">  Users</label></td>
+                                                <td><label><input class="form-check-input" type="radio" name="flexRadioDefault" id="Radio2">  Shoes</label></td>
+                                                <td><label><input class="form-check-input" type="radio" name="flexRadioDefault" id="Radio3">  On Sale</label><br></td>
+                                            </div>
+                                        </tr>
                                         </table>
                                     </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div id="message" class="home" style="display:none">

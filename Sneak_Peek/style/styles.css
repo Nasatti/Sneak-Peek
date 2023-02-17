@@ -46,9 +46,10 @@ form{
     left: 18%;
 }
 .search{
-    top:20px;
-    width: 100%;
-    min-width: 350px;
+    position: absolute;
+    top:60px;
+    left: 25px;
+    width: 350px;
     height: 50px;
     background: rgb(238, 237, 237);
     display:flex;
@@ -57,12 +58,13 @@ form{
     padding: 10px, 20px;
     z-index: 2;
 }
-@media all and (max-width: 980px) {
+/*@media all and (max-width: 980px) {
     .container{
         margin-left: 0px;
         left: 150px;
+        top: 0px;
     }
-}
+}*/
 .search input{
     background: transparent;
     flex: 1;
@@ -99,6 +101,7 @@ form{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
 }
 @media all and (max-width: 300px) {
     .center_form{
@@ -242,12 +245,14 @@ i{
     border-radius: 40px;
 }
 .image_post{
+    z-index:1;
     margin: auto;
     width: 80%;
     min-width: 450px;
     max-height: 500px;
 }
 .img_post{
+    z-index:1;
     width:450px;
 }
 .action{
@@ -268,31 +273,28 @@ i{
     color:rgb(0, 102, 255);
 }
 .search_box{
-    position: absolute;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 46.5%;
     border: none;
-    top:-133px;
-    left: 20%;
+    top:0px;
+    left: 0px;
     border-radius: 30px;
-    background-color: rgb(214, 214, 214);
-    z-index: 1;
-    min-width: 350px;
+    background-color: rgb(197, 197, 197);
+    z-index: 5;
+    min-width: 400px;
 }
-@media all and (max-width: 980px) {
+/*@media all and (max-width: 980px) {
     .search_box{
         margin-left: 0px;
         left: 165px;
     }
-}
+}*/
 .search_box label{
     font-size: 20px;
-    font-family: 'Unbounded', cursive;
     color:white;
-    
 }
 .next{
     height: 100px;
