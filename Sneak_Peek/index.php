@@ -13,11 +13,13 @@ session_destroy();
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
         <link href="style/styles.css" rel="stylesheet">
+        <link rel="stylesheet" href="style/styles_login.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Unbounded&display=swap" rel="stylesheet">
+
         <title>Sneak Peek</title>
     </head>
     <body>
@@ -34,16 +36,60 @@ session_destroy();
                 </div>
             </div>
             <div id="main">
-                <div class="container">
-                    <form action="" class="search">
-                        <input type="text" placeholder="Search..." name="q" autocomplete='off'>
-                        <button type="submit"><i class="bi bi-search"></i></i></button>
-                    </form>
-                </div>
                 <div class="profile">
-                <a href="./login.php"><button onclick="" class="btn_login">LOG IN</button>
-                </div>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn_login" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                      Login
+                    </button>   
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                          <div class="modal-body">
+                          <div class="modal-content center_form">
+                            <div id="log_in"class=>
+                            <form method='POST' action='login.php'>
+                                    <h1  style='font-family: Impact, Charcoal, sans-serif;'>LOG IN</h1>
+                                    <input type='text' name='user' placeholder='Username' required >
+                                    <input type='password' name='psw' placeholder='Password' required>
+                                    <input type='submit' style='font-family: Impact, Charcoal, sans-serif; font-size:20px;' cursor="pointer" class='sign_up' value='Log in'>
+                                    <p style="font-family: 'Unbounded', cursive; font-size:15px">Non ti sei ancora registrato?<button id="Log_in" style="border:none; background:transparent;color:White"><b>Registrati</b></button></p>
+                                </form>
+                                
+                            </div>
+                            <div id="sign_up" style="display: none;">
+                                <form method='POST' action='login.php'>
+                                    <h1 style='font-family: Impact, Charcoal, sans-serif;'>SIGN UP</h1>
+                                    <div class='wrapper'>
+                                        <div class='item1'>
+                                            <input type='text' name='nome' placeholder='Nome' required autocomplete='off'>
+                                        </div>
+                                        <div class='item2'>
+                                            <input type='text' name='cognome' placeholder='Cognome' required autocomplete='off'>
+                                        </div>
+                                        <div class='item3'>
+                                            <input type='email' name='email' placeholder='Email' autocomplete='off' required>
+                                        </div>
+                                        <div class='item4'>
+                                            <input type='password' name='password' placeholder='Password' required autocomplete='off'>
+                                        </div>
+                                        <div class='item5' >
+                                            <input type='text' name='username' placeholder='Username' required autocomplete='off'>
+                                        </div>
+                                        <div class='item6'>
+                                            <input type='date' name='data' required autocomplete='off'>
+                                        </div>
+                                        <div class='item7'>
+                                            <input type='submit' style='font-family: Impact, Charcoal, sans-serif; font-size:20px;' class='sign_up' value='Sign up'>
+                                        </div>
+                                    </div>
+                                    <br><p style="font-family: 'Unbounded', cursive; font-size:15px">Ti sei già registrato?<button id="Sign_up" style="border:none; background:transparent;color:White"><b>Loggati</b></button></p>
+                                </form>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
             </div>
         </div>
+        <script src="script/script_login.js"></script>
     </body>
 </html>

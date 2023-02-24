@@ -14,17 +14,20 @@ document.getElementById('Log_in').onclick = () => {
         log_in.style.display = "block";
         sign_up.style.display = "none";
     } 
-    Change(login)
 }
-
-function Change(login){
-    if(login){
-        document.getElementById("Log_in").innerHTML = "<i class='bi bi-box-arrow-in-left'></i> Sign up";
+document.getElementById('Sign_up').onclick = () => {
+    if (login){
+        login = false; 
+        log_in.style.display = "none";
+        sign_up.style.display = "block";
     }
     else{
-        document.getElementById("Log_in").innerHTML = "<i class='bi bi-box-arrow-in-left'></i> Log in";
-    }
+        login = true
+        log_in.style.display = "block";
+        sign_up.style.display = "none";
+    } 
 }
+
 //<i class="bi bi-pencil-square"></i>
 //<p>Ti sei già registrato? <a href='index.php'>Sign in</a></p></div>
 //<p>Non ti sei ancora registrato? <button id='submit' class='button'>SIGN UP</button></p></div>

@@ -186,19 +186,11 @@ i{
     padding:10px;
 }
 .profile{
-
     display:flex;
     position: absolute;
     top: 25px;
     width: 100px;
-    left: 85%;
-}
-@media all and (max-width: 980px) {
-    .profile{
-        margin-left: 0px;
-        left: 650px;
-        top: 20px;
-    }
+    left: 50%;
 }
 .prof_img{
     position: absolute;
