@@ -36,7 +36,7 @@ session_destroy();
                 </div>
             </div>
             <div id="main">
-                <div class="profile">
+                <div class="log_center">
                     <!-- Button trigger modal -->
                     <button type="button" class="btn_login" data-bs-toggle="modal" data-bs-target="#exampleModal">
                       Login

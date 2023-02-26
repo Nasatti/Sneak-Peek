@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(!isset($_SESSION['username'])){
-    header("Location:login.php?error=accesso");
+    header("Location:index.php");
 }
 ?>
 <!DOCTYPE html>
@@ -35,6 +35,34 @@ if(!isset($_SESSION['username'])){
                     <button id="Profile" class="btn_list"><i class="bi bi-person"></i>  Profile</button><br><br>
                     <button id="Logout" class="btn_list" onclick="window.location='index.php';"><i class="bi bi-box-arrow-in-left"></i>  Log out</button><br><br>
                 </div>
+
+                <div id="search">
+                           <div id="search_box" class="search_box" style="width: 200px;">
+                                    <h1 id="title" style="font-size: 30px;">Set Search</h1>
+                                    <table class="table table-borderless">
+                                    <form action="">
+                                    <tr>
+                                        <td>
+                                            <div class="search">
+                                                <input type="text" placeholder="Search..." name="q" autocomplete='off'>
+                                                <button type="submit"><i class="bi bi-search"></i></button>
+                                            </div>
+                                            <br><br>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <div class="radio">
+                                            <td><label><input class="form-check-input" type="radio" name="flexRadioDefault" id="Radio1">  Users</label></td>
+                                            <td><label><input class="form-check-input" type="radio" name="flexRadioDefault" id="Radio2">  Shoes</label></td>
+                                            <td><label><input class="form-check-input" type="radio" name="flexRadioDefault" id="Radio3">  On Sale</label><br></td>
+                                        </div>
+                                    </tr>
+                                    </form>
+                                    </table>
+                                
+                            </div>
+                    </div>
+
             </div>
             <div id="main">
                 <!--<div class="container">
@@ -93,35 +121,7 @@ if(!isset($_SESSION['username'])){
                           </button>
                         </div>
                     </div>
-                    <div id="search">
-                        <div style="min-height: 500px;">
-                           <div class="collapse collapse-horizontal" id="collapseWidthExample">
-                               <div class="card search_box" style="width: 200px;">
-                                        <h1 id="title">Set Search</h1>
-                                        <table class="table table-borderless">
-                                        <form action="">
-                                        <tr>
-                                            <td>
-                                                <div class="search">
-                                                    <input type="text" placeholder="Search..." name="q" autocomplete='off'>
-                                                    <button type="submit"><i class="bi bi-search"></i></button>
-                                                </div>
-                                                <br><br>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <div class="radio">
-                                                <td><label><input class="form-check-input" type="radio" name="flexRadioDefault" id="Radio1">  Users</label></td>
-                                                <td><label><input class="form-check-input" type="radio" name="flexRadioDefault" id="Radio2">  Shoes</label></td>
-                                                <td><label><input class="form-check-input" type="radio" name="flexRadioDefault" id="Radio3">  On Sale</label><br></td>
-                                            </div>
-                                        </tr>
-                                        </table>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                     <div id="message" class="home" style="display:none">
                         <p>ao</p>
                     </div>

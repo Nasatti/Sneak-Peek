@@ -11,13 +11,14 @@
     padding: 20px;
     min-width: 200px;
     min-height: 500px;;
-    width: 15%;
+    width: 200px;
     height: 100%;
     justify-content: center;
+    z-index: 10;
 }
 #main{
     position: absolute;
-    left:15%;
+    left:200px;
     width: 85%;
     height: 100%;
     display: flex;
@@ -49,7 +50,7 @@ form{
     position: absolute;
     top:60px;
     left: 25px;
-    width: 350px;
+    width: 250px;
     height: 50px;
     background: rgb(238, 237, 237);
     display:flex;
@@ -71,18 +72,19 @@ form{
     border: 0;
     outline:none;
     padding: 24px 20px;
-    font-size: 20px;
+    font-size: 15px;
     color: #797272;
 }
 .search button i{
     width: 25px;
 }
 .search button{
+    position: absolute;
     border: 0;
     border-radius:50%;
     width: 45px;
     height: 45px;
-
+    left: 205px;
     cursor: pointer;
 }
 .search button:hover{
@@ -142,11 +144,11 @@ form{
     transition: .6s;
     overflow: hidden;
 }
-.btn_list:hover, .btn_login:hover, .sign_up:hover{
+.btn_list:hover, .btn_login:hover, .sign_up:hover, .btn_list_search:hover{
     background-color: rgb(255, 0, 0);
     cursor: pointer;
 }
-.btn_list::before, .btn_login::before, .sign_up::before{
+.btn_list::before, .btn_login::before, .sign_up::before, .btn_list_search::before{
     content:'';
     display:block;
     position:absolute;
@@ -159,7 +161,7 @@ form{
     filter:blur(30px);
     transform: translateX(-130px) skew(-15deg);
 }
-.btn_list:after, .btn_login:after, .sign_up:after{
+.btn_list:after, .btn_login:after, .sign_up:after, .btn_list_search:after{
     content:'';
     display:block;
     position:absolute;
@@ -172,25 +174,54 @@ form{
     filter:blur(30px);
     transform: translate(-100px) scakeX(-15deg);
 }
-.btn_list:hover:before, .btn_login:hover:before, .sign_up:hover:before{
+.btn_list:hover:before, .btn_login:hover:before, .sign_up:hover:before, .btn_list_search:hover:before{
     transform: translateX(300px) skewX(-15deg);
     opacity: .6;
     transition: .7s;
 }
-.btn_list:hover:after, .btn_login:hover:after, .sign_up:hover:after{
+.btn_list:hover:after, .btn_login:hover:after, .sign_up:hover:after .btn_list_search:hover:after{
     transform: translateX(300px) skewX(-15deg);
     opacity: 1;
     transition: .7s;
 }
+
+
+.btn_list_search{
+    position: absolute;
+    text-align: left;
+    font-size: 20px;
+    font-family: 'Unbounded', cursive;
+    background-color: rgb(211, 0, 0);
+    border: 0px;
+    border-radius: 100px;
+    left: 20px;
+    width: 50px;
+    height: 47px;
+    color: white;
+    transform: translate(-50%, -50%);
+    transition: .6s;
+    overflow: hidden;
+}
+
+
+
+
 i{
     padding:10px;
+}
+.log_center{
+    display:flex;
+    position: absolute;
+    top: 25px;
+    width: 100px;
+    left: 50%;
 }
 .profile{
     display:flex;
     position: absolute;
     top: 25px;
     width: 100px;
-    left: 50%;
+    left: 90%;
 }
 .prof_img{
     position: absolute;
@@ -223,7 +254,6 @@ i{
     top: 150px;
     width: 100%;
     text-align: center;
-    background-color: aliceblue;
 }
 .home{
     position: absolute;
@@ -266,17 +296,19 @@ i{
 }
 .search_box{
     display: flex;
+    position: absolute;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 46.5%;
+    width: 50px;
     border: none;
-    top:0px;
+    top: 200px;
     left: 0px;
     border-radius: 30px;
-    background-color: rgb(197, 197, 197);
-    z-index: 5;
-    min-width: 400px;
+    background-color:transparent;
+    z-index: 14;
+    min-width: 300px;
+    display: none;
 }
 /*@media all and (max-width: 980px) {
     .search_box{
@@ -285,7 +317,8 @@ i{
     }
 }*/
 .search_box label{
-    font-size: 20px;
+    font-family: 'Unbounded', cursive;
+    font-size: 15px;
     color:white;
 }
 .next{
