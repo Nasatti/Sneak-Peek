@@ -17,6 +17,10 @@ var search_box = document.getElementById("search_box");
 
 var menu = document.getElementById("menu");
 var main = document.getElementById("main");
+
+var r1 = document.getElementById("r1");
+var r2 = document.getElementById("r2");
+var r3 = document.getElementById("r3");
 menu.style.width = "200px";
 search_box.style.left="-100px";
 var sea = false;
@@ -120,4 +124,19 @@ function Move(){
             sea = !sea;
         }
     }
+}
+Radio1.onclick = () => {
+    r1.style.display="block";
+    r2.style.display="none";
+    r3.style.display="none";
+}
+Radio2.onclick = () => {
+    r2.style.display="block";
+    r1.style.display="none";
+    r3.style.display="none";
+}
+Radio3.onclick = () => {
+    r3.style.display="block";
+    r1.style.display="none";
+    r2.style.display="none";
 }

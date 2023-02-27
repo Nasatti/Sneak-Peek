@@ -38,9 +38,10 @@ if(!isset($_SESSION['username'])){
 
                 <div id="search">
                            <div id="search_box" class="search_box" style="width: 200px;">
-                                    <h1 id="title" style="font-size: 30px;">Set Search</h1>
-                                    <table class="table table-borderless">
+                                    <h1 id="title" style="font-size: 30px;">Filters</h1>
+                                    
                                     <form action="">
+                                    <table class="table table-borderless">
                                     <tr>
                                         <td>
                                             <div class="search">
@@ -57,8 +58,23 @@ if(!isset($_SESSION['username'])){
                                             <td><label><input class="form-check-input" type="radio" name="flexRadioDefault" id="Radio3">  On Sale</label><br></td>
                                         </div>
                                     </tr>
-                                    </form>
                                     </table>
+                                    <hr>
+                                    <div id="r1" class="search_cond">
+                                    <br>
+                                        <label>Selling User</label>
+                                        <input type="checkbox" style="padding-top:20px">
+                                    </div>
+                                    <div id="r2" class="search_cond">
+                                        <br>
+                                        <label>Model</label><br>
+                                        <input type="text" style="padding-top:20px">
+                                    </div>
+                                    <div id="r3" class="search_cond">
+                                        <p>c</p>
+                                    </div>
+                                    </form>
+                                    
                                 
                             </div>
                     </div>
