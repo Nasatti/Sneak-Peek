@@ -59,19 +59,39 @@ if(!isset($_SESSION['username'])){
                                         </div>
                                     </tr>
                                     </table>
-                                    <hr>
+                                    <hr class="border border border-light opacity-100">
                                     <div id="r1" class="search_cond">
                                     <br>
-                                        <label>Selling User</label>
-                                        <input type="checkbox" style="padding-top:20px">
+                                        <label>Selling User </label>
+                                        <input type="checkbox" class="form-check-input me-1"style="width:20px;height:20px;">
                                     </div>
                                     <div id="r2" class="search_cond">
                                         <br>
-                                        <label>Model</label><br>
-                                        <input type="text" style="padding-top:20px">
+                                        <label>Number</label><br>
+                                        <div class="range">
+                                            <div class="sliderValue">
+                                              <span id="span1"><p>41</p></span>
+                                            </div>
+                                            <div class="field">
+                                              <div class="value left">36</div>
+                                                <input id="ra1" type="range" min="36" max="47" value="100" step="0.5">
+                                              <div class="value right">47</div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div id="r3" class="search_cond">
-                                        <p>c</p>
+                                    <br>
+                                        <label>Number</label><br>
+                                        <div class="range">
+                                            <div class="sliderValue">
+                                              <span id="span2"><p>41</p></span>
+                                            </div>
+                                            <div class="field">
+                                              <div class="value left">36</div>
+                                                <input id="ra2" type="range" min="36" max="47" value="100" step="0.5">
+                                              <div class="value right">47</div>
+                                            </div>
+                                        </div>
                                     </div>
                                     </form>
                                     

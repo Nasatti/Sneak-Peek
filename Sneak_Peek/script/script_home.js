@@ -72,6 +72,13 @@ Search.onclick = () => {
 
         search_box.style.display="none";
 
+        Radio1.checked=false;
+        Radio2.checked=false;
+        Radio3.checked=false;
+        r1.style.display="none";
+        r2.style.display="none";
+        r3.style.display="none";
+
         Move();
     }
 }
@@ -140,3 +147,30 @@ Radio3.onclick = () => {
     r1.style.display="none";
     r2.style.display="none";
 }
+
+const ra1 = document.getElementById("ra1");
+const slideValue1 = document.getElementById("span1");
+slideValue1.style.left="0px";
+ra1.oninput = () => {
+  let value = ra1.value;
+  slideValue1.textContent = value;
+  slideValue1.style.left = ((value%36)*185/11) + 10 + "px";
+  slideValue1.classList.add("show");
+  
+};
+ra1.onblur = () => {
+  slideValue1.classList.remove("show");
+};
+
+const ra2 = document.getElementById("ra2");
+const slideValue2 = document.getElementById("span2");
+slideValue2.style.left="0px";
+ra2.oninput = () => {
+  let value = ra2.value;
+  slideValue2.textContent = value;
+  slideValue2.style.left = ((value%36)*185/11) + 10 + "px";
+  slideValue2.classList.add("show");
+};
+ra2.onblur = () => {
+  slideValue2.classList.remove("show");
+};
