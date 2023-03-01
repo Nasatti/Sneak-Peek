@@ -20,7 +20,7 @@ if(!isset($_SESSION['username'])){
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Unbounded&display=swap" rel="stylesheet">
-        <title>Sneak Peek</title>
+        <title>Sneak Peek | Home</title>
     </head>
     <body>
         <div name="body">

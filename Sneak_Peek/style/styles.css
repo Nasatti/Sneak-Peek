@@ -452,3 +452,8 @@ i{
   .range input::-moz-range-progress{
     background: white; 
   }
+  .Image_login{
+    position: absolute;
+    top:100px;
+    left: -200%;
+}
