@@ -28,9 +28,12 @@ var sea = false;
 Home.onclick = () => {
     if(sea)document.getElementById("Search").click();
     home.style.display="block";
+    post.style.display="none";
 }
 
 Search.onclick = () => {
+    post.style.display="none";
+
     if(!sea){
         Home.innerHTML='<i class="bi bi-house"></i>';
         Search.innerHTML='<i class="bi bi-binoculars"></i>';
@@ -85,18 +88,23 @@ Search.onclick = () => {
 
 Message.onclick = () => {
     if(sea)document.getElementById("Search").click();
+    post.style.display="none";
 }
 
 Cart.onclick = () => {
     if(sea)document.getElementById("Search").click();
+    post.style.display="none";
 }
 
 Post.onclick = () => {
     if(sea)document.getElementById("Search").click();
+    post.style.display="block";
+
 }
 
 Profile.onclick = () => {
     if(sea)document.getElementById("Search").click();
+    post.style.display="none";
 }
 
 document.getElementById("like").onclick = () => {
@@ -174,3 +182,8 @@ ra2.oninput = () => {
 ra2.onblur = () => {
   slideValue2.classList.remove("show");
 };
+
+Back = document.getElementById("Back"); 
+Back.onclick = () => {
+    Post.click();
+}

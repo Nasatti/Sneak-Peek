@@ -20,6 +20,9 @@ if(!isset($_SESSION['username'])){
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Unbounded&display=swap" rel="stylesheet">
+        <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	crossorigin="anonymous"></script>
         <title>Sneak Peek | Home</title>
     </head>
     <body>
@@ -31,7 +34,7 @@ if(!isset($_SESSION['username'])){
                     <button id="Search" class="btn_list" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample"><i class="bi bi-binoculars"></i>  Search</button><br><br>
                     <button id="Message" class="btn_list"><i class="bi bi-chat"></i>  Message</button><br><br>
                     <button id="Cart" class="btn_list"><i class="bi bi-cart"></i> Cart</button><br><br>
-                    <button id="Post" class="btn_list"><i class="bi bi-plus-square"></i>  Post</button><br><br>
+                    <button id="Post" type="button" class="btn_list" data-bs-toggle="modal" data-bs-target="#PostModal"><i class="bi bi-plus-square"></i>  Post</button><br><br>
                     <button id="Profile" class="btn_list"><i class="bi bi-person"></i>  Profile</button><br><br>
                     <button id="Logout" class="btn_list" onclick="window.location='index.php';"><i class="bi bi-box-arrow-in-left"></i>  Log out</button><br><br>
                 </div>
@@ -94,11 +97,8 @@ if(!isset($_SESSION['username'])){
                                         </div>
                                     </div>
                                     </form>
-                                    
-                                
                             </div>
                     </div>
-
             </div>
             <div id="main">
                 <!--<div class="container">
@@ -164,8 +164,87 @@ if(!isset($_SESSION['username'])){
                     <div id="cart" class="home" style="display:none">
                         <p>ao</p>
                     </div>
-                    <div id="post" class="home" style="display:none">
-                        <p>ao</p>
+                    <div id="post" class="home">
+                    <div class="modal fade" id="PostModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                          <div class="modal-body">
+                          <div class="modal-content" style="background-color:transparent;border:transparent">
+                                <div class="container" id="div_upload">
+                                <h1>File Uploader</h1>
+                                    <div class="form__container">
+                                       <form action="upload.php.php" class="form" id="post-form">
+                                          <input type="file" name="file-input" id="file-input" hidden value="Choose photo"/>
+                                          <input type="submit" value="Upload" class="btn-upload" hidden id="upload_submit"/>
+                                          <i class='bx bx-cloud-upload icon'></i>
+                                        </form>
+                                        <script type="text/javascript">
+
+                                        const form = document.getElementById('post-form'),
+                                        fileInput = document.getElementById('file-input'),
+                                        progressArea = document.getElementById('progress-area'),
+                                        uploadedArea = document.getElementById('uploaded-area');
+                                        var upload_submit = document.getElementById('upload_submit');
+                                        var ifRunning = false;
+
+                                        // form click Event
+                                        form.addEventListener("click", () => {
+                                        
+                                            fileInput.click();
+                                            
+                                            
+                                        })
+
+                                        fileInput.onchange = (e) => {
+                                            upload_submit.click();
+                                            document.getElementById("div_upload").style.display="none";
+                                            document.getElementById("div_post").style.display="block";
+                                        }
+
+                                        $(document).ready(function (e) {         
+                                        	$("#post-form").on('submit',(function(e) {
+                                        		e.preventDefault();
+                                        		$.ajax({
+                                                	url: "upload.php",
+                                        			type: "POST",
+                                        			data:  new FormData(this),
+                                        			contentType: false,
+                                            	    cache: false,
+                                        			processData: false,
+                                        			success: function(data)
+                                        		    {
+                                        				var file_path = data;
+                                                        console.log(data);
+                                                        document.getElementById("down_post").src=data;
+                                                        console.log(data);
+                                        		    },
+                                        		  	error: function(data)
+                                        	    	{
+                                        		  	  console.log("error");
+                                                      console.log(data);
+                                        	    	}
+                                        	   });
+                                        	}));
+                                        });
+                                    </script>
+                                    <section class="progress-area" id="progress-area">
+                                    </section>
+                                    <section class="uploaded-area" id="uploaded-area">
+                                    </section>
+                                    </div>
+                                </div>
+                                <div class="container" id="div_post" style="display:none">
+                                <form>
+                                <h1>Post Image</h1>
+                                    <img id="down_post" src="" class="down_post">
+                                    <input type="submit">
+                                    <button id="Back">Back</button>
+                                </form>
+                                </div>
+                            </div>
+                          </div>
+                    </div>
+
+        <!-- js -->
                     </div>
                     <div id="profile" class="home" style="display:none">
                         <p>ao</p>
@@ -177,7 +256,9 @@ if(!isset($_SESSION['username'])){
             </div>
         </div>
         <script src="script/script_home.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
         <script>
+            var username = "<?= $_SESSION['username']?>"
         /*var Log_in document.getElementById("Log_in");
         log_in.addEventListener("click", function(){
             $.ajax({

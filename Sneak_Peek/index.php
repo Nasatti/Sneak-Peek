@@ -1,6 +1,39 @@
 <?php
 session_start();
 session_destroy();
+session_start();
+include("connection.php");
+if(isset($_POST['user']) and isset($_POST['psw'])){ 
+    $user = $_POST['user'];
+    $password = $_POST['psw'];
+    $sql = 'SELECT * FROM credenziali WHERE username="'.$user.'" AND password="'.md5($password).'";';
+    $response = $connection->query($sql);
+    if ($response->num_rows > 0) {
+        
+        $data = $response->fetch_array();
+        $_SESSION['nome']=$data['nome'];
+        $_SESSION['cognome']=$data['cognome'];
+        $_SESSION['email']=$data['email'];
+        $_SESSION['password']=$data['password'];
+        $_SESSION['data']=$data['data'];
+        $_SESSION['username']=$data['username'];
+        header("Location: home.php");
+    }
+    else {
+        header('Location: index.php?error=credenziali');
+    }
+}
+else if(isset($_POST['email'])){
+    $sql = 'INSERT INTO credenziali (username, nome, cognome, data, email, password) VALUES ("'.$_POST['username'].'","'.$_POST['nome'].'","'.$_POST['cognome'].'","'.$_POST['data'].'","'.$_POST['email'].'","'.md5($_POST['password']).'")';
+    if ($connection->query($sql)) {
+        $a = "a";
+        mkdir("./users/".$_POST['username']);
+        $img = "img/user.png";
+        $newimg = "./users/".$_POST['username']."/user.png";
+        copy($img, $newimg);
+        header('Location: index.php');
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,6 +46,7 @@ session_destroy();
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
         <link href="style/styles.css" rel="stylesheet">
+        <link href="style/styles_login.css" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,8 +78,8 @@ session_destroy();
                       <div class="modal-dialog">
                           <div class="modal-body">
                           <div class="modal-content center_form">
-                            <div id="log_in"class=>
-                            <form method='POST' action='login.php'>
+                            <div id="log_in">
+                            <form method='POST' action='index.php'>
                                     <h1  style='font-family: Impact, Charcoal, sans-serif;'>LOG IN</h1>
                                     <input type='text' name='user' placeholder='Username' required >
                                     <input type='password' name='psw' placeholder='Password' required>
@@ -55,7 +89,7 @@ session_destroy();
                                 
                             </div>
                             <div id="sign_up" style="display: none;">
-                                <form method='POST' action='login.php'>
+                                <form method='POST' action='index.php'>
                                     <h1 style='font-family: Impact, Charcoal, sans-serif;'>SIGN UP</h1>
                                     <div class='wrapper'>
                                         <div class='item1'>
@@ -87,6 +121,16 @@ session_destroy();
                       </div>
                     </div>
             </div>
+            <?php
+            if(isset($_GET['error'])){
+                if ($_GET['error'] == 'credenziali') {
+                    echo '<div class="alert alert-danger errore" role="alert"><i class="bi bi-exclamation-triangle-fill"></i> Login incoretto!</div>';
+                }
+                if ($_GET['error'] == 'accesso') {
+                    echo '<div class="alert alert-danger errore" role="alert"><i class="bi bi-exclamation-triangle-fill"></i> Effettuare il login!</div>';
+                }
+            }
+        ?>
             <div class="Image_login">
                 <img src="./img/jordan.jpg" width="400px" height="500px">
             </div>
