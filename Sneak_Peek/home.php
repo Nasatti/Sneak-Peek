@@ -142,6 +142,26 @@ if(!isset($_SESSION['username'])){
                                         </div>
                                     </div>
                                   </div>
+                                  
+                            </div>
+                            <div class="carousel-item active" data-bs-interval="10000">
+                                <div class="image_post">
+                                  <img src="img/jordan.jpg" class="img_post" height="450">
+                                    <div class="action">
+                                        <button id="like"><i class="bi bi-heart r"></i></button><!-- <i class="bi bi-heart-fill"></i> -->
+                                        <button id="prefer"><i class="bi bi-star g"></i></button><!-- <i class="bi bi-star-fill"></i> -->
+                                        <button><i class="bi bi-chat b"></i></button>
+                                    </div>
+                                    <div class="info">
+                                        <div class="us">
+                                            <!-- username -->
+                                        </div>
+                                        <div class="comm">
+                                            <!-- info on shoes -->
+                                        </div>
+                                    </div>
+                                  </div>
+                                  
                             </div>
                             <?php
                             //con ajax metti nupvi post
@@ -236,8 +256,10 @@ if(!isset($_SESSION['username'])){
                                 <form>
                                 <h1>Post Image</h1>
                                     <img id="down_post" src="" class="down_post">
-                                    <input type="submit">
-                                    <button id="Back">Back</button>
+                                    <div class="div_upload_post">
+                                        <input  class="div_upload_post_but" type="submit" value="Post">
+                                        <button class="div_upload_post_but" id="Back">Back</button>
+                                    </div>
                                 </form>
                                 </div>
                             </div>
@@ -257,26 +279,6 @@ if(!isset($_SESSION['username'])){
         </div>
         <script src="script/script_home.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-        <script>
-            var username = "<?= $_SESSION['username']?>"
-        /*var Log_in document.getElementById("Log_in");
-        log_in.addEventListener("click", function(){
-            $.ajax({
-                url: "ajax/ajax_login.php",
-                data: { regione: valueRegione},
-                type: "GET",
-                dataType: "json",
-                success: function(data){
-                    for (var i = 0; i < data.length; i++) {
-                      var option = document.createElement("option");
-                      option.value = data[i].id;
-                      option.text = data[i].nome;
-                      selectParco.appendChild(option);
-                    }
-                }
-            });
-        });*/
-    </script>
     </body>
 
 </html>

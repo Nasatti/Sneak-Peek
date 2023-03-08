@@ -130,11 +130,11 @@ form{
     transition: .6s;
     overflow: hidden;
 }
-.btn_list:hover, .btn_login:hover, .sign_up:hover, .btn_list_search:hover{
+.btn_list:hover, .btn_login:hover, .sign_up:hover, .btn_list_search:hover, .div_upload_post_but:hover{
     background-color: rgb(255, 0, 0);
     cursor: pointer;
 }
-.btn_list::before, .btn_login::before, .sign_up::before, .btn_list_search::before{
+.btn_list::before, .btn_login::before, .sign_up::before, .btn_list_search::before, .div_upload_post_but::before{
     content:'';
     display:block;
     position:absolute;
@@ -147,7 +147,7 @@ form{
     filter:blur(30px);
     transform: translateX(-130px) skew(-15deg);
 }
-.btn_list:after, .btn_login:after, .sign_up:after, .btn_list_search:after{
+.btn_list:after, .btn_login:after, .sign_up:after, .btn_list_search:after, .div_upload_post_but:after{
     content:'';
     display:block;
     position:absolute;
@@ -160,12 +160,12 @@ form{
     filter:blur(30px);
     transform: translate(-100px) scakeX(-15deg);
 }
-.btn_list:hover:before, .btn_login:hover:before, .sign_up:hover:before, .btn_list_search:hover:before{
+.btn_list:hover:before, .btn_login:hover:before, .sign_up:hover:before, .btn_list_search:hover:before, .div_upload_post_but:hover:before{
     transform: translateX(300px) skewX(-15deg);
     opacity: .6;
     transition: .7s;
 }
-.btn_list:hover:after, .btn_login:hover:after, .sign_up:hover:after .btn_list_search:hover:after{
+.btn_list:hover:after, .btn_login:hover:after, .sign_up:hover:after .btn_list_search:hover:after, .div_upload_post_but:hover:after{
     transform: translateX(300px) skewX(-15deg);
     opacity: 1;
     transition: .7s;
@@ -263,6 +263,7 @@ i{
     z-index:1;
     width:450px;
     height: auto;
+    object-fit: cover;
 }
 .action{
     text-align: center;  
@@ -613,4 +614,23 @@ i{
     height: auto;
     max-height: 300px;
     object-fit: cover;
+}
+.div_upload_post{
+    position: absolute;
+    top:450px;
+    left: 40%;
+}
+.div_upload_post_but{
+    font-size: 15px;
+    font-family: 'Unbounded', cursive;
+    background-color: rgb(211, 0, 0);
+    border: 0px;
+    border-radius: 100px;
+    width: 100px;
+    height: 47px;
+    min-width: 100px;
+    color: white;
+    transform: translate(-50%, -50%);
+    transition: .6s;
+    overflow: hidden;
 }
