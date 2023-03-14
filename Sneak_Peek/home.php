@@ -9,6 +9,7 @@ if(!isset($_SESSION['username'])){
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="icon" href="./img/jordan.ico">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
@@ -184,6 +185,7 @@ if(!isset($_SESSION['username'])){
                     <div id="cart" class="home" style="display:none">
                         <p>ao</p>
                     </div>
+                    
                     <div id="post" class="home">
                     <div class="modal fade" id="PostModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog">
@@ -233,9 +235,7 @@ if(!isset($_SESSION['username'])){
                                         			success: function(data)
                                         		    {
                                         				var file_path = data;
-                                                        console.log(data);
                                                         document.getElementById("down_post").src=data;
-                                                        console.log(data);
                                         		    },
                                         		  	error: function(data)
                                         	    	{
@@ -253,11 +253,16 @@ if(!isset($_SESSION['username'])){
                                     </div>
                                 </div>
                                 <div class="container" id="div_post" style="display:none">
-                                <form>
-                                <h1>Post Image</h1>
+                                <form action="index.php">
                                     <img id="down_post" src="" class="down_post">
+                                    <div class="descr" id="div_descr">
+                                        <input type="text" class="descr_input" placeholder="Modello">
+                                        <textarea type="text" class="descr_input" placeholder="Scrivi una didascalia..." style="height:150px;max-height:150px;min-height:150px"></textarea><br>
+                                        <input type="checkbox" class="descr_input"><label>Mettere in vendita?</label>
+                                    </div>
                                     <div class="div_upload_post">
-                                        <input  class="div_upload_post_but" type="submit" value="Post">
+                                        <button  class="div_upload_post_but" id="Next">Next</button>
+                                        <input type="submit" class="div_upload_post_but" id="Next_in" value="Post" hidden>
                                         <button class="div_upload_post_but" id="Back">Back</button>
                                     </div>
                                 </form>

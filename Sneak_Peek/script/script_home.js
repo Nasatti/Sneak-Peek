@@ -14,6 +14,8 @@ var Profile = document.getElementById("Profile");
 var Logout = document.getElementById("Logout");
 
 var search_box = document.getElementById("search_box");
+var next_post = document.getElementById("Next");
+var back_post = document.getElementById("Back");
 
 var menu = document.getElementById("menu");
 var main = document.getElementById("main");
@@ -21,9 +23,16 @@ var main = document.getElementById("main");
 var r1 = document.getElementById("r1");
 var r2 = document.getElementById("r2");
 var r3 = document.getElementById("r3");
+
+var div_post = document.getElementById("div_post");
+
+div_post.style.width="450px";
+div_post.style.left="0px";
 menu.style.width = "200px";
 search_box.style.left="-100px";
+
 var sea = false;
+var next = false;
 
 Home.onclick = () => {
     if(sea)document.getElementById("Search").click();
@@ -186,4 +195,39 @@ ra2.onblur = () => {
 Back = document.getElementById("Back"); 
 Back.onclick = () => {
     Post.click();
+}
+
+next_post.onclick = () => {
+    document.getElementById("div_descr").style.display="block";
+    document.getElementById("Next_in").hidden=false;
+    next_post.style.display="none";
+        move_div();
+}
+
+
+function move_div(){
+    if(!next){
+        console.log(div_post.style.width);
+if(parseInt(div_post.style.width) < 800 || parseInt(div_post.style.width) < screenLeft.width){
+    console.log("b");
+div_post.style.width = parseInt(div_post.style.width) + 20 + "px";
+div_post.style.left = parseInt(div_post.style.left) - 7 + "px";
+time=setTimeout(move_div,5);
+}
+else{
+    console.log("c");
+clearInterval(time);
+next = !next
+}
+}
+else{
+if(parseInt(div_post.style.width) > 200){
+div_post.style.width = parseInt(div_post.style.width) - 10 + "px";
+time=setTimeout(move_div,5);
+}
+else{
+clearInterval(time);
+next = !next;
+}
+}
 }

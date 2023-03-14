@@ -461,9 +461,10 @@ i{
 
 
 .container{
+    position: absolute;
     border-radius: 50px;
     height: 500px;
-    width: 80%;
+    width: 450px;
     min-width: 450px;
     display: flex;
     align-items: center;
@@ -473,10 +474,13 @@ i{
     gap:.5rem;
 }
 
+
 .container h1{
-    position: absolute;
+    /*position: absolute;
     top:50px;
-    left: 32%;
+    left: 45%;*/
+    display: flex;
+    text-align: center;
     font-family: Impact, Charcoal, sans-serif;
     /* line-height:4rem; */
     background: var((--first-color), var(--second-color));
@@ -486,8 +490,7 @@ i{
 
 .form__container{
     border-radius: 50px;
-    width: 80%;
-    min-width: 450px;
+    width: 450px;
     background-color: var(--form-container-color);
     opacity: 1;
     border-radius: .5rem;
@@ -633,4 +636,32 @@ i{
     transform: translate(-50%, -50%);
     transition: .6s;
     overflow: hidden;
+}
+.descr{
+    position: absolute;
+    left:400px;
+    top: 100px;
+    width: 300px;  
+    height: 300px;
+    border: 0px;
+    padding:20px;
+    color: white;
+    font-size: 15px;
+    font-family: 'Unbounded', cursive;
+    resize: none;
+    overflow: hidden;
+    display: none;
+}
+.descr input[type=text], textarea{
+    width: 100%;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 3px #add;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 12px;
+    padding-bottom: 12px;
 }
