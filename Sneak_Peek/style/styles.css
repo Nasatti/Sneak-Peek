@@ -260,6 +260,7 @@ i{
     max-height: 500px;
 }
 .image_post a{
+    z-index:5;
     display: flex;
     text-decoration: none;
     color: black;
@@ -277,6 +278,7 @@ i{
 }
 .action{
     text-align: center;  
+    z-index:500000000000;
 }
 .action button{
     border:none;
@@ -319,10 +321,10 @@ i{
     font-size: 15px;
     color:white;
 }
-.next{
+/*.next{
     height: 100px;
     top: 40%;
-}
+}*/
 .search_cond{
     display: flex;
     position: absolute;
