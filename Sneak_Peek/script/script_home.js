@@ -25,6 +25,7 @@ var r2 = document.getElementById("r2");
 var r3 = document.getElementById("r3");
 
 var div_post = document.getElementById("div_post");
+var PostModal = document.getElementById("PostModal");
 
 div_post.style.width="450px";
 div_post.style.left="0px";
@@ -116,7 +117,7 @@ Profile.onclick = () => {
     post.style.display="none";
 }
 
-document.getElementById("like").onclick = () => {
+/*document.getElementById("like").onclick = () => {
     
     if(document.getElementById("like").innerHTML != '<i class="bi bi-heart-fill r"></i>')document.getElementById("like").innerHTML = '<i class="bi bi-heart-fill r"></i>';
     else document.getElementById("like").innerHTML = '<i class="bi bi-heart r"></i>'
@@ -124,7 +125,7 @@ document.getElementById("like").onclick = () => {
 document.getElementById("prefer").onclick = () => {
     if(document.getElementById("prefer").innerHTML != '<i class="bi bi-star-fill g"></i>') document.getElementById("prefer").innerHTML = '<i class="bi bi-star-fill g"></i>';
     else document.getElementById("prefer").innerHTML = '<i class="bi bi-star g"></i>';
-}
+}*/
 function Move(){
     if(!sea){
         if(parseInt(menu.style.width) < 350){
@@ -192,9 +193,17 @@ ra2.onblur = () => {
   slideValue2.classList.remove("show");
 };
 
+
 Back = document.getElementById("Back"); 
 Back.onclick = () => {
     Post.click();
+    document.getElementById("div_upload").style.display="flex";
+    document.getElementById("div_post").style.display="none";
+    document.getElementById("div_descr").style.display="none"; 
+    fileInput.value=null;
+    div_post.style.width="450px";
+    document.getElementById("Next_in").hidden=true;
+    next_post.display="flex";
 }
 
 next_post.onclick = () => {
@@ -207,27 +216,18 @@ next_post.onclick = () => {
 
 function move_div(){
     if(!next){
-        console.log(div_post.style.width);
-if(parseInt(div_post.style.width) < 800 || parseInt(div_post.style.width) < screenLeft.width){
-    console.log("b");
-div_post.style.width = parseInt(div_post.style.width) + 20 + "px";
-div_post.style.left = parseInt(div_post.style.left) - 7 + "px";
-time=setTimeout(move_div,5);
+        if(parseInt(div_post.style.width) < 800 || parseInt(div_post.style.width) < screenLeft.width){
+            div_post.style.width = parseInt(div_post.style.width) + 20 + "px";
+            div_post.style.left = parseInt(div_post.style.left) - 7 + "px";
+            time=setTimeout(move_div,5);
+        }
+        else{
+            clearInterval(time);
+            next = !next
+        }
+    }
 }
-else{
-    console.log("c");
-clearInterval(time);
-next = !next
-}
-}
-else{
-if(parseInt(div_post.style.width) > 200){
-div_post.style.width = parseInt(div_post.style.width) - 10 + "px";
-time=setTimeout(move_div,5);
-}
-else{
-clearInterval(time);
-next = !next;
-}
-}
+
+PostModal.onblur = () => {
+    //quando esci
 }

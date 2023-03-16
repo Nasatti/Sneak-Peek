@@ -102,12 +102,6 @@ if(!isset($_SESSION['username'])){
                     </div>
             </div>
             <div id="main">
-                <!--<div class="container">
-                    <form action="" class="search">
-                        <input type="text" placeholder="Search..." name="q" autocomplete='off'>
-                        <button type="submit"><i class="bi bi-search"></i></button>
-                    </form>
-                </div>-->
                 <div class="profile">
                 <?php
                     $path = getcwd()."/users";
@@ -123,49 +117,28 @@ if(!isset($_SESSION['username'])){
                 ?>            
                 </div>
                 <div id="Page" class="page">
-                    <div id="home" class="home">
+                    <div id="home" class="home" >
                         <div id="carouselExampleDark" class="carousel carousel-dark slide">
-                          <div class="carousel-inner">
-                            <div class="carousel-item active" data-bs-interval="10000">
-                                <div class="image_post">
-                                  <img src="img/user.png" class="img_post" height="450">
-                                    <div class="action">
-                                        <button id="like"><i class="bi bi-heart r"></i></button><!-- <i class="bi bi-heart-fill"></i> -->
-                                        <button id="prefer"><i class="bi bi-star g"></i></button><!-- <i class="bi bi-star-fill"></i> -->
-                                        <button><i class="bi bi-chat b"></i></button>
-                                    </div>
-                                    <div class="info">
-                                        <div class="us">
-                                            <!-- username -->
-                                        </div>
-                                        <div class="comm">
-                                            <!-- info on shoes -->
-                                        </div>
-                                    </div>
-                                  </div>
-                                  
-                            </div>
-                            <div class="carousel-item active" data-bs-interval="10000">
-                                <div class="image_post">
-                                  <img src="img/jordan.jpg" class="img_post" height="450">
-                                    <div class="action">
-                                        <button id="like"><i class="bi bi-heart r"></i></button><!-- <i class="bi bi-heart-fill"></i> -->
-                                        <button id="prefer"><i class="bi bi-star g"></i></button><!-- <i class="bi bi-star-fill"></i> -->
-                                        <button><i class="bi bi-chat b"></i></button>
-                                    </div>
-                                    <div class="info">
-                                        <div class="us">
-                                            <!-- username -->
-                                        </div>
-                                        <div class="comm">
-                                            <!-- info on shoes -->
-                                        </div>
-                                    </div>
-                                  </div>
-                                  
-                            </div>
+                          <div class="carousel-inner" id="users_post">
+                            <script>
+                                $.ajax({
+                                    type: "POST",
+                                    url: "watch.php",
+                                    data: "data",
+                                    contentType: false,
+                                    processData: false,
+                                    success: function (response) {
+                                        var carousel = response;
+                                        document.getElementById("users_post").innerHTML = carousel;
+                                    },
+                                    error: function(response){
+                                        console.log("error");
+                                    }
+                                });
+                            </script>
+
                             <?php
-                            //con ajax metti nupvi post
+                            
                             ?>
                           </div>
                           <button class="carousel-control-prev next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
@@ -194,7 +167,7 @@ if(!isset($_SESSION['username'])){
                                 <div class="container" id="div_upload">
                                 <h1>File Uploader</h1>
                                     <div class="form__container">
-                                       <form action="upload.php.php" class="form" id="post-form">
+                                       <form action="" class="form" id="post-form">
                                           <input type="file" name="file-input" id="file-input" hidden value="Choose photo"/>
                                           <input type="submit" value="Upload" class="btn-upload" hidden id="upload_submit"/>
                                           <i class='bx bx-cloud-upload icon'></i>
@@ -210,16 +183,14 @@ if(!isset($_SESSION['username'])){
 
                                         // form click Event
                                         form.addEventListener("click", () => {
-                                        
                                             fileInput.click();
-                                            
-                                            
                                         })
 
                                         fileInput.onchange = (e) => {
+                                            console.log(document.getElementById("div_upload").className);
                                             upload_submit.click();
                                             document.getElementById("div_upload").style.display="none";
-                                            document.getElementById("div_post").style.display="block";
+                                            document.getElementById("div_post").style.display="flex";
                                         }
 
                                         $(document).ready(function (e) {         
@@ -234,8 +205,8 @@ if(!isset($_SESSION['username'])){
                                         			processData: false,
                                         			success: function(data)
                                         		    {
-                                        				var file_path = data;
                                                         document.getElementById("down_post").src=data;
+                                                        document.getElementById("imgPost").value = data;
                                         		    },
                                         		  	error: function(data)
                                         	    	{
@@ -253,19 +224,48 @@ if(!isset($_SESSION['username'])){
                                     </div>
                                 </div>
                                 <div class="container" id="div_post" style="display:none">
-                                <form action="index.php">
                                     <img id="down_post" src="" class="down_post">
-                                    <div class="descr" id="div_descr">
-                                        <input type="text" class="descr_input" placeholder="Modello">
-                                        <textarea type="text" class="descr_input" placeholder="Scrivi una didascalia..." style="height:150px;max-height:150px;min-height:150px"></textarea><br>
-                                        <input type="checkbox" class="descr_input"><label>Mettere in vendita?</label>
-                                    </div>
+                                    
                                     <div class="div_upload_post">
-                                        <button  class="div_upload_post_but" id="Next">Next</button>
-                                        <input type="submit" class="div_upload_post_but" id="Next_in" value="Post" hidden>
                                         <button class="div_upload_post_but" id="Back">Back</button>
+                                        <button  class="div_upload_post_but" id="Next">Next</button>
+                                        <form action="home.php" id="post-form2" method="POST">
+                                            <div class="descr" id="div_descr">
+                                                <input type="text" class="descr_input" name="modello" placeholder="Modello" autocomplete='off'>
+                                                <textarea type="text" class="descr_input" name="descrizione" placeholder="Scrivi una didascalia..." style="height:80px;max-height:80px;min-height:80px" autocomplete='off'></textarea><br>
+                                                <input type="text" class="descr_input" name="hashtag" placeholder="Hashtag" autocomplete='off'>
+                                                <input type="checkbox" class="descr_input" name="vendita"><label>Mettere in vendita?</label>
+                                                <input type="text" class="descr_input" name="imgPost" id="imgPost" hidden>
+                                            </div>
+                                            <input type="submit" class="div_upload_post_but" id="Next_in" value="Post" hidden>
+                                        </form>
+                                        <script>
+                                            $(document).ready(function (e) {      
+                            
+                                        	$("#post-form2").on('submit',(function(e) {
+                                                
+                                                e.preventDefault();
+                                                
+                                        		$.ajax({
+                                                	url: "post.php",
+                                        			type: "POST",
+                                        			data:  new FormData(this),
+                                        			contentType: false,
+                                                    processData: false,
+                                        			success: function(data)
+                                        		    {
+                                                        console.log(data);
+                                        		    },
+                                        		  	error: function(data)
+                                        	    	{
+                                        		  	  console.log("error");
+                                                      console.log(data);
+                                        	    	}
+                                        	   });
+                                        	}));
+                                        });
+                                        </script>
                                     </div>
-                                </form>
                                 </div>
                             </div>
                           </div>
