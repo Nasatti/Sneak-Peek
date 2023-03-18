@@ -124,12 +124,11 @@ if(!isset($_SESSION['username'])){
                                 $.ajax({
                                     type: "POST",
                                     url: "watch.php",
-                                    data: "data",
+                                    dataType: "json",
                                     contentType: false,
-                                    processData: false,
                                     success: function (response) {
                                         var carousel = response;
-                                        //document.getElementById("users_post").innerHTML = carousel;
+                                        //n = count(response);
                                         console.log(response);
                                     },
                                     error: function(response){
