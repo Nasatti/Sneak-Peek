@@ -9,7 +9,7 @@ if(!isset($_SESSION['username'])){
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <link rel="icon" href="./img/jordan.ico">
+        <link rel="icon" href="./img/Icon.ico">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
@@ -29,7 +29,7 @@ if(!isset($_SESSION['username'])){
     <body>
         <div name="body">
             <div id="menu">
-                <h1 id="title">Sneak Peek</h1>
+            <img src="./img/Icon.jpg" id="titolo" height="150px" width="150px">
                 <div id="list">
                     <button id="Home" class="btn_list"><i class="bi bi-house"></i>  Home</button><br><br>
                     <button id="Search" class="btn_list" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample"><i class="bi bi-binoculars"></i>  Search</button><br><br>
@@ -129,7 +129,8 @@ if(!isset($_SESSION['username'])){
                                     processData: false,
                                     success: function (response) {
                                         var carousel = response;
-                                        document.getElementById("users_post").innerHTML = carousel;
+                                        //document.getElementById("users_post").innerHTML = carousel;
+                                        console.log(response);
                                     },
                                     error: function(response){
                                         console.log("error");

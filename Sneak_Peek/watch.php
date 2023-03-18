@@ -4,11 +4,18 @@ include("connection.php");
 $sql = 'SELECT * FROM post';
 $response = $connection->query($sql);
     if ($response->num_rows > 0) {
+        /*while($row = $result->fetch_assoc()){
+            //
+        }*/
         $data = $response->fetch_array();
         $post = $data['foto'];
         $username = $data['username'];
     }
-echo '<div class="carousel-item active">
+    echo json_encode(array(
+        'post' => $post,
+        'username' => $username
+    ));
+/*echo '<div class="carousel-item active">
         <div class="image_post">
             <a href="'.$username.'">'.$username.'</a>
             <img src="'.$post.'" class="img_post">
@@ -19,5 +26,5 @@ echo '<div class="carousel-item active">
             <button><i class="bi bi-chat b"></i></button>
         </div>
           
-    </div>';
+    </div>';*/
 ?>
