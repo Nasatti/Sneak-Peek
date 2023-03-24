@@ -38,9 +38,10 @@
                 </div>
             </div>
             <div id="main">
+
                 <div class="log_center">
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn_login" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="button" class="btn_login" data-bs-toggle="modal" id="button_login" data-bs-target="#exampleModal">
                       Login
                     </button>   
                     <!-- Modal -->
@@ -57,6 +58,7 @@
                                 <p style="font-family: 'Unbounded', cursive; font-size:15px">Non ti sei ancora registrato?<button id="Log_in" style="border:none; background:transparent;color:White"><b>Registrati</b></button></p>
                             </form>
                             <script type="text/javascript">
+                                var errore=false;
                                 $(document).ready(function (e) {         
                                     $("#form_login").on('submit',(function(e) {
                                     	e.preventDefault();
@@ -70,8 +72,15 @@
                                                 "psw": psw,
                                             },
                                             success: function (response) {
-                                                localStorage.setItem("Token", response)
-                                                window.location = "home.php";
+                                                console.log(response)
+                                                if(response!="errore"){
+                                                    localStorage.setItem("Token", response)
+                                                    //window.location = "home.php";
+                                                }
+                                                else{
+                                                    document.getElementById("errore1").hidden=false;
+                                                    document.getElementById("button_login").click();
+                                                }
                                             },
                                             error: (response) => {
                                                 console.log(response)
@@ -79,6 +88,7 @@
                                         });
                                     }));
                                 });
+                                
                             </script>
                             </div>
                             <div id="sign_up" style="display: none;">
@@ -147,16 +157,12 @@
                       </div>
                     </div>
             </div>
-            <?php
-            if(isset($_GET['error'])){
-                if ($_GET['error'] == 'credenziali') {
-                    echo '<div class="alert alert-danger errore" role="alert"><i class="bi bi-exclamation-triangle-fill"></i> Login incoretto!</div>';
-                }
-                if ($_GET['error'] == 'accesso') {
-                    echo '<div class="alert alert-danger errore" role="alert"><i class="bi bi-exclamation-triangle-fill"></i> Effettuare il login!</div>';
-                }
-            }
-        ?>
+            <div class="alert alert-danger errore" role="alert" id="errore1" hidden>
+                <i class="bi bi-exclamation-triangle-fill"></i> Login incoretto!
+            </div>
+            <div class="alert alert-danger errore" role="alert" hidden>
+                <i class="bi bi-exclamation-triangle-fill"></i> Effettuare il login!
+            </div>
             <div class="Image_login">
                 <img src="./img/jordan.jpg" width="400px" height="500px">
             </div>
