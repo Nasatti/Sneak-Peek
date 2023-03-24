@@ -1,9 +1,11 @@
 <?php
-session_start();
+//https://www.gianlucatramontana.it/2020/11/04/autenticazione-jwt-in-php-un-esempio-pratico-completo-parte-2/
+/*session_start();
 if(!isset($_SESSION['username'])){
     header("Location:index.php");
-}
+}*/
 ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,12 +26,40 @@ if(!isset($_SESSION['username'])){
         <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	crossorigin="anonymous"></script>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+        
+        <script>
+            var jwt = localStorage.getItem("Token");
+            console.log(jwt)
+            $.ajax({
+                type: "POST",
+                url: "./ajax/verify_jwt.php",
+                data: {"jwt" : jwt,},
+                processData: false,
+                success: function (response) {
+                    if(response == "JWT is invalid"){
+                        //window.location = "index.php"; 
+                        console.log("dioporco")
+                    }
+                    else{
+                        console.log(response)
+                    }
+                },
+                error: function(response) {
+                    console.log(response);
+                }
+            });
+        </script>
+
         <title>Sneak Peek | Home</title>
     </head>
     <body>
         <div name="body">
             <div id="menu">
-            <img src="./img/Icon.jpg" id="titolo" height="150px" width="150px">
+            <a href="home.php"><img src="./img/Icon.jpg" id="titolo" height="150px" width="150px"></a>
                 <div id="list">
                     <button id="Home" class="btn_list"><i class="bi bi-house"></i>  Home</button><br><br>
                     <button id="Search" class="btn_list" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample"><i class="bi bi-binoculars"></i>  Search</button><br><br>
@@ -104,7 +134,7 @@ if(!isset($_SESSION['username'])){
             <div id="main">
                 <div class="profile">
                 <?php
-                    $path = getcwd()."/users";
+                    /*$path = getcwd()."/users";
 
                     $handle = opendir($path."/".$_SESSION['username']);
                     while (false !==($entry = readdir($handle))){
@@ -113,23 +143,39 @@ if(!isset($_SESSION['username'])){
                         if($img['filename']=="user"){
                             echo "<a href='profile.php' class='name' value='b'><img class='prof_img' align='left' src='users/".$_SESSION['username']."/".$img['basename']."'> ".$_SESSION['username']."</a>";
                         }
-                    }
+                    }*/
                 ?>            
                 </div>
                 <div id="Page" class="page">
                     <div id="home" class="home" >
                         <div id="carouselExampleDark" class="carousel carousel-dark slide">
                           <div class="carousel-inner" id="users_post">
+                          <div class="container1">
+                            <i class="fa-solid fa-heart heart"></i>
                             <script>
+                                var posts = ""
+                                var head = ""
                                 $.ajax({
                                     type: "POST",
-                                    url: "watch.php",
-                                    dataType: "json",
-                                    contentType: false,
+                                    url: "./ajax/watch.php",
+                                    processData: false,
                                     success: function (response) {
-                                        var carousel = response;
-                                        //n = count(response);
-                                        console.log(response);
+                                        var obj = response
+                                        var jsonData = JSON.parse(obj)
+                                        for(let i = 0; i < jsonData.length; i++){
+                                            var username = jsonData[i]['username']
+                                            var img = jsonData[i]['foto']
+                                            var like = jsonData[i]['piace']
+                                            var prefer = jsonData[i]['prefer']
+                                            var data = jsonData[i]['data']
+                                            var descrizione = jsonData[i]['descrizione']
+                                            var hashtag = jsonData[i]['hashtag']
+                                            var vendita = jsonData[i]['vendita']
+                                            if(i==0)  head = '<div class="carousel-item active">'
+                                            else  head = '<div class="carousel-item">'
+                                            posts = posts + head + '<div class="image_post"><a href="'+username+'">'+username+'</a><img src="'+img+'" class="img_post"></div><div class="action"><button id="like"><i class="bi bi-heart r"></i></button><button id="prefer"><i class="bi bi-star g"></i></button><button><i class="bi bi-chat b"></i></button></div></div>\n'
+                                        }
+                                        document.getElementById("users_post").innerHTML = posts;
                                     },
                                     error: function(response){
                                         console.log("error");
@@ -168,7 +214,7 @@ if(!isset($_SESSION['username'])){
                                 <h1>File Uploader</h1>
                                     <div class="form__container">
                                        <form action="" class="form" id="post-form">
-                                          <input type="file" name="file-input" id="file-input" hidden value="Choose photo"/>
+                                          <input type="file" name="file-input" id="file-input" accept="image/*" hidden value="Choose photo"/>
                                           <input type="submit" value="Upload" class="btn-upload" hidden id="upload_submit"/>
                                           <i class='bx bx-cloud-upload icon'></i>
                                         </form>
@@ -180,6 +226,7 @@ if(!isset($_SESSION['username'])){
                                         uploadedArea = document.getElementById('uploaded-area');
                                         var upload_submit = document.getElementById('upload_submit');
                                         var ifRunning = false;
+                                        var temp_path;
 
                                         // form click Event
                                         form.addEventListener("click", () => {
@@ -197,7 +244,7 @@ if(!isset($_SESSION['username'])){
                                         	$("#post-form").on('submit',(function(e) {
                                         		e.preventDefault();
                                         		$.ajax({
-                                                	url: "upload.php",
+                                                	url: "./ajax/upload.php",
                                         			type: "POST",
                                         			data:  new FormData(this),
                                         			contentType: false,
@@ -205,8 +252,9 @@ if(!isset($_SESSION['username'])){
                                         			processData: false,
                                         			success: function(data)
                                         		    {
-                                                        document.getElementById("down_post").src=data;
-                                                        document.getElementById("imgPost").value = data;
+                                                        temp_path = data;
+                                                        document.getElementById("down_post").src=temp_path;
+                                                        document.getElementById("imgPost").value = temp_path;
                                         		    },
                                         		  	error: function(data)
                                         	    	{
@@ -247,7 +295,7 @@ if(!isset($_SESSION['username'])){
                                                 e.preventDefault();
                                                 
                                         		$.ajax({
-                                                	url: "post.php",
+                                                	url: "./ajax/post.php",
                                         			type: "POST",
                                         			data:  new FormData(this),
                                         			contentType: false,

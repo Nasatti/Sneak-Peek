@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("connection.php");
+include("./php/connection.php");
 $time1 = time();
 $time = date('Y-m-d H:i:s', $time1);
 

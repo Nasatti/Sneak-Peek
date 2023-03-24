@@ -1,39 +1,4 @@
-<?php
-session_start();
-session_destroy();
-session_start();
-include("connection.php");
-if(isset($_POST['user']) and isset($_POST['psw'])){ 
-    $user = $_POST['user'];
-    $password = $_POST['psw'];
-    $sql = 'SELECT * FROM credenziali WHERE username="'.$user.'" AND password="'.md5($password).'";';
-    $response = $connection->query($sql);
-    if ($response->num_rows > 0) {
-        
-        $data = $response->fetch_array();
-        $_SESSION['nome']=$data['nome'];
-        $_SESSION['cognome']=$data['cognome'];
-        $_SESSION['email']=$data['email'];
-        $_SESSION['password']=$data['password'];
-        $_SESSION['data']=$data['data'];
-        $_SESSION['username']=$data['username'];
-        header("Location: home.php");
-    }
-    else {
-        header('Location: index.php?error=credenziali');
-    }
-}
-else if(isset($_POST['email'])){
-    $sql = 'INSERT INTO credenziali (username, nome, cognome, data, email, password) VALUES ("'.$_POST['username'].'","'.$_POST['nome'].'","'.$_POST['cognome'].'","'.$_POST['data'].'","'.$_POST['email'].'","'.md5($_POST['password']).'")';
-    if ($connection->query($sql)) {
-        mkdir("./users/".$_POST['username']);
-        $img = "img/user.png";
-        $newimg = "./users/".$_POST['username']."/user.png";
-        copy($img, $newimg);
-        header('Location: index.php');
-    }
-}
-?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -51,6 +16,12 @@ else if(isset($_POST['email'])){
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Unbounded&display=swap" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	    crossorigin="anonymous"></script>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
         <title>Sneak Peek | Login</title>
     </head>
     <body>
@@ -78,36 +49,59 @@ else if(isset($_POST['email'])){
                           <div class="modal-body">
                           <div class="modal-content center_form">
                             <div id="log_in">
-                            <form method='POST' action='index.php'>
-                                    <h1  style='font-family: Impact, Charcoal, sans-serif;'>LOG IN</h1>
-                                    <input type='text' name='user' placeholder='Username' required >
-                                    <input type='password' name='psw' placeholder='Password' required>
-                                    <input type='submit' style='font-family: Impact, Charcoal, sans-serif; font-size:20px;' cursor="pointer" class='sign_up' value='Log in'>
-                                    <p style="font-family: 'Unbounded', cursive; font-size:15px">Non ti sei ancora registrato?<button id="Log_in" style="border:none; background:transparent;color:White"><b>Registrati</b></button></p>
-                                </form>
-                                
+                            <form method='POST' action='index.php' id="form_login">
+                                <h1  style='font-family: Impact, Charcoal, sans-serif;'>LOG IN</h1>
+                                <input type='text' id="user" name='user' placeholder='Username' required >
+                                <input type='password' id="psw" name='psw' placeholder='Password' required>
+                                <input type='submit' style='font-family: Impact, Charcoal, sans-serif; font-size:20px;' cursor="pointer" class='sign_up' value='Log in'>
+                                <p style="font-family: 'Unbounded', cursive; font-size:15px">Non ti sei ancora registrato?<button id="Log_in" style="border:none; background:transparent;color:White"><b>Registrati</b></button></p>
+                            </form>
+                            <script type="text/javascript">
+                                $(document).ready(function (e) {         
+                                    $("#form_login").on('submit',(function(e) {
+                                    	e.preventDefault();
+                                        var user = $("#user").val();
+                                        var psw = $("#psw").val();
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "./ajax/jwt.php",
+                                            data: {
+                                                "user": user,
+                                                "psw": psw,
+                                            },
+                                            success: function (response) {
+                                                localStorage.setItem("Token", response)
+                                                window.location = "home.php";
+                                            },
+                                            error: (response) => {
+                                                console.log(response)
+                                            }
+                                        });
+                                    }));
+                                });
+                            </script>
                             </div>
                             <div id="sign_up" style="display: none;">
-                                <form method='POST' action='index.php'>
+                                <form method='POST' action='index.php' id="form_signup">
                                     <h1 style='font-family: Impact, Charcoal, sans-serif;'>SIGN UP</h1>
                                     <div class='wrapper'>
                                         <div class='item1'>
-                                            <input type='text' name='nome' placeholder='Nome' required autocomplete='off'>
+                                            <input type='text' id="nome" name='nome' placeholder='Nome' required autocomplete='off'>
                                         </div>
                                         <div class='item2'>
-                                            <input type='text' name='cognome' placeholder='Cognome' required autocomplete='off'>
+                                            <input type='text' id="cognome" name='cognome' placeholder='Cognome' required autocomplete='off'>
                                         </div>
                                         <div class='item3'>
-                                            <input type='email' name='email' placeholder='Email' autocomplete='off' required>
+                                            <input type='email' id="email" name='email' placeholder='Email' autocomplete='off' required>
                                         </div>
                                         <div class='item4'>
-                                            <input type='password' name='password' placeholder='Password' required autocomplete='off'>
+                                            <input type='password' id="password" name='password' placeholder='Password' required autocomplete='off'>
                                         </div>
                                         <div class='item5' >
-                                            <input type='text' name='username' placeholder='Username' required autocomplete='off'>
+                                            <input type='text' id="username" name='username' placeholder='Username' required autocomplete='off'>
                                         </div>
                                         <div class='item6'>
-                                            <input type='date' name='data' required autocomplete='off'>
+                                            <input type='date' id="data" name='data' required autocomplete='off'>
                                         </div>
                                         <div class='item7'>
                                             <input type='submit' style='font-family: Impact, Charcoal, sans-serif; font-size:20px;' class='sign_up' value='Sign up'>
@@ -115,6 +109,39 @@ else if(isset($_POST['email'])){
                                     </div>
                                     <br><p style="font-family: 'Unbounded', cursive; font-size:15px">Ti sei già registrato?<button id="Sign_up" style="border:none; background:transparent;color:White"><b>Loggati</b></button></p>
                                 </form>
+                                <script>
+                                     $(document).ready(function (e) {         
+                                    $("#form_signup").on('submit',(function(e) {
+                                    	e.preventDefault();
+                                        var username = $("#username").val();
+                                        var password = $("#password").val();
+                                        var nome = $("#nome").val();
+                                        var cognome = $("#cognome").val();
+                                        var email = $("#email").val();
+                                        var data = $("#data").val();
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "./php/signup.php",
+                                            data: {
+                                                "username" : username,
+                                                "password" : password,
+                                                "nome" : nome,
+                                                "cognome" : cognome,
+                                                "email" : email,
+                                                "data" : data,
+                                            },
+                                            success: function (response) {
+                                                console.log(response)
+                                                document.getElementById("sign_up").style.display="none"
+                                                document.getElementById("log_in").style.display="block"
+                                            },
+                                            error: (response) => {
+                                                console.log(response)
+                                            }
+                                        });
+                                    }));
+                                });
+                                </script>
                             </div>
                           </div>
                       </div>

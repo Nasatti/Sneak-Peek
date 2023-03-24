@@ -13,6 +13,7 @@ var Post = document.getElementById("Post");
 var Profile = document.getElementById("Profile");
 var Logout = document.getElementById("Logout");
 
+var title = document.getElementById("titolo")
 var search_box = document.getElementById("search_box");
 var next_post = document.getElementById("Next");
 var back_post = document.getElementById("Back");
@@ -31,6 +32,7 @@ div_post.style.width="450px";
 div_post.style.left="0px";
 menu.style.width = "200px";
 search_box.style.left="-100px";
+title.style.left="0px";
 
 var sea = false;
 var next = false;
@@ -131,6 +133,8 @@ function Move(){
         if(parseInt(menu.style.width) < 350){
             menu.style.width = parseInt(menu.style.width) + 10 + "px";
             search_box.style.left=parseInt(search_box.style.left) + 10 + "px";
+            title.style.left=parseInt(title.style.left) + 5 + "px";
+            console.log(title.style.left)
             timer=setTimeout(Move,5);
         }
         else{
@@ -142,6 +146,7 @@ function Move(){
         if(parseInt(menu.style.width) > 200){
             menu.style.width = parseInt(menu.style.width) - 10 + "px";
             search_box.style.left=parseInt(search_box.style.left) - 10 + "px";
+            title.style.left=parseInt(title.style.left) - 5 + "px";
             timer=setTimeout(Move,5);
         }
         else{
@@ -193,7 +198,6 @@ ra2.onblur = () => {
   slideValue2.classList.remove("show");
 };
 
-
 Back = document.getElementById("Back"); 
 Back.onclick = () => {
     Post.click();
@@ -231,3 +235,25 @@ function move_div(){
 PostModal.onblur = () => {
     //quando esci
 }
+// Select the container and heart elements from the DOM
+const container = document.querySelector(".container"),
+  heart = document.querySelector(".heart");
+
+// Add a double-click event listener to the container
+container.addEventListener("dblclick", (e) => {
+  // Calculate the x and y position of the double-click event
+  let xValue = e.clientX - e.target.offsetLeft,
+    yValue = e.clientY - e.target.offsetTop;
+
+  // Set the position of the heart element using the x and y values
+  heart.style.left = `${xValue}px`;
+  heart.style.top = `${yValue}px`;
+
+  // Add the active class to the heart element to animate it
+  heart.classList.add("active");
+
+  // Remove the active class after 1 second
+  setTimeout(() => {
+    heart.classList.remove("active");
+  }, 1000);
+});
