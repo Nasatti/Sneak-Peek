@@ -11,7 +11,6 @@ var Message = document.getElementById("Message");
 var Cart = document.getElementById("Cart");
 var Post = document.getElementById("Post");
 var Profile = document.getElementById("Profile");
-var Logout = document.getElementById("Logout");
 
 var title = document.getElementById("titolo")
 var search_box = document.getElementById("search_box");
@@ -47,21 +46,20 @@ Search.onclick = () => {
     post.style.display="none";
 
     if(!sea){
-        Home.innerHTML='<i class="bi bi-house"></i>';
-        Search.innerHTML='<i class="bi bi-binoculars"></i>';
-        Message.innerHTML='<i class="bi bi-chat"></i>';
-        Cart.innerHTML='<i class="bi bi-cart"></i>';
-        Post.innerHTML='<i class="bi bi-plus-square"></i>';
-        Profile.innerHTML='<i class="bi bi-person"></i>';
-        Logout.innerHTML='<i class="bi bi-box-arrow-in-left"></i>';
+        document.getElementById('p_home').innerHTML ='';
+        document.getElementById('p_search').innerHTML='';
+        document.getElementById('p_message').innerHTML='';
+        document.getElementById('p_cart').innerHTML='';
+        document.getElementById('p_post').innerHTML='';
+        document.getElementById('p_profile').innerHTML='';
 
+        document.getElementById("list").classList.replace("list", "list_search")
         Home.classList.replace('btn_list', 'btn_list_search');
         Search.classList.replace('btn_list', 'btn_list_search');
         Message.classList.replace('btn_list', 'btn_list_search');
         Cart.classList.replace('btn_list', 'btn_list_search');
         Post.classList.replace('btn_list', 'btn_list_search');
         Profile.classList.replace('btn_list', 'btn_list_search');
-        Logout.classList.replace('btn_list', 'btn_list_search');
 
         search_box.style.display="block";
 
@@ -69,21 +67,20 @@ Search.onclick = () => {
 
     }
     else{
-        Home.innerHTML='<i class="bi bi-house"></i>  Home';
-        Search.innerHTML='<i class="bi bi-binoculars"></i> Search';
-        Message.innerHTML='<i class="bi bi-chat"></i>  Message';
-        Cart.innerHTML='<i class="bi bi-cart"></i>  Cart';
-        Post.innerHTML='<i class="bi bi-plus-square"></i>  Post';
-        Profile.innerHTML='<i class="bi bi-person"></i>  Profile';
-        Logout.innerHTML='<i class="bi bi-box-arrow-in-left"></i>  Logout';
+        document.getElementById('p_home').innerHTML ='Home';
+        document.getElementById('p_search').innerHTML='Search';
+        document.getElementById('p_message').innerHTML='Message';
+        document.getElementById('p_cart').innerHTML='Cart';
+        document.getElementById('p_post').innerHTML='Post';
+        document.getElementById('p_profile').innerHTML='Profile';
 
+        document.getElementById("list").classList.replace("list_search", "list")
         Home.classList.replace('btn_list_search', 'btn_list');
         Search.classList.replace('btn_list_search', 'btn_list');
         Message.classList.replace('btn_list_search', 'btn_list');
         Cart.classList.replace('btn_list_search', 'btn_list');
         Post.classList.replace('btn_list_search', 'btn_list');
         Profile.classList.replace('btn_list_search', 'btn_list');
-        Logout.classList.replace('btn_list_search', 'btn_list');
 
         search_box.style.display="none";
 
@@ -134,7 +131,6 @@ function Move(){
             menu.style.width = parseInt(menu.style.width) + 10 + "px";
             search_box.style.left=parseInt(search_box.style.left) + 10 + "px";
             title.style.left=parseInt(title.style.left) + 5 + "px";
-            console.log(title.style.left)
             timer=setTimeout(Move,5);
         }
         else{
@@ -200,7 +196,6 @@ ra2.onblur = () => {
 
 Back = document.getElementById("Back"); 
 Back.onclick = () => {
-    Post.click();
     document.getElementById("div_upload").style.display="flex";
     document.getElementById("div_post").style.display="none";
     document.getElementById("div_descr").style.display="none"; 
@@ -208,6 +203,20 @@ Back.onclick = () => {
     div_post.style.width="450px";
     document.getElementById("Next_in").hidden=true;
     next_post.display="flex";
+    var r = confirm("Are you sure you want to delete this Image?")
+    if(r == true)
+    {
+        $.ajax({
+          url: 'ajax/delete.php',
+          data: {'file' : "../" + temp_path },
+          success: function (response) {
+             console.log("delete")
+          },
+          error: function (response) {
+            console.log("error" + response)
+          }
+        });
+    }
 }
 
 next_post.onclick = () => {

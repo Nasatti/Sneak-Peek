@@ -11,12 +11,13 @@
 	    $headers = array('alg'=>'HS256','typ'=>'JWT');
 	    $payload = array('username'=>$data['username'], 'nome'=>$data['nome'], 'cognome'=>$data['cognome'], 'data'=>$data['data'], 'email'=>$data['email'],'exp'=>(time() + 60));
 	    $jwt = generate_jwt($headers, $payload);
-		$is_jwt_valid = is_jwt_valid('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyMzQ1Njc4OTAiLCJuYW1lIjoiSm9obiBEb2UiLCJhZG1pbiI6dHJ1ZSwiZXhwIjoxNTgyNjE2MDA1fQ.umEYVDP_kZJGCI3tkU9dmq7CIumEU8Zvftc-klp-334');
+		echo $jwt;
+		/*$is_jwt_valid = is_jwt_valid('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyMzQ1Njc4OTAiLCJuYW1lIjoiSm9obiBEb2UiLCJhZG1pbiI6dHJ1ZSwiZXhwIjoxNTgyNjE2MDA1fQ.umEYVDP_kZJGCI3tkU9dmq7CIumEU8Zvftc-klp-334');
 		if($is_jwt_valid === TRUE) {
 			echo $jwt;
 		} else {
 			echo 'JWT is invalid';
-		}
+		}*/
 	}
 	else {
 		echo "errore";
@@ -43,6 +44,7 @@ function is_jwt_valid($jwt, $secret = 'secret') {
 	$tokenParts = explode('.', $jwt);
 	$header = base64_decode($tokenParts[0]);
 	$payload = base64_decode($tokenParts[1]);
+
 	$signature_provided = $tokenParts[2];
 
 	// check the expiration time - note this will cause an error if there is no 'exp' claim in the jwt
