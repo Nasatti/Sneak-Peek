@@ -40,11 +40,15 @@ prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
                 data: {
                     "jwt": jwt
                 },
+                dataType: "json",
                 success: function (response) {
-                    console.log("JWT Good")
-                    var obj = response
-                    var jsonData = JSON.parse(obj)
-                    username = jsonData.username
+                    if(response["verify"]){
+                        console.log("JWT Good")
+                        var obj = response["payload"]
+                        var jsonData = JSON.parse(obj)
+                        username = jsonData.username
+                    }
+                    else window.location("index.html")
                 },
                 error: function(response) {
                     console.log(response);
@@ -146,23 +150,21 @@ prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
                          
                 </div>
                 <div id="Page" class="page">
-                    <div id="home" class="home" >
-                        <div id="carouselExampleDark" class="carousel carousel-dark slide">
-                          <div class="carousel-inner" id="users_post">
-                          <div class="container1">
-                            <i class="fa-solid fa-heart heart"></i>
+                    <div id="home" class="home">
+                        <div id="scrollbar" class="scrollbar scrollbar-danger" >
+                            <div class="force-overflow"></div>
+
                             <script>
-                                var posts = ""
-                                var head = ""
                                 $.ajax({
                                     type: "POST",
                                     url: "./ajax/watch.php",
-                                    processData: false,
+                                    dataType: "json",
+                                    //processData: false,
                                     success: function (response) {
-                                        var obj = response
-                                        var jsonData = JSON.parse(obj)
-                                        for(let i = 0; i < jsonData.length; i++){
-                                            var username = jsonData[i]['username']
+                                        var jsonData = response
+                                        console.log(jsonData[0]['username'])
+                                        for(let i = 0; i < response.length; i++){
+                                            var usern = jsonData[i]['username']
                                             var img = jsonData[i]['foto']
                                             var like = jsonData[i]['piace']
                                             var prefer = jsonData[i]['prefer']
@@ -170,34 +172,30 @@ prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
                                             var descrizione = jsonData[i]['descrizione']
                                             var hashtag = jsonData[i]['hashtag']
                                             var vendita = jsonData[i]['vendita']
-                                            if(i==0)  head = '<div class="carousel-item active">'
-                                            else  head = '<div class="carousel-item">'
-                                            posts = posts + head + '<div class="image_post"><a href="'+username+'">'+username+'</a><img src="'+img+'" class="img_post"></div><div class="action"><button id="like"><i class="bi bi-heart r"></i></button><button id="prefer"><i class="bi bi-star g"></i></button><button><i class="bi bi-chat b"></i></button></div></div>\n'
+                                            
+                                            var img = document.createElement("img")
+                                            img.src = jsonData[i]['foto']
+                                            img.className = "img_post"
+                                            document.getElementById("scrollbar").appendChild(img)
+
+                                            /*var div = document.createElement("div")
+                                            var img = document.createElement("img")
+                                            div.appendChild(img)
+                                            document.createElement("scrollbar").appendChild(div)
+                                            //div.className = "img_post"
+                                            post = '<div class="image_post"><a href="'+username+'">'+username+'</a><img src="'+img+'" class="img_post"></div><div class="action"><button id="like"><i class="bi bi-heart r"></i></button><button id="prefer"><i class="bi bi-star g"></i></button><button><i class="bi bi-chat b"></i></button></div></div>\n'
+                                            div.innerHTML = post*/
+
                                         }
-                                        document.getElementById("users_post").innerHTML = posts;
+                                        //document.getElementById("users_post").innerHTML = posts;
                                     },
                                     error: function(response){
-                                        console.log("error");
+                                        console.log(response)
+                                        console.log("error")
                                     }
                                 });
                             </script>
-                          </div>
-                          <button class="carousel-control-prev next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                          </button>
-                          <button class="carousel-control-next next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                          </button>
                         </div>
-                    </div>
-                    
-                    <div id="message" class="home" style="display:none">
-                        <p>ao</p>
-                    </div>
-                    <div id="cart" class="home" style="display:none">
-                        <p>ao</p>
                     </div>
                     
                     <div id="post" class="home">
@@ -278,6 +276,8 @@ prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
                                                 <input type="text" class="descr_input" name="hashtag" placeholder="Hashtag" autocomplete='off'>
                                                 <input type="checkbox" class="descr_input" name="vendita"><label>Mettere in vendita?</label>
                                                 <input type="text" class="descr_input" name="imgPost" id="imgPost" hidden>
+                                                <input type="text" name="username" id="username_post" hidden>
+                                                <script> document.getElementById("username_post").value=username</script>
                                             </div>
                                             <input type="submit" class="div_upload_post_but" id="Next_in" value="Post" hidden>
                                         </form>
@@ -293,7 +293,7 @@ prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
                                         			type: "POST",
                                         			data:  new FormData(this),
                                         			contentType: false,
-                                                    processData: false,
+                                                    processData:false,
                                         			success: function(data)
                                         		    {
                                                         console.log(data);

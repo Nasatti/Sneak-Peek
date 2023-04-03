@@ -1,12 +1,14 @@
 <?php
-Is_jwt_valid($_POST['jwt']);
-function is_jwt_valid($jwt, $secret = 'secret') {
+$tokenParts = explode('.', $_POST['jwt']);
+$payload = base64_decode($tokenParts[1]);
+$verify = Is_jwt_valid($_POST['jwt']);
+echo json_encode(array("verify" => $verify, "payload" => $payload));
+function is_jwt_valid($jwt, $secret = 'sneakpeek123') {
 	// split the jwt
 	$tokenParts = explode('.', $jwt);
 	$header = base64_decode($tokenParts[0]);
 	$payload = base64_decode($tokenParts[1]);
-    echo $payload;
-	/*$signature_provided = $tokenParts[2];
+	$signature_provided = $tokenParts[2];
 
 	// check the expiration time - note this will cause an error if there is no 'exp' claim in the jwt
 	$expiration = json_decode($payload)->exp;
@@ -24,6 +26,10 @@ function is_jwt_valid($jwt, $secret = 'secret') {
 		return FALSE;
 	} else {
 		return TRUE;
-	}*/
+	}
+}
+
+function base64url_encode($str) {
+    return rtrim(strtr(base64_encode($str), '+/', '-_'), '=');
 }
 ?>
