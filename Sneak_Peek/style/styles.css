@@ -234,7 +234,6 @@ i{
     left: 90%;
 }
 .prof_img{
-    position: absolute;
     width: 50px;
     height: 50px;
     border-radius: 100%;
@@ -245,7 +244,6 @@ i{
     text-decoration: none;
     color: black;
     top:10px;
-
 }
 .name img{
     position: absolute;
@@ -271,23 +269,28 @@ i{
     text-align: center; 
     width: 100%;
     height: 100%;
-    min-width: 425px;
-    min-height: 550px;
     border-radius: 40px;
+}
+.us_post{
+    display: flex;
+    text-align: center; 
 }
 .image_post{
     z-index:1;
     margin: auto;
     width: 80%;
     min-width: 450px;
-    max-height: 500px;
+    max-height: 600px;
+    background-size: cover;
+    position: relative;
+    border-radius: 12px;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
 }
 .image_post a{
     z-index:5;
     display: flex;
     text-decoration: none;
     color: black;
-    text-align: left;
     line-height: 35px;
 }
 .img_post{
@@ -300,7 +303,7 @@ i{
 }
 .action{
     text-align: center;  
-    z-index:500000000000;
+    z-index:50;
 }
 .action button{
     border:none;
@@ -709,16 +712,6 @@ i{
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-.container1 {
-  position: relative;
-  height: 420px;
-  width: 320px;
-  background-size: cover;
-  background-position: center;
-  border-radius: 12px;
-  cursor: pointer;
-  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
-}
 .heart {
   position: absolute;
   color: red;
@@ -758,8 +751,6 @@ i{
     text-align: center; 
     margin-left: 30px;
     float: left;
-    height: 100%;
-    width: 65px;
     overflow-y: scroll;
     margin-bottom: 25px;
     z-index: 10;
@@ -789,4 +780,11 @@ i{
   .scrollbar-danger {
     scrollbar-color: #ff3547 #F5F5F5;
   }
- 
+  .light-night{
+    position: absolute;
+    top:5%;
+    left: 50px;
+    font-size: 50px;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+}

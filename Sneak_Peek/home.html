@@ -33,7 +33,7 @@ prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
     <script>
         var jwt = localStorage.getItem("Token");
         var username = ""
@@ -51,7 +51,7 @@ prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
                     var jsonData = JSON.parse(obj)
                     username = jsonData.username
                 }
-                else window.location("index.html")
+                else window.location = "index.html"
             },
             error: function (response) {
                 console.log(response);
@@ -173,6 +173,8 @@ prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
             </div>
         </div>
         <div id="main">
+            <i class="bi bi-brightness-high-fill light-night" id="toggleDark"></i>
+
             <div class="profile">
                 <a href='profile.php' class='name' id="a_profile" value='b'>a</a>
                 <script>
@@ -192,6 +194,10 @@ prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
             </div>
             <div id="Page" class="page">
                 <div id="home" class="home">
+                    <script>
+                    document.getElementById('home').style.height = (screen.height - 100) + "px"
+                    document.getElementById('home').style.maxHeight = (screen.height - 300) + "px"
+                </script>
                     <div id="scrollbar" class="scrollbar scrollbar-danger">
 
                         <script>
@@ -231,8 +237,8 @@ prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
 
                                         div.className = "image_post"
                                         img.className = "img_post"
+                                        a.className = "us_post"
                                         div_action.className = "action"
-                                        a.className = "post_username"
                                         button_heart.id = "like"
                                         button_prefer.id = "prefer"
                                         button_chat.id = "chat"
@@ -243,9 +249,9 @@ prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
                                         img.src = jsonData[i]['foto']
                                         //a.innerHTML = usern
                                         
-                                        button_heart.value = "<i class='bi bi-heart r'></i>"
-                                        button_prefer.value = "<i class='bi bi-star g'></i>"
-                                        button_chat.value = '<i class="bi bi-chat b"></i>'
+                                        button_heart.innerHTML = "<i class='bi bi-heart r'></i>"
+                                        button_prefer.innerHTML = "<i class='bi bi-star g'></i>"
+                                        button_chat.innerHTML = '<i class="bi bi-chat b"></i>'
 
                                         $.ajax({
                                             type: "POST",
@@ -254,25 +260,42 @@ prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
                                                 "username": usern
                                             },
                                             success: function (response) {
-                                                console.log(usern)
-                                                $("a"+i).append("<img src='"+response + "'height='50px' width='50px'/>"+usern);
-                                               // a.innerHTML="<img src="+response+" height='50px' width='50px'>"+usern
+                                                // console.log(response)
+                                                var a1 = document.getElementById("a"+i)
+                                                text = response.split("/")
+                                                us = text[2]
+                                                a1.innerHTML="<img class='prof_img' src="+response+" height='50px' width='50px'>" + us
+                                                a1.href = "./users/" + us
                                             }
                                         });
 
-
-
-                                        document.getElementById("scrollbar").innerHTML += "<br>"
-                                        /*var div = document.createElement("div")
-                                        var img = document.createElement("img")
-                                        div.appendChild(img)
-                                        document.createElement("scrollbar").appendChild(div)
-                                        //div.className = "img_post"
-                                        post = '<div class="image_post"><a href="'+username+'">'+username+'</a><img src="'+img+'" class="img_post"></div><div class="action"><button id="like"><i class="bi bi-heart r"></i></button><button id="prefer"><i class="bi bi-star g"></i></button><button><i class="bi bi-chat b"></i></button></div></div>\n'
-                                        div.innerHTML = post*/
-
+                                        document.getElementById("post_user").innerHTML += "<i class='fa-solid fa-heart heart'></i>"
+                                        document.getElementById("scrollbar").innerHTML += "<hr class='border border-danger border-2 opacity-75'>"
+                                        $(document).ready(function(){
+                                            $('img').dblclick(function(e){
+                                                // Calculate the x and y position of the double-click event
+                                                heart = document.querySelector(".heart");
+                                                let xValue = e.clientX - 350,
+                                                  yValue = e.clientY - 150;
+                                                console.log(xValue)
+                                                console.log(yValue) 
+                                                // Set the position of the heart element using the x and y values
+                                                heart.style.left = `${xValue}px`;
+                                                heart.style.top = `${yValue}px`;
+                                                               
+                                                // Add the active class to the heart element to animate it
+                                                heart.classList.add("active");
+                                                // Remove the active class after 1 second
+                                                setTimeout(() => {
+                                                  heart.classList.remove("active");
+                                                }, 1000);
+                                            });
+                                        });
+                                        /*$(document).on("click", "#like", function(){
+                                            if(document.getElementById("like").innerHTML == '<i class="bi bi-heart-fill r"></i>') document.getElementById("like").innerHTML = '<i class="bi bi-heart-fill r"></i>';
+                                            else document.getElementById("like").innerHTML = '<i class="bi bi-heart-fill r"></i>';
+                                        });*/
                                     }
-                                    //document.getElementById("users_post").innerHTML = posts;
                                 },
                                 error: function (response) {
                                     console.log(response)

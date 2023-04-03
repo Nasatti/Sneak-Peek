@@ -118,8 +118,6 @@ Profile.onclick = () => {
 
 /*document.getElementById("like").onclick = () => {
     
-    if(document.getElementById("like").innerHTML != '<i class="bi bi-heart-fill r"></i>')document.getElementById("like").innerHTML = '<i class="bi bi-heart-fill r"></i>';
-    else document.getElementById("like").innerHTML = '<i class="bi bi-heart r"></i>'
 }
 document.getElementById("prefer").onclick = () => {
     if(document.getElementById("prefer").innerHTML != '<i class="bi bi-star-fill g"></i>') document.getElementById("prefer").innerHTML = '<i class="bi bi-star-fill g"></i>';
@@ -244,25 +242,32 @@ function move_div(){
 PostModal.onblur = () => {
     //quando esci
 }
-// Select the container and heart elements from the DOM
-const container = document.querySelector(".container"),
-  heart = document.querySelector(".heart");
 
-// Add a double-click event listener to the container
-container.addEventListener("dblclick", (e) => {
-  // Calculate the x and y position of the double-click event
-  let xValue = e.clientX - e.target.offsetLeft,
-    yValue = e.clientY - e.target.offsetTop;
-
-  // Set the position of the heart element using the x and y values
-  heart.style.left = `${xValue}px`;
-  heart.style.top = `${yValue}px`;
-
-  // Add the active class to the heart element to animate it
-  heart.classList.add("active");
-
-  // Remove the active class after 1 second
-  setTimeout(() => {
-    heart.classList.remove("active");
-  }, 1000);
+const toggle = document.getElementById('toggleDark');
+const body = document.querySelector('body');
+const list = document.getElementsByClassName('btn_list')
+toggle.addEventListener('click', function(){
+    this.classList.toggle('bi-moon');
+    if(this.classList.toggle('bi-brightness-high-fill')){
+        
+        menu.style.background = "#D30000"
+        body.style.background = 'white';
+        body.style.color = '#17202A';
+        body.style.transition = '2s';
+        menu.style.transition = '2s';
+        for(var i = 0; i < list.length; i++) {
+            list[i].style.background = "#D30000"
+            list[i].style.transition = '2s';
+        }
+    }else{
+        menu.style.background = "#17202A"
+        body.style.background = '#1C2833';
+        body.style.color = 'white';
+        body.style.transition = '2s';
+        menu.style.transition = '2s';
+        for(var i = 0; i < list.length; i++) {
+            list[i].style.background = "#17202A"
+            list[i].style.transition = '2s';
+        }
+    }
 });
