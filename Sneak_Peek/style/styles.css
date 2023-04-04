@@ -1,13 +1,36 @@
+:root{
+  /*===== Colores =====*/
+  --title-color: #F2F2F3;
+  --body-color: rgb(211, 0, 0);
+  --form-container-color:rgb(211, 0, 0);
+  --first-color:white;
+  --second-color:rgb(190,0,0);
+
+  /*===== Fuente y tipografia =====*/
+  --body-font: 'Roboto', sans-serif;
+  --bigger-font-size: 3.5rem;
+  --normal-font-size: 1rem;
+  --small-font-size: .75rem;
+
+  --light: white;
+  --light-menu: rgb(211, 0, 0);
+  --dark: #1C2833;
+  --dark-menu: #17202A;
+  --font-light: white;
+  --font-dark: white;
+}
+
 #body{
     width:100%;
     height: 100vh;
     display: flex;
     min-width: 800px;
     min-height: 800px;
+    background-color: var(--light);
 }
 #menu{
     position: absolute;
-    background: rgb(211, 0, 0);
+    background: var(--light-menu);
     padding: 20px;
     min-width: 200px;
     min-height: 500px;;
@@ -37,7 +60,7 @@
 }
 #title{
     font-family: Impact, Charcoal, sans-serif;
-    color:white;
+    color:var(--font-light);
     font-size: 40px;
     text-align: center;
 }
@@ -117,27 +140,27 @@ form{
     text-align: center;
     font-size: 20px;
     font-family: 'Unbounded', cursive;
-    background-color: rgb(211, 0, 0);
+    background-color: var(--light-menu);
     top:25px;
     border: 0px;
     border-radius: 100px;
     width: 200px;
     height: 47px;
     min-width: 100px;
-    color: white;
+    color: var(--font-light);
     transform: translate(-50%, -50%);
     transition: .6s;
     overflow: hidden;
 }
 .btn_list{
     position: absolute;
-    background-color: rgb(211, 0, 0);
+    background-color: var(--light-menu);
     border: 0px;
     border-radius: 100px;
     width: 100%;
     height: 47px;
     min-width: 200px;
-    color: white;
+    color: var(--font-light);
     transform: translate(-50%, -50%);
     transition: .6s;
     overflow: hidden;
@@ -155,7 +178,7 @@ form{
     top: 10px;
 }
 .btn_list:hover, .btn_login:hover, .sign_up:hover, .btn_list_search:hover, .div_upload_post_but:hover{
-    background-color: rgb(255, 0, 0);
+    background-color: var(--light-menu);
     cursor: pointer;
 }
 .btn_list::before, .btn_login::before, .sign_up::before, .btn_list_search::before, .div_upload_post_but::before{
@@ -201,7 +224,7 @@ form{
     text-align: left;
     font-size: 20px;
     font-family: 'Unbounded', cursive;
-    background-color: rgb(211, 0, 0);
+    background-color: var(--light-menu);
     border: 0px;
     border-radius: 100px;
     left: 20px;
@@ -238,6 +261,7 @@ i{
     height: 50px;
     border-radius: 100%;
     padding: 10px, 20px;
+    border: 1px solid grey;
 }
 .name{
     position: absolute;
@@ -274,6 +298,7 @@ i{
 .us_post{
     display: flex;
     text-align: center; 
+    color: var(--font-light);
 }
 .image_post{
     z-index:1;
@@ -463,7 +488,7 @@ i{
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    background: rgb(211, 0, 0);
+    background: var(--light-menu);
     border: 5px solid white;
     cursor: pointer;
   }
@@ -483,20 +508,6 @@ i{
 
 
 
-  :root{
-    /*===== Colores =====*/
-    --title-color: #F2F2F3;
-    --body-color: rgb(211, 0, 0);
-    --form-container-color:rgb(211, 0, 0);
-    --first-color:white;
-    --second-color:rgb(190,0,0);
-  
-    /*===== Fuente y tipografia =====*/
-    --body-font: 'Roboto', sans-serif;
-    --bigger-font-size: 3.5rem;
-    --normal-font-size: 1rem;
-    --small-font-size: .75rem;
-  }
 
 
 
@@ -666,7 +677,7 @@ i{
 .div_upload_post_but{
     font-size: 15px;
     font-family: 'Unbounded', cursive;
-    background-color: rgb(211, 0, 0);
+    background-color: var(--light-menu);
     border: 0px;
     border-radius: 100px;
     width: 100px;
@@ -771,7 +782,7 @@ i{
     background-color: #F5F5F5;
   }
   
-  .scrollbar-danger::-webkit-scrollbar-thumb {
+  .scrollbar-danger::-webkit-scrollbar-thumb, .scrollbar-danger-night::-webkit-scrollbar-thumb {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
     background-color: #ff3547;
@@ -779,6 +790,19 @@ i{
   
   .scrollbar-danger {
     scrollbar-color: #ff3547 #F5F5F5;
+  }
+  .scrollbar-danger-night{
+    scrollbar-color: #ff3547 #17202A;
+  }
+  .scrollbar-danger-night::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #17202A;
+    border-radius: 10px;
+  }
+  
+  .scrollbar-danger-night::-webkit-scrollbar {
+    width: 12px;
+    background-color: #17202A;
   }
   .light-night{
     position: absolute;
