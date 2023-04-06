@@ -11,6 +11,20 @@
 	    $headers = array('alg'=>'HS256','typ'=>'JWT');
 	    $payload = array('username'=>$data['username'], 'nome'=>$data['nome'], 'cognome'=>$data['cognome'], 'data'=>$data['data'], 'email'=>$data['email'],'exp'=>(time() + 3600));
 	    $jwt = generate_jwt($headers, $payload);
+		
+		// Impostiamo la durata del cookie in secondi (un'ora in questo caso)
+		$expires = time() + 3600;
+		// Impostiamo il nome del cookie
+		$name = "Token";
+		// Impostiamo il percorso del cookie (tutta la root del dominio)
+		$path = "/";
+		// Impostiamo l'host del cookie (il dominio del sito)
+		$domain = $_SERVER['HTTP_HOST'];
+		// Impostiamo l'attributo HttpOnly a true
+		$httponly = true;
+		// Impostiamo il cookie con la funzione setcookie
+		setcookie($name, $jwt, $expires, $path, $domain, true, $httponly);
+
 		echo $jwt;
 	}
 	else {

@@ -1,8 +1,13 @@
 <?php
-$tokenParts = explode('.', $_POST['jwt']);
-$payload = base64_decode($tokenParts[1]);
-$verify = Is_jwt_valid($_POST['jwt']);
-echo json_encode(array("verify" => $verify, "payload" => $payload));
+if(isset($_COOKIE["Token"])){
+	$tokenParts = explode('.', $_COOKIE["Token"]);
+	$payload = base64_decode($tokenParts[1]);
+	$verify = Is_jwt_valid($_COOKIE["Token"]);
+	echo json_encode(array("verify" => $verify, "payload" => $payload));
+}
+else{
+	echo json_encode(array("verify" => FALSE, "payload" => ""));
+}
 function is_jwt_valid($jwt, $secret = 'sneakpeek123') {
 	// split the jwt
 	$tokenParts = explode('.', $jwt);

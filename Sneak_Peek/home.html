@@ -35,23 +35,21 @@ prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
     <script>
-        var jwt = localStorage.getItem("Token");
         var username = ""
         $.ajax({
             type: "POST",
             url: "./ajax/verify_jwt.php",
-            data: {
-                "jwt": jwt
-            },
             dataType: "json",
             success: function (response) {
                 if (response["verify"]) {
                     console.log("JWT Good")
                     var obj = response["payload"]
                     var jsonData = JSON.parse(obj)
+                    //console.log(jsonData)
                     username = jsonData.username
                 }
                 else window.location = "index.html"
+                
             },
             error: function (response) {
                 console.log(response);
@@ -65,7 +63,7 @@ prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
 <body>
     <div name="body">
         <div id="menu">
-            <a href="home.html"><img src="./img/Icon.jpg" id="titolo" height="150px" width="150px"></a>
+            <a href="home.html"><img src="./img/Icon.png" id="titolo" height="150px" width="150px"></a>
             <div class="list" id="list">
                 <button id="Home" class="btn_list">
                     <script src="https://cdn.lordicon.com/ritcuqlt.js"></script><lord-icon class="ico"
@@ -194,12 +192,14 @@ prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
             </div>
             <div id="Page" class="page">
                 <div id="home" class="home">
-                    <script>
-                    document.getElementById('home').style.height = (screen.height - 100) + "px"
-                    document.getElementById('home').style.maxHeight = (screen.height - 300) + "px"
-                </script>
+                    
                     <div id="scrollbar" class="scrollbar scrollbar-danger">
-
+                        <script>
+                            document.getElementById('home').style.height = (screen.height - 100) + "px"
+                            document.getElementById('home').style.maxHeight = (screen.height - 300) + "px"
+                            document.getElementById('scrollbar').style.height = document.getElementById('home').style.height
+                            document.getElementById('scrollbar').style.maxHeight = document.getElementById('home').style.maxHeight
+                        </script>
                         <script>
                             $.ajax({
                                 type: "POST",
@@ -210,6 +210,7 @@ prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
                                     var jsonData = response
                                     console.log(jsonData[0]['username'])
                                     for (let i = 0; i < response.length; i++) {
+                                        var id = jsonData[i]['id']
                                         var usern = jsonData[i]['username']
                                         var img = jsonData[i]['foto']
                                         var like = jsonData[i]['piace']
@@ -237,14 +238,17 @@ prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
 
                                         div.className = "image_post"
                                         img.className = "img_post"
+                                        img.id="img" + i
                                         a.className = "us_post"
                                         div_action.className = "action"
-                                        button_heart.id = "like"
-                                        button_prefer.id = "prefer"
-                                        button_chat.id = "chat"
-                                        div.id = "post_user"
-                                        div_action.id = "action"
-                                        a.id="a"+i
+                                        button_heart.id = "like" + i
+                                        button_prefer.id = "prefer" + i
+                                        button_chat.id = "chat" + i
+                                        button_chat.setAttribute('data-bs-toggle', 'modal');
+                                        button_chat.setAttribute('data-bs-target', '#ChatModal');
+                                        div.id = "post_user" + id
+                                        div_action.id = "action" + i
+                                        a.id="a" + i
 
                                         img.src = jsonData[i]['foto']
                                         //a.innerHTML = usern
@@ -269,32 +273,100 @@ prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
                                             }
                                         });
 
-                                        document.getElementById("post_user").innerHTML += "<i class='fa-solid fa-heart heart'></i>"
+                                        document.getElementById("post_user" + id).innerHTML += "<i class='fa-solid fa-heart heart'></i>"
                                         document.getElementById("scrollbar").innerHTML += "<hr class='border border-danger border-2 opacity-75'>"
                                         $(document).ready(function(){
-                                            $('img').dblclick(function(e){
+                                            $('#img' + i).dblclick(function(e){
+                                                
                                                 // Calculate the x and y position of the double-click event
-                                                heart = document.querySelector(".heart");
-                                                let xValue = e.clientX - 350,
-                                                  yValue = e.clientY - 150;
-                                                console.log(xValue)
-                                                console.log(yValue) 
+                                                const centerX = e.target.offsetLeft + e.target.width / 2
+                                                const centerY = (e.target.offsetTop + e.target.height / 2)
+                                                heart = document.querySelector(".heart")
+                                                id_post = this.parentNode.id
+                                                document.getElementById(id_post).appendChild(heart)
                                                 // Set the position of the heart element using the x and y values
-                                                heart.style.left = `${xValue}px`;
-                                                heart.style.top = `${yValue}px`;
+                                                heart.style.left = `${centerX}px`
+                                                heart.style.top = `${centerY}px`
                                                                
                                                 // Add the active class to the heart element to animate it
-                                                heart.classList.add("active");
+                                                heart.classList.add("active")
+                                                document.getElementById("like" + i).click()
                                                 // Remove the active class after 1 second
                                                 setTimeout(() => {
                                                   heart.classList.remove("active");
                                                 }, 1000);
                                             });
                                         });
-                                        /*$(document).on("click", "#like", function(){
-                                            if(document.getElementById("like").innerHTML == '<i class="bi bi-heart-fill r"></i>') document.getElementById("like").innerHTML = '<i class="bi bi-heart-fill r"></i>';
-                                            else document.getElementById("like").innerHTML = '<i class="bi bi-heart-fill r"></i>';
-                                        });*/
+                                        $(document).ready(function(){
+                                            $('#like' + i).click(function(){
+                                                var inc = true
+                                                n = this.id.split("like")[1]
+                                                temp_div = document.getElementById('action' + n)
+                                                id = temp_div.parentNode.id.split("post_user")[1]
+                                                if(document.getElementById("like" + i).innerHTML == '<i class="bi bi-heart-fill r"></i>'){
+                                                    document.getElementById("like" + i).innerHTML = '<i class="bi bi-heart r"></i>';
+                                                    document.getElementById("like" + i).style.color = "black";
+                                                    inc = false
+                                            }
+                                                else{
+                                                    document.getElementById("like" + i).innerHTML = '<i class="bi bi-heart-fill r"></i>';
+                                                    document.getElementById("like" + i).style.color = "red";
+                                                    inc = true
+                                                }
+                                                $.ajax({
+                                                    type: "Post",
+                                                    url: "./ajax/action.php",
+                                                    data: {
+                                                        "action": "like",
+                                                        "id": id,
+                                                        "inc": inc,
+                                                    },
+                                                    dataType: "json",
+                                                    success: function (response) {
+                                                        console.log(response)
+                                                    },
+                                                    error: function(response){
+                                                        console.log(response)
+                                                    } 
+                                                });
+                                                
+                                            });
+                                        });
+                                        $(document).ready(function(){
+                                            $('#prefer' + i).click(function(){
+                                                var inc = true
+                                                n = this.id.split("prefer")[1]
+                                                temp_div = document.getElementById('action' + n)
+                                                id = temp_div.parentNode.id.split("post_user")[1]
+                                                if(document.getElementById("prefer" + i).innerHTML == '<i class="bi bi-star-fill g"></i>'){
+                                                    document.getElementById("prefer" + i).innerHTML = '<i class="bi bi-star g"></i>';
+                                                    document.getElementById("prefer" + i).style.color = "black";
+                                                    inc = false
+                                                }
+                                                else{
+                                                    document.getElementById("prefer" + i).innerHTML = '<i class="bi bi-star-fill g"></i>';
+                                                    document.getElementById("prefer" + i).style.color = "#CCB48B";
+                                                    inc = true;
+                                                }
+                                                $.ajax({
+                                                    type: "Post",
+                                                    url: "./ajax/action.php",
+                                                    data: {
+                                                        "action": "prefer",
+                                                        "id": id,
+                                                        "inc": inc,
+                                                    },
+                                                    dataType: "json",
+                                                    success: function (response) {
+                                                        console.log(response)
+                                                    },
+                                                    error: function(response){
+                                                        console.log(response)
+                                                    } 
+                                                });
+                                            });
+                                        });
+
                                     }
                                 },
                                 error: function (response) {
@@ -402,9 +474,7 @@ prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
                                                 $(document).ready(function (e) {
 
                                                     $("#post-form2").on('submit', (function (e) {
-
                                                         e.preventDefault();
-
                                                         $.ajax({
                                                             url: "./ajax/post.php",
                                                             type: "POST",
@@ -427,8 +497,91 @@ prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
                                 </div>
                             </div>
                         </div>
+                        <div id="chat" class="home">
+                            <div class="modal fade" id="ChatModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-body">
+                                        <div class="modal-content center_form">
+                                             <div class="modal-content" style="background-color:transparent;border:transparent">
 
-                        <!-- js -->
+                                                <div class="card">
+                                                    <h1>ciao</h1>
+                                                        <div class="chat-header">Chat</div>
+                                                            <div class="chat-window">
+                                                              <ul class="message-list"></ul>
+                                                            </div>
+                                                        <div class="chat-input">
+                                                        <input type="text" class="message-input" placeholder="Type your message here">
+                                                        <button class="send-button">Send</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                
+                                    <script>
+                                        /*var socket = io.connect('http://localhost:3000');
+                                        var message = document.querySelector('.message-input');
+                                        var send = document.querySelector('.send-button');
+                                        var messages = document.querySelector('.message-list');
+                                        var username = document.getElementById("username").value;
+                                        var username_post = document.getElementById("username_post").value;
+                                        var chat = document.getElementById("chat");
+                                        var chat_header = document.querySelector('.chat-header');
+                                        var chat_window = document.querySelector('.chat-window');
+                                        var chat_input = document.querySelector('.chat-input');
+                                        var chat_open = false;
+                                        var chat_open2 = false;
+                                        var chat_open3 = false;
+                                        var chat_open4 = false;
+                                        var chat_open5 = false;
+                                        var chat_open6 = false;
+                                        var chat_open7 = false;
+                                        var chat_open8 = false;
+                                        var chat_open9 = false;
+                                        var chat_open10 = false;
+                                        var chat_open11 = false;
+                                        var chat_open12 = false;
+                                        var chat_open13 = false;
+                                        var chat_open14 = false;
+                                        var chat_open15 = false;
+                                        var chat_open16 = false;
+                                        var chat_open17 = false;
+                                        var chat_open18 = false;
+                                        var chat_open19 = false;
+                                        var chat_open20 = false;
+                                        var chat_open21 = false;
+                                        var chat_open22 = false;
+                                        var chat_open23 = false;
+                                        var chat_open24 = false;
+                                        var chat_open25 = false;
+                                        var chat_open26 = false;
+                                        var chat_open27 = false;
+                                        var chat_open28 = false;
+                                        var chat_open29 = false;
+                                        var chat_open30 = false;
+                                        var chat_open31 = false;
+                                        var chat_open32 = false;
+                                        var chat_open33 = false;
+                                        var chat_open34 = false;
+                                        var chat_open35 = false;
+                                        var chat_open36 = false;
+                                        var chat_open37 = false;
+                                        var chat_open38 = false;
+                                        var chat_open39 = false;
+                                        var chat_open40 = false;
+                                        var chat_open41 = false;
+                                        var chat_open42 = false;
+                                        var chat_open43 = false;
+                                        var chat_open44 = false;
+                                        var chat_open45 = false;
+                                        var chat_open46 = false;
+                                        var chat_open47 = false;
+                                        var chat_open48 = false;*/
+                                        </script>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
                     <div id="profile" class="home" style="display:none">
                         <p>ao</p>
@@ -440,7 +593,7 @@ prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
             </div>
         </div>
         <script src="script/script_home.js"></script>
+        <script src="script/script_dark.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </body>
-
 </html>
