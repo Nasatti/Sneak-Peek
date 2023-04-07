@@ -2,6 +2,7 @@ const toggle = document.getElementById('toggleDark')
 const body = document.querySelector('body')
 const list = document.getElementsByClassName('btn_list')
 const list_us = document.getElementsByClassName('us_post')
+const list_msg = document.getElementsByClassName('chat')
 const name_user = document.getElementById('a_profile')
 const scroll = document.getElementById("scrollbar")
 const action = document.getElementsByClassName('action')
@@ -34,6 +35,12 @@ toggle.addEventListener('click', function(){
             button[2].style.color = "black"
             button[2].style.transition = '2s'
         }
+        for(var i = 0; i < list_msg.length; i++){
+            var buttons = list_msg[i].querySelectorAll('button');
+            console.log(buttons)
+            buttons[0].style.color = "black"
+            buttons[0].style.transition = '2s'
+        }
     }else{
         menu.style.background = "#17202A"
         body.style.background = '#1C2833'
@@ -58,6 +65,11 @@ toggle.addEventListener('click', function(){
             button[1].style.transition = '2s'
             button[2].style.color = "white"
             button[2].style.transition = '2s'
+        }
+        for(var i = 0; i < list_msg.length; i++){
+            var buttons = list_msg[i].querySelectorAll('button');
+            buttons[0].style.color = "white"
+            buttons[0].style.transition = '2s'
         }
     }
     body.classList.toggle('dark')

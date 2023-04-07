@@ -1,5 +1,4 @@
 <?php
-session_start();
 include("../php/class_post.php");
 $array = array();
 include("../php/connection.php");

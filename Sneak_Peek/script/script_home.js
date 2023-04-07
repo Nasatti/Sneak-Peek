@@ -41,6 +41,7 @@ Home.onclick = () => {
     if(sea)document.getElementById("Search").click();
     home.style.display="block";
     post.style.display="none";
+    message.style.display="none"
 }
 
 Search.onclick = () => {
@@ -99,6 +100,8 @@ Search.onclick = () => {
 Message.onclick = () => {
     if(sea)document.getElementById("Search").click();
     post.style.display="none";
+    home.style.display="none"
+    message.style.display="block"
 }
 
 Cart.onclick = () => {
