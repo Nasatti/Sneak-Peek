@@ -63,7 +63,7 @@ Search.onclick = () => {
         Post.classList.replace('btn_list', 'btn_list_search');
         Profile.classList.replace('btn_list', 'btn_list_search');
 
-        search_box.style.display="block";
+        search_box.style.display="flex";
 
         Move();
 
@@ -129,6 +129,24 @@ document.getElementById("prefer").onclick = () => {
 }*/
 function Move(){
     if(!sea){
+        menu.style.width = 350 + "px"
+        search_box.style.left = 50 + "px"
+        title.style.left = 75 + "px"
+        menu.style.transition = "0.3s"
+        search_box.style.transition = "0.5s"
+        title.style.transition = "0.5s"
+        sea = !sea;
+    }
+    else{
+        menu.style.width = 200 + "px"
+        search_box.style.left = 200 + "px"
+        title.style.left = 0 + "px"
+        menu.style.transition = "0.5s"
+        search_box.style.transition = "0.5s"
+        title.style.transition = "0.5s"
+        sea = !sea;
+    }
+    /*if(!sea){
         if(parseInt(menu.style.width) < 350){
             menu.style.width = parseInt(menu.style.width) + 10 + "px";
             search_box.style.left=parseInt(search_box.style.left) + 10 + "px";
@@ -151,7 +169,7 @@ function Move(){
             clearInterval(timer);
             sea = !sea;
         }
-    }
+    }*/
 }
 Radio1.onclick = () => {
     r1.style.display="block";

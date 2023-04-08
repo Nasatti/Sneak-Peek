@@ -194,6 +194,7 @@ prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
                 <div id="home" class="home"  style="display:block">
                     
                     <div id="scrollbar" class="scrollbar scrollbar-danger">
+                        <hr class='border border-danger border-2 opacity-75'>
                         <script>
                             document.getElementById('home').style.height = (screen.height - 100) + "px"
                             document.getElementById('home').style.maxHeight = (screen.height - 300) + "px"
@@ -223,6 +224,8 @@ prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
                                         var div = document.createElement("div")
                                         var div_action = document.createElement("div")
                                         var div_info = document.createElement("div")
+                                        var descr = document.createElement("p")
+                                        var data_post = document.createElement('span')
                                         var a = document.createElement("a")
                                         var button_heart = document.createElement("button")
                                         var button_prefer = document.createElement("button")
@@ -231,7 +234,9 @@ prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
                                         div_action.appendChild(button_heart)
                                         div_action.appendChild(button_prefer)
                                         div_action.appendChild(button_chat)
+                                        div_action.appendChild(descr)
                                         div.appendChild(a)
+                                        div.appendChild(data_post)
                                         div.appendChild(img)
                                         div.appendChild(div_action)
                                         document.getElementById("scrollbar").appendChild(div)
@@ -239,6 +244,7 @@ prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
                                         div.className = "image_post"
                                         img.className = "img_post"
                                         img.id="img" + i
+                                        descr.id = "descr" + i
                                         a.className = "us_post"
                                         div_action.className = "action"
                                         button_heart.id = "like" + i
@@ -251,11 +257,11 @@ prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
                                         a.id="a" + i
 
                                         img.src = jsonData[i]['foto']
-                                        //a.innerHTML = usern
-                                        
                                         button_heart.innerHTML = "<i class='bi bi-heart r'></i>"
                                         button_prefer.innerHTML = "<i class='bi bi-star g'></i>"
                                         button_chat.innerHTML = '<i class="bi bi-chat b"></i>'
+                                        descr.innerHTML = descrizione
+                                        data_post.innerHTML = data
 
                                         $.ajax({
                                             type: "POST",

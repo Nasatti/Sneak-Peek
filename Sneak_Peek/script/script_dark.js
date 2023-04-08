@@ -37,7 +37,6 @@ toggle.addEventListener('click', function(){
         }
         for(var i = 0; i < list_msg.length; i++){
             var buttons = list_msg[i].querySelectorAll('button');
-            console.log(buttons)
             buttons[0].style.color = "black"
             buttons[0].style.transition = '2s'
         }

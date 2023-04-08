@@ -311,8 +311,15 @@ i{
     border-radius: 12px;
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
 }
+.image_post span{
+    font-size: 15px;
+    position: absolute;
+    top: 15px;
+    left: 88%;
+}
 .image_post a{
     z-index:5;
+    width:auto;
     display: flex;
     text-decoration: none;
     color: black;
@@ -360,7 +367,7 @@ i{
     width: 50px;
     border: none;
     top: 200px;
-    left: 0px;
+    left: -900px;
     border-radius: 30px;
     background-color:transparent;
     z-index: 14;
