@@ -24,12 +24,11 @@
     width:100%;
     height: 100vh;
     display: flex;
-    min-width: 800px;
-    min-height: 800px;
+    min-height: 100vh;
     background-color: var(--light);
 }
-#menu{
-    position: absolute;
+.menu{
+    position: fixed;
     background: var(--light-menu);
     padding: 20px;
     min-width: 200px;
@@ -38,6 +37,30 @@
     height: 100%;
     justify-content: center;
     z-index: 500;
+}
+
+.menu_footer{
+  position: absolute;
+  left: 0px;
+  bottom: 0; /* posiziona il div in basso */
+  width: 100%; /* imposta la larghezza del div */
+  height: 70px; /* imposta l'altezza del div */
+  background: var(--light-menu);
+  text-align: center;
+  padding: 25px;
+}
+.btn_list_footer{
+  display: inline-block;
+  height: 50px;
+  width: 50px;
+  margin-left: 20px;
+  background-color: var(--light-menu);
+  border: 0px;
+  border-radius: 100px;
+  color: var(--font-light);
+  transform: translate(-50%, -50%);
+  transition: .6s;
+  overflow: hidden;
 }
 #main{
     position: absolute;
@@ -51,6 +74,18 @@
         margin-left: 0px;
         left: 200px;
     }
+}
+#header{
+  height: 150px;
+  width: 100%;
+  text-align: center;
+}
+.storie{
+  padding: 20px;
+}
+.storie input{
+  margin-right: 40px;
+  border-radius: 100px;
 }
 #titolo{
     position: absolute;
@@ -173,9 +208,8 @@ form{
     font-family: 'Unbounded', cursive;
 }
 .ico{
-    position: absolute;
-    left: 10px;
-    top: 10px;
+    display: flex;
+    justify-content: center;
 }
 .btn_list:hover, .btn_login:hover, .sign_up:hover, .btn_list_search:hover, .div_upload_post_but:hover{
     background-color: var(--light-menu);
@@ -235,10 +269,6 @@ form{
     transition: .6s;
     overflow: hidden;
 }
-
-
-
-
 i{
     padding:10px;
 }
@@ -304,7 +334,7 @@ i{
     z-index:1;
     margin: auto;
     width: 80%;
-    min-width: 450px;
+    min-width: 500px;
     max-height: 600px;
     background-size: cover;
     position: relative;

@@ -26,7 +26,7 @@ var r3 = document.getElementById("r3");
 
 var div_post = document.getElementById("div_post");
 var PostModal = document.getElementById("PostModal");
-
+var Scrollbar = document.getElementById("scrollbar");
 
 div_post.style.width="450px";
 div_post.style.left="0px";
@@ -36,6 +36,54 @@ title.style.left="0px";
 
 var sea = false;
 var next = false;
+
+/*var larghezza = window.innerWidth;
+if(larghezza < 767){
+    menu.style.minWidth = larghezza + "px"
+    title.hidden = true
+    main.style.left = 0 + "px"
+    console.log('b')
+}
+else{
+    menu.style.minWidth = 200 + "px"
+    title.hidden = false
+    main.style.left = 200 + "px"
+    console.log('a')
+}
+
+var buttons = document.getElementsByClassName('btn_list')
+
+window.addEventListener('resize', function(){
+    var width = window.innerWidth
+    var height = window.innerHeight
+    console.log(width)
+    if(width < 767){
+        menu.style.minWidth = width + "px"
+        menu.style.height = 50 + "px"
+        title.hidden = true
+        main.style.left = 0 + "px"
+        /*for (var i = 0; i < buttons.length; i++) {
+            buttons[i].classList.replace("btn_list", "btn_list_phone")
+        }
+    }
+    else {
+        menu.style.minWidth = 200 + "px"
+        title.hidden = false
+        main.style.left = 200 + "px"
+        /*for (var i = 0; i < buttons.length; i++) {
+            buttons[i].classList.replace("btn_list_phone", "btn_list")
+        }
+    }
+    setWidthHeight();
+});
+function setWidthHeight(){
+    var width = window.innerWidth
+    var height = window.innerHeight
+        div_post.style.height=height + "px"
+        menu.style.height = height + "px"
+        Scrollbar.style.height = height - 150 + "px"
+        Scrollbar.style.minHeight = height - 150 + "px"
+}*/
 
 Home.onclick = () => {
     if(sea)document.getElementById("Search").click();
