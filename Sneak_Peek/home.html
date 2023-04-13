@@ -73,37 +73,37 @@ codizione da 1 a 5 stelle
                         src="https://cdn.lordicon.com/osuxyevn.json" trigger="hover" colors="primary:#ffffff"
                         style="width:30px;height:30px"></lord-icon>
                     <p id="p_home">Home</p>
-                </button></li><br>
+                </button></li>
                 <li><button id="Search" class="btn_list">
                     <script src="https://cdn.lordicon.com/ritcuqlt.js"></script><lord-icon class="ico"
                         src="https://cdn.lordicon.com/xfftupfv.json" trigger="hover" colors="primary:#ffffff"
                         style="width:30px;height:30px"></lord-icon>
                     <p id="p_search">Search</p>
-                </button></li><br>
+                </button></li>
                 <li><button id="Message" class="btn_list">
                     <script src="https://cdn.lordicon.com/ritcuqlt.js"></script><lord-icon class="ico"
                         src="https://cdn.lordicon.com/hpivxauj.json" trigger="hover" colors="primary:#ffffff"
                         style="width:30px;height:30px"></lord-icon>
                     <p id="p_message">Message</p>
-                </button></li><br>
+                </button></li>
                 <li><button id="Cart" class="btn_list">
                     <script src="https://cdn.lordicon.com/ritcuqlt.js"></script><lord-icon class="ico"
                         src="https://cdn.lordicon.com/hyhnpiza.json" trigger="hover" colors="primary:#ffffff"
                         style="width:30px;height:30px"></lord-icon>
                     <p id="p_cart">Cart</p>
-                </button></li><br>
+                </button></li>
                 <li><button id="Post" class="btn_list" data-bs-toggle="modal" data-bs-target="#PostModal">
                     <script src="https://cdn.lordicon.com/ritcuqlt.js"></script><lord-icon class="ico"
                         src="https://cdn.lordicon.com/pnwpbzow.json" trigger="hover" colors="primary:#ffffff"
                         style="width:30px;height:30px"></lord-icon>
                     <p id="p_post">Post</p>
-                </button></li><br>
+                </button></li>
                 <li><a href="./users/profile.html"><button id="Profile" class="btn_list">
                     <script src="https://cdn.lordicon.com/ritcuqlt.js"></script><lord-icon class="ico"
                         src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" colors="primary:#ffffff"
                         style="width:30px;height:30px"></lord-icon>
                     <p id="p_profile">Profile</p>
-                </button></a></li><br>
+                </button></a></li>
                 
             </div>
         </ul>
@@ -176,41 +176,41 @@ codizione da 1 a 5 stelle
             
         </div>
         <div id="main">
-            <div id="header" class="header">
-                <i class="bi bi-brightness-high-fill light-night" id="toggleDark"></i>
-                <div id="storie" class="storie">
-                    <input type = "image" height='60px' width='60px' src="img/af1.webp">
-                    <input type = "image" height='60px' width='60px' src="img/dunk.webp">
-                    <input type = "image" height='60px' width='60px' src="img/jordan.jpg">
-                    <input type = "image" height='60px' width='60px' src="img/af1.webp">
-                    <input type = "image" height='60px' width='60px' src="img/dunk.webp">
-                    <input type = "image" height='60px' width='60px' src="img/jordan.jpg">
-                </div>
-                <div class="profile">
-                    <a href='profile.php' class='name' id="a_profile" value='b'>a</a>
-                    <script>
-                        $.ajax({
-                            type: "POST",
-                            url: "./ajax/profile.php",
-                            data: {
-                                "username": username
-                            },
-                            success: function (response) {
-                                document.getElementById('a_profile').innerHTML = "<img class='prof_img' id='img_profile' align='left' src=''>" + username
-                                document.getElementById('img_profile').src = response
-                            }
-                        });
-                    </script>
-
-                </div>
-            </div>
+            
+            
             <div id="Page" class="page">
-                <div id="home" class="home">
-                    <script>
-                    document.getElementById('home').style.height = (screen.height - 100) + "px"
-                    document.getElementById('home').style.maxHeight = (screen.height - 300) + "px"
-                </script>
-                    <div id="scrollbar" class="scrollbar scrollbar-danger">
+                <div id="scrollbar" class="scrollbar scrollbar-danger">
+                    <div id="header" class="header">
+                        <div class="storie header_left">
+                            <i class="bi bi-brightness-high-fill light-night" id="toggleDark"></i>
+                        </div>
+                        <div id="storie" class="storie header_center">
+                            <input type = "image" height='60px' width='60px' src="img/af1.webp">
+                            <input type = "image" height='60px' width='60px' src="img/dunk.webp">
+                            <input type = "image" height='60px' width='60px' src="img/jordan.jpg">
+                            <input type = "image" height='60px' width='60px' src="img/af1.webp">
+                            <input type = "image" height='60px' width='60px' src="img/dunk.webp">
+                            <input type = "image" height='60px' width='60px' src="img/jordan.jpg">
+                        </div>
+                        <div class="storie header_right">
+                            <a href='profile.php' id="a_profile" value='b'>a</a>
+                            <script>
+                                $.ajax({
+                                    type: "POST",
+                                    url: "./ajax/profile.php",
+                                    data: {
+                                        "username": username
+                                    },
+                                    success: function (response) {
+                                        document.getElementById('a_profile').innerHTML = "<img class='prof_img' id='img_profile' align='left' src=''>" + username
+                                        document.getElementById('img_profile').src = response
+                                    }
+                                });
+                            </script>
+        
+                        </div>
+                    </div>
+                    <hr class='border border-danger border-2 opacity-75'>
 
                         <script>
                             $.ajax({
@@ -398,7 +398,6 @@ codizione da 1 a 5 stelle
                                 }
                             });
                         </script>
-                    </div>
                 </div>
 
                 <div id="post" class="home">

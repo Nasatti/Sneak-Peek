@@ -28,17 +28,13 @@ toggle.addEventListener('click', function(){
             list_us[i].style.color = "black"
             list_us[i].style.transition = '2s'
             button = action[i].getElementsByTagName("button");
-            button[0].style.color = "black"
-            button[0].style.transition = '2s'
-            button[1].style.color = "black"
-            button[1].style.transition = '2s'
-            button[2].style.color = "black"
-            button[2].style.transition = '2s'
+            button[i].style.color = "black"
+            button[i].style.transition = '2s'
         }
         for(var i = 0; i < list_msg.length; i++){
             var buttons = list_msg[i].querySelectorAll('button');
-            buttons[0].style.color = "black"
-            buttons[0].style.transition = '2s'
+            buttons[i].style.color = "black"
+            buttons[i].style.transition = '2s'
         }
     }else{
         menu.style.background = "#17202A"
@@ -58,17 +54,13 @@ toggle.addEventListener('click', function(){
             list_us[i].style.color = "white"
             list_us[i].style.transition = '2s'
             button = action[i].getElementsByTagName("button");
-            button[0].style.color = "white"
-            button[0].style.transition = '2s'
-            button[1].style.color = "white"
-            button[1].style.transition = '2s'
-            button[2].style.color = "white"
-            button[2].style.transition = '2s'
+            button[i].style.color = "white"
+            button[i].style.transition = '2s'
         }
         for(var i = 0; i < list_msg.length; i++){
             var buttons = list_msg[i].querySelectorAll('button');
-            buttons[0].style.color = "white"
-            buttons[0].style.transition = '2s'
+            buttons[i].style.color = "white"
+            buttons[i].style.transition = '2s'
         }
     }
     body.classList.toggle('dark')

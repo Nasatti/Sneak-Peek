@@ -1,4 +1,3 @@
-var home = document.getElementById("home");
 var search = document.getElementById("search");
 var message = document.getElementById("message");
 var cart = document.getElementById("cart");
@@ -28,6 +27,9 @@ var div_post = document.getElementById("div_post");
 var PostModal = document.getElementById("PostModal");
 var Scrollbar = document.getElementById("scrollbar");
 
+Scrollbar.style.height = window.innerHeight - 1 + 'px'
+Scrollbar.style.minHeight = window.innerHeight - 1 + 'px'
+console.log(Scrollbar.style.height)
 div_post.style.width="450px";
 div_post.style.left="0px";
 menu.style.width = "200px";
@@ -87,14 +89,16 @@ function setWidthHeight(){
 
 Home.onclick = () => {
     if(sea)document.getElementById("Search").click();
-    home.style.display="block";
+    Scrollbar.style.display="block";
     post.style.display="none";
     message.style.display="none"
 }
 
 Search.onclick = () => {
     post.style.display="none";
-
+    for(var i = 0; i < list.length; i++) {
+        list[i].style.transition = '0.5s'
+    }
     if(!sea){
         document.getElementById('p_home').innerHTML ='';
         document.getElementById('p_search').innerHTML='';
@@ -148,7 +152,7 @@ Search.onclick = () => {
 Message.onclick = () => {
     if(sea)document.getElementById("Search").click();
     post.style.display="none";
-    home.style.display="none"
+    Scrollbar.style.display="none"
     message.style.display="block"
 }
 

@@ -27,11 +27,10 @@ window.addEventListener('resize', function(){
     width = window.innerWidth
     height = window.innerHeight
     if(width < 767){
-        menu_footer.style.width = width + 'px'
         menu.hidden=true
         menu_footer.hidden = false
         main.style.left = 0 + "px"
-        scrollbar.style.width = width - 150 + 'px'
+        
         setWidthHeightFooter();
     }
     else {
@@ -43,29 +42,35 @@ window.addEventListener('resize', function(){
     
 });
 function setWidthHeightFooter(){
+        menu_footer.style.width = width + 'px'
         menu.style.height = height + "px"
         main.style.width = width + 'px'
         main.style.height = height - 79 + 'px'
         div_post.style.height=height + "px"
-        scrollbar.style.height = height - 250 + "px"
+        scrollbar.style.height = height - 100 + "px"
         scrollbar.style.minHeight = height - 250 + "px"
+        scrollbar.style.width = width + 'px'
         menu_footer.style.top = window.innerHeight - 79 + "px"
 }
 function setWidthHeight(){
     menu.style.height = height + "px"
     div_post.style.height=height + "px"
+    main.style.width = '85%'
+    scrollbar.style.height = height - 1 + "px"
+    scrollbar.style.minHeight = '99%'
+    scrollbar.style.width = '99%'
 }
 
-var Home = document.getElementById("Home_footer");
-var Message = document.getElementById("Message_footer");
-var home = document.getElementById("home");
-var message = document.getElementById("message");
+var Homef = document.getElementById("Home_footer");
+var Messagef = document.getElementById("Message_footer");
+var homef = document.getElementById("home");
+var messagef = document.getElementById("message");
 
-Home.onclick = () => {
-    home.style.display="block";
-    message.style.display="none"
+Homef.onclick = () => {
+    homef.style.display="block";
+    messagef.style.display="none"
 }
-Message.onclick = () => {
-    home.style.display="none"
-    message.style.display="block"
+Messagef.onclick = () => {
+    homef.style.display="none"
+    messagef.style.display="block"
 }
