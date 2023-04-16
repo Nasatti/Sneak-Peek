@@ -202,7 +202,7 @@ codizione da 1 a 5 stelle
                                         "username": username
                                     },
                                     success: function (response) {
-                                        document.getElementById('a_profile').innerHTML = "<img class='prof_img' id='img_profile' align='left' src=''>" + username
+                                        document.getElementById('a_profile').innerHTML = "<img class='prof_img' id='img_profile' src=''><span>" + username + "</span>"
                                         document.getElementById('img_profile').src = response
                                     }
                                 });
@@ -211,7 +211,7 @@ codizione da 1 a 5 stelle
                         </div>
                     </div>
                     <hr class='border border-danger border-2 opacity-75'>
-
+                    <div id="contents" style="display:none">
                         <script>
                             $.ajax({
                                 type: "POST",
@@ -234,7 +234,6 @@ codizione da 1 a 5 stelle
                                         var img = document.createElement("img")
                                         var div = document.createElement("div")
                                         var div_action = document.createElement("div")
-                                        var div_info = document.createElement("div")
                                         var descr = document.createElement("p")
                                         var data_post = document.createElement('span')
                                         var a = document.createElement("a")
@@ -385,7 +384,7 @@ codizione da 1 a 5 stelle
                                         });
                                         $(document).ready(function(){
                                             $('#chat' + i).click(function(){
-                                                home.style.display="none"
+                                                contents.style.display="none"
                                                 message.style.display="block"
                                             });
                                         });
@@ -398,9 +397,81 @@ codizione da 1 a 5 stelle
                                 }
                             });
                         </script>
+                    </div>
+                    <div id="message" class="home" style="display:none">
+                        <script>
+                            $.ajax({
+                                type: "POST",
+                                url: "./ajax/view_chat.php",
+                                data: {
+                                    "username": username,
+                                },
+                                dataType: "json",
+                                success: function (response) {
+                                    var jsonData = response
+                                    for (let i = 0; i < response.length; i++) {
+                                        var id = jsonData[i]['id']
+                                        var us_mit = jsonData[i]['us_mit']
+                                        var us_dest = jsonData[i]['us_dest']
+                                        var msg = jsonData[i]['msg']
+                                        var data = jsonData[i]['data']
+    
+                                        var div = document.createElement("div")
+                                        var img = document.createElement('img')
+                                        var b_us = document.createElement('button')
+                                        
+                                        div.className = "chat"
+                                        div.id = "chat" + id
+                                        b_us.id = "b_us" + i
+                                        b_us.setAttribute("data-bs-toggle", "modal");
+                                        b_us.setAttribute("data-bs-target", "#chatModal");
+                                        document.getElementById("message").appendChild(div)
+                                        div.appendChild(b_us)
+                                        $.ajax({
+                                                type: "POST",
+                                                url: "./ajax/profile.php",
+                                                data: {
+                                                    "username": us_dest
+                                                },
+                                                success: function (response) {
+                                                    // console.log(response)
+                                                    var a1 = document.getElementById("b_us"+i)
+                                                    text = response.split("/")
+                                                    us = text[2]
+                                                    a1.innerHTML="<img class='prof_img' src="+response+" height='50px' width='50px'>" + "<b>" + us + "</b><span>" + msg+"</span>"
+                                                    a1.href = "./users/" + us
+                                                }
+                                            });
+                                        
+                                    }
+                                },
+                                error: function (response) {
+                                    console.log(response);
+                                }
+                            });
+                        </script>
+                        <div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-body">
+                                <div class="modal-contet">
+                                  <div class="card">
+                                    <div class="chat-header">Chat</div>
+                                    <div class="chat-window">
+                                      <ul class="message-list"></ul>
+                                    </div>
+                                    <div class="chat-input">
+                                      <input type="text" class="message-input" placeholder="Type your message here">
+                                      <button class="send-button">Send</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>                         
+                    </div>
                 </div>
 
-                <div id="post" class="home">
+                <div id="post">
                     <div class="modal fade" id="PostModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog">
@@ -522,71 +593,6 @@ codizione da 1 a 5 stelle
                             </div>
                         </div>
                     </div>
-                </div>
-                <div id="message" class="home" style="display:none">
-                    <script>
-                        $.ajax({
-                            type: "POST",
-                            url: "./ajax/view_chat.php",
-                            data: {
-                                "username": username,
-                            },
-                            dataType: "json",
-                            success: function (response) {
-                                var jsonData = response
-                                for (let i = 0; i < response.length; i++) {
-                                    var id = jsonData[i]['id']
-                                    var us_mit = jsonData[i]['us_mit']
-                                    var us_dest = jsonData[i]['us_dest']
-                                    var msg = jsonData[i]['msg']
-                                    var data = jsonData[i]['data']
-
-                                    var div = document.createElement("div")
-                                    var img = document.createElement('img')
-                                    var b_us = document.createElement('button')
-                                    var p = document.createElement('p')
-                                    
-                                    div.className = "chat"
-                                    div.id = "chat" + id
-                                    b_us.id = "b_us" + i
-                                    p.id= "p" + i
-                                    document.getElementById("message").appendChild(div)
-                                    div.appendChild(b_us)
-                                    div.appendChild(p)
-                                    p.innerHTML = msg
-
-                                    $.ajax({
-                                            type: "POST",
-                                            url: "./ajax/profile.php",
-                                            data: {
-                                                "username": us_dest
-                                            },
-                                            success: function (response) {
-                                                // console.log(response)
-                                                var a1 = document.getElementById("b_us"+i)
-                                                text = response.split("/")
-                                                us = text[2]
-                                                a1.innerHTML="<img class='prof_img' src="+response+" height='50px' width='50px'>" + "<b>" + us + "</b>"
-                                                a1.href = "./users/" + us
-                                            }
-                                        });
-                                    
-                                }
-                            },
-                            error: function (response) {
-                                console.log(response);
-                            }
-                        });
-                    </script>
-                    <!--<div class="modal fade" id="ChatModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-body">
-                                <div class="modal-content" style="background-color:transparent;border:transparent">
-                                </div>
-                            </div>
-                        </div>
-                    </div>-->
                 </div>
                 <div id="logout" class="home" style="display:none">
                     <p>ao</p>

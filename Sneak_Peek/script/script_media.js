@@ -19,7 +19,6 @@ else{
         setWidthHeight();
 }
 
-
 menu_footer.style.height = 70 + 'px'
 menu_footer.style.left = 0 + 'px'
 

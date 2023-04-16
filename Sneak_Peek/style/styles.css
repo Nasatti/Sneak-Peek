@@ -105,10 +105,15 @@ ul li {
   grid-column: 3; /* Posiziona l'oggetto nella seconda colonna */
   grid-row: 1; /* Posiziona l'oggetto nella prima riga */
   text-align: right;
+  display: flex;
+}
+.chat img{
+  margin-right:10px
 }
 .header_right a{
   text-decoration: none;
   color: black;
+  margin-left:10px;
 }
 .prof_img{
   width: 50px;
@@ -117,7 +122,6 @@ ul li {
   border: 1px solid grey;
   object-fit: cover;
 }
-
 .name:hover{
   text-decoration:bold;
 }
@@ -336,19 +340,15 @@ i{
     text-align: center;
 }
 .home{
-    position: absolute;
-    left:0px;
-    top:150px;
     text-align: center; 
     width: 100%;
     height: 100%;
     border-radius: 40px;
-    background-color: var(--light-menu);
 }
 .us_post{
-    display: flex;
     text-align: center; 
     color: var(--font-light);
+    display: flex;
 }
 .image_post{
     z-index:1;
@@ -872,24 +872,13 @@ i{
     transform: translate(-50%, -50%);
 }
 .card {
-  width: 260px;
-  height: 260px;
+  width: 80%;
+  height: 80%;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-
-  /*position: absolute;
-  border-radius: 50px;
-  height: 500px;
-  width: 450px;
-  min-width: 450px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--body-color);
-  flex-direction: column;
-  gap:.5rem;*/
+  z-index: 9999;
 }
 
 .chat-header {
@@ -947,6 +936,7 @@ i{
   height: 75px;
   background-color: #55555510;
   text-align: left;
+  display: flex;
 }
 
 .chat button{
@@ -955,11 +945,12 @@ i{
   background-color: transparent;
   border: none;
   text-align: left;
-  margin-right: 10px;
+  margin-left: 10px;
   z-index: 600;
 }
-.chat p{
-  position: absolute;
-  top:24px;
-  left:150px;
+.chat img{
+  margin-right:10px
+}
+.chat span{
+  margin-left:10px
 }

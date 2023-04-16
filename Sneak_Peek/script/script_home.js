@@ -3,6 +3,7 @@ var message = document.getElementById("message");
 var cart = document.getElementById("cart");
 var post = document.getElementById("post");
 var profile = document.getElementById("profile");
+var content = document.getElementById("contents");
 
 var Home = document.getElementById("Home");
 var Search = document.getElementById("Search");
@@ -39,66 +40,15 @@ title.style.left="0px";
 var sea = false;
 var next = false;
 
-/*var larghezza = window.innerWidth;
-if(larghezza < 767){
-    menu.style.minWidth = larghezza + "px"
-    title.hidden = true
-    main.style.left = 0 + "px"
-    console.log('b')
-}
-else{
-    menu.style.minWidth = 200 + "px"
-    title.hidden = false
-    main.style.left = 200 + "px"
-    console.log('a')
-}
-
-var buttons = document.getElementsByClassName('btn_list')
-
-window.addEventListener('resize', function(){
-    var width = window.innerWidth
-    var height = window.innerHeight
-    console.log(width)
-    if(width < 767){
-        menu.style.minWidth = width + "px"
-        menu.style.height = 50 + "px"
-        title.hidden = true
-        main.style.left = 0 + "px"
-        /*for (var i = 0; i < buttons.length; i++) {
-            buttons[i].classList.replace("btn_list", "btn_list_phone")
-        }
-    }
-    else {
-        menu.style.minWidth = 200 + "px"
-        title.hidden = false
-        main.style.left = 200 + "px"
-        /*for (var i = 0; i < buttons.length; i++) {
-            buttons[i].classList.replace("btn_list_phone", "btn_list")
-        }
-    }
-    setWidthHeight();
-});
-function setWidthHeight(){
-    var width = window.innerWidth
-    var height = window.innerHeight
-        div_post.style.height=height + "px"
-        menu.style.height = height + "px"
-        Scrollbar.style.height = height - 150 + "px"
-        Scrollbar.style.minHeight = height - 150 + "px"
-}*/
-
 Home.onclick = () => {
     if(sea)document.getElementById("Search").click();
-    Scrollbar.style.display="block";
+    content.style.display="block";
     post.style.display="none";
     message.style.display="none"
 }
 
 Search.onclick = () => {
     post.style.display="none";
-    for(var i = 0; i < list.length; i++) {
-        list[i].style.transition = '0.5s'
-    }
     if(!sea){
         document.getElementById('p_home').innerHTML ='';
         document.getElementById('p_search').innerHTML='';
@@ -150,9 +100,10 @@ Search.onclick = () => {
 }
 
 Message.onclick = () => {
+    console.log('ao')
     if(sea)document.getElementById("Search").click();
     post.style.display="none";
-    Scrollbar.style.display="none"
+    content.style.display="none"
     message.style.display="block"
 }
 
