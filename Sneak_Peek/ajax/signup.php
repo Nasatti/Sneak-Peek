@@ -1,5 +1,5 @@
 <?php
-include("connection.php");                              
+include("../php/connection.php");                              
 if(isset($_POST['email'])){
     $sql = 'INSERT INTO credenziali (username, nome, cognome, data, email, password) VALUES ("'.$_POST['username'].'","'.$_POST['nome'].'","'.$_POST['cognome'].'","'.$_POST['data'].'","'.$_POST['email'].'","'.md5($_POST['password']).'")';
     if ($connection->query($sql)) {

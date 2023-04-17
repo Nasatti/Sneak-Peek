@@ -100,7 +100,7 @@ Search.onclick = () => {
 }
 
 Message.onclick = () => {
-    console.log('ao')
+    console.log('ao     ')
     if(sea)document.getElementById("Search").click();
     post.style.display="none";
     content.style.display="none"

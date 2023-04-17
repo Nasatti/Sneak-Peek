@@ -226,6 +226,7 @@ codizione da 1 a 5 stelle
                                         var img = jsonData[i]['foto']
                                         var like = jsonData[i]['piace']
                                         var prefer = jsonData[i]['prefer']
+                                        var modello = jsonData[i]['marca']
                                         var data = jsonData[i]['data']
                                         var descrizione = jsonData[i]['descrizione']
                                         var hashtag = jsonData[i]['hashtag']
@@ -234,8 +235,11 @@ codizione da 1 a 5 stelle
                                         var img = document.createElement("img")
                                         var div = document.createElement("div")
                                         var div_action = document.createElement("div")
+                                        var div_info = document.createElement("div")
+                                        var div_descr = document.createElement("div")
                                         var descr = document.createElement("p")
-                                        var data_post = document.createElement('span')
+                                        var mod = document.createElement("p")
+                                        var data_post = document.createElement('p')
                                         var a = document.createElement("a")
                                         var button_heart = document.createElement("button")
                                         var button_prefer = document.createElement("button")
@@ -244,18 +248,28 @@ codizione da 1 a 5 stelle
                                         div_action.appendChild(button_heart)
                                         div_action.appendChild(button_prefer)
                                         div_action.appendChild(button_chat)
-                                        div_action.appendChild(descr)
-                                        div.appendChild(a)
-                                        div.appendChild(data_post)
+                                        div_info.appendChild(a)
+                                        div_info.appendChild(mod)
+                                        div_info.appendChild(data_post)
+                                        div_descr.appendChild(descr)
+                                        div.appendChild(div_info)
                                         div.appendChild(img)
                                         div.appendChild(div_action)
+                                        div.appendChild(div_descr)
+                                        
                                         document.getElementById("scrollbar").appendChild(div)
 
                                         div.className = "image_post"
+                                        div_info.className = 'div_info'
+                                        div_descr.className = 'div_descr'
                                         img.className = "img_post"
                                         img.id="img" + i
                                         descr.id = "descr" + i
+                                        mod.id = 'mod' + i
                                         a.className = "us_post"
+                                        a.className = 'info_left'
+                                        mod.className = 'info_center'
+                                        data_post.className = 'info_right'
                                         div_action.className = "action"
                                         button_heart.id = "like" + i
                                         button_prefer.id = "prefer" + i
@@ -270,7 +284,8 @@ codizione da 1 a 5 stelle
                                         button_heart.innerHTML = "<i class='bi bi-heart r'></i>"
                                         button_prefer.innerHTML = "<i class='bi bi-star g'></i>"
                                         button_chat.innerHTML = '<i class="bi bi-chat b"></i>'
-                                        descr.innerHTML = descrizione
+                                        descr.innerHTML = '<a href="users/"' + usern + '><b>' + usern + ': </b></a><span>' + descrizione + '<b>' + hashtag + '</b></span>'
+                                        mod.innerHTML = '<b>' + modello + '</b>'
                                         data_post.innerHTML = data
 
                                         $.ajax({
@@ -284,7 +299,7 @@ codizione da 1 a 5 stelle
                                                 var a1 = document.getElementById("a"+i)
                                                 text = response.split("/")
                                                 us = text[2]
-                                                a1.innerHTML="<img class='prof_img' src="+response+" height='50px' width='50px'>" + us
+                                                a1.innerHTML="<img class='prof_img' src="+response+" height='50px' width='50px'><span>" + us + '</span>'
                                                 a1.href = "./users/" + us
                                             }
                                         });

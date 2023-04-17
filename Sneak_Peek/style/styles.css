@@ -361,12 +361,6 @@ i{
     border-radius: 12px;
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
 }
-.image_post span{
-    font-size: 15px;
-    position: absolute;
-    top: 15px;
-    left: 88%;
-}
 .image_post a{
     z-index:5;
     width:auto;
@@ -937,6 +931,7 @@ i{
   background-color: #55555510;
   text-align: left;
   display: flex;
+  z-index: 999;
 }
 
 .chat button{
@@ -953,4 +948,46 @@ i{
 }
 .chat span{
   margin-left:10px
+}
+.div_info{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;;
+  grid-gap: 10px;
+}
+.info_left{
+  padding: 20px;
+  grid-column: 1; /* Posiziona l'oggetto nella prima colonna */
+  grid-row: 1;
+}
+.info_left span{
+  text-decoration: none;
+  color: black;
+  margin-left:10px;
+}
+.info_center{
+  padding: 20px;
+  grid-column: 2; /* Posiziona l'oggetto nella prima colonna */
+  grid-row: 1;
+  text-align: center;
+}
+.info_right{
+  padding: 20px;
+  grid-column: 3; /* Posiziona l'oggetto nella seconda colonna */
+  grid-row: 1; /* Posiziona l'oggetto nella prima riga */
+  text-align: center;
+}
+.div_descr{
+  display: flex;
+  width: 100%;
+  height: auto;
+}
+.div_descr a{
+  text-decoration: none;
+  color: #000;
+  display: inline-block;
+  margin-right: 5px;
+  margin-left: 50px;
+}
+.div_descr span{
+  display: inline-block;
 }
