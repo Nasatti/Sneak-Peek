@@ -5,7 +5,16 @@ pagamento:https://uiverse.io/zanina-yassine/angry-shrimp-34
 like: https://uiverse.io/KSAplay/smart-bobcat-50
 prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
 
-codizione da 1 a 5 stelle
+
+GOALS:
+codizione da 1 a 5 stelle 
+MVC                             IMP
+Google Login                    IMP
+Search                          IMP
+Storie-algoritmo search         IMP
+carrello
+Pagina login = home             IMP
+chat
 -->
 
 <!DOCTYPE html>
@@ -98,12 +107,12 @@ codizione da 1 a 5 stelle
                         style="width:30px;height:30px"></lord-icon>
                     <p id="p_post">Post</p>
                 </button></li>
-                <li><a href="./users/profile.html"><button id="Profile" class="btn_list">
+                <li><button id="Profile" class="btn_list">
                     <script src="https://cdn.lordicon.com/ritcuqlt.js"></script><lord-icon class="ico"
                         src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" colors="primary:#ffffff"
                         style="width:30px;height:30px"></lord-icon>
                     <p id="p_profile">Profile</p>
-                </button></a></li>
+                </button></li>
                 
             </div>
         </ul>
@@ -176,10 +185,87 @@ codizione da 1 a 5 stelle
             
         </div>
         <div id="main">
-            
-            
             <div id="Page" class="page">
                 <div id="scrollbar" class="scrollbar scrollbar-danger">
+                    <div id="profile" style="display:none">  
+                        <div id="info_profile" class="info_profile">
+                            <div class="info_1">
+                                <i class="bi bi-brightness-high-fill light-night" id="toggleDark"></i>
+                            </div>
+                            <div class="info_2"><img id="profile_img" src="img/dunk.webp"></div>
+                            <div class="info_3">
+                                <p id="profile_name" style="font-size:35px"></p><button style="font-size:25px"><i class="bi bi-gear"></i></button><br>
+                                <p id="profile_npost"></p><span>Follower: 1</span><span>Follower: 1</span>
+                            </div>
+                            <script>
+                                $.ajax({
+                                    type: "POST",
+                                    url: "./ajax/profile.php",
+                                    data: {
+                                        "username": username
+                                    },
+                                    success: function (response) {
+                                        document.getElementById('profile_name').innerHTML = username
+                                        document.getElementById('profile_img').src = response
+                                    }
+                                });
+                            </script>
+                            <div class="info_4"></div>
+                        </div>
+                        <div class="profile_page">
+                            <hr class='border border-danger border-2 opacity-75'>
+                            <div class="profile_view">
+                                <button id="profile_viewpost" style="text-decoration: underline red;"><i class="bi bi-stickies"></i>POST</button>
+                                <button id="profile_like"><i class="bi bi-heart"></i>LIKE</button>
+                                <script>
+                                    var viewpost = document.getElementById('profile_viewpost')
+                                    var profile_like = document.getElementById('profile_like')
+
+                                    viewpost.addEventListener('click', function () {
+                                        viewpost.style.textDecoration = 'underline red'
+                                        profile_like.style.textDecoration = 'none'
+                                    })
+                                    profile_like.addEventListener('click', function () {
+                                        viewpost.style.textDecoration = 'none'
+                                        profile_like.style.textDecoration = 'underline red'
+                                    })
+                                </script>
+                            </div>
+                            <div id="table"></div>
+                            <script>
+                                $.ajax({
+                                    type: "POST",
+                                    url: "./ajax/profile_post.php",
+                                    data: {
+                                        "username": username
+                                    },
+                                    dataType: "json",
+                                    success: function (response) {
+                                        var foto_profilo = response
+                                        var prof_view = document.getElementById('table')
+                                        var table = document.createElement("table")
+                                        document.getElementById('profile_npost').innerHTML = "Post: " + response.length
+                                        for (let i = 0; i < foto_profilo.length; i++) {
+                                            if(i==0 || i%3==0)var tr = document.createElement("tr")
+                                            var td = document.createElement("td")
+                                            var button = document.createElement("button")
+                                            var img = document.createElement("img")
+                                            img.src = foto_profilo[i]['foto']
+                                            button.appendChild(img)
+                                            td.appendChild(button)
+                                            tr.appendChild(td)
+                                            table.appendChild(tr)
+                                            table.classList.add("post_profile")
+                                            prof_view.appendChild(table)
+                                        }
+                                    },
+                                    error: function (response) {
+                                        console.log(response)
+                                    }
+                                });
+                            </script>
+                        </div>
+                    </div>
                     <div id="header" class="header">
                         <div class="storie header_left">
                             <i class="bi bi-brightness-high-fill light-night" id="toggleDark"></i>
@@ -211,7 +297,7 @@ codizione da 1 a 5 stelle
                         </div>
                     </div>
                     <hr class='border border-danger border-2 opacity-75'>
-                    <div id="contents" style="display:none">
+                    <div id="contents">
                         <script>
                             $.ajax({
                                 type: "POST",
@@ -257,7 +343,7 @@ codizione da 1 a 5 stelle
                                         div.appendChild(div_action)
                                         div.appendChild(div_descr)
                                         
-                                        document.getElementById("scrollbar").appendChild(div)
+                                        document.getElementById("contents").appendChild(div)
 
                                         div.className = "image_post"
                                         div_info.className = 'div_info'
@@ -305,7 +391,7 @@ codizione da 1 a 5 stelle
                                         });
 
                                         document.getElementById("post_user" + id).innerHTML += "<i class='fa-solid fa-heart heart'></i>"
-                                        document.getElementById("scrollbar").innerHTML += "<hr class='border border-danger border-2 opacity-75'>"
+                                        document.getElementById("contents").innerHTML += "<hr class='border border-danger border-2 opacity-75'>"
                                         $(document).ready(function(){
                                             $('#img' + i).dblclick(function(e){
                                                 

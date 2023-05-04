@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
     <title>Sneak Peek | Profile</title>
+
 </head>
 <body>
     <div name="body">
@@ -142,28 +143,38 @@
             
         </div>
         <div id="main">
-            <div class="storie header_left">
-                <i class="bi bi-brightness-high-fill light-night" id="toggleDark"></i>
-            </div>
-            <div id="info_profile" class="info_profile">
-                <div class="info_1"></div>
-                <div class="info_2"><img src="../img/dunk.webp"></div>
-                <div class="info_3">
-                    <p style="font-size:35px">riccardo.nasatti</p><button style="font-size:25px"><i class="bi bi-gear"></i></button><br>
-                    <p>Post: 1</p><span>Follower: 1</span><span>Follower: 1</span>
-                </div>
-                <div class="info_4"></div>
-            </div>
-            <div class="profile_page">
-                <hr class='border border-danger border-2 opacity-75'>
-                <div class="profile_view">
-                    <button style="text-decoration: underline red;"><i class="bi bi-stickies"></i>POST</button>
-                    <button><i class="bi bi-heart"></i>LIKE</button>
+            <div id="Page" class="page">
+                <div id="scrollbar" class="scrollbar scrollbar-danger">
+                    <div id="info_profile" class="info_profile">
+                        <div class="info_1">
+                            <i class="bi bi-brightness-high-fill light-night" id="toggleDark"></i>
+                        </div>
+                        <div class="info_2"><img src="../img/dunk.webp"></div>
+                        <div class="info_3">
+                            <p style="font-size:35px">riccardo.nasatti</p><button style="font-size:25px"><i class="bi bi-gear"></i></button><br>
+                            <p>Post: 1</p><span>Follower: 1</span><span>Follower: 1</span>
+                        </div>
+                        <div class="info_4"></div>
+                    </div>
+                    <div class="profile_page">
+                        <hr class='border border-danger border-2 opacity-75'>
+                        <div class="profile_view">
+                            <button style="text-decoration: underline red;"><i class="bi bi-stickies"></i>POST</button>
+                            <button><i class="bi bi-heart"></i>LIKE</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             
         </div>
-
+        <script>
+            var width = window.innerWidth
+            var height = window.innerHeight
+            var scrollbar = document.getElementById("scrollbar")
+            scrollbar.style.height = height - 10 + "px"
+            scrollbar.style.minHeight = height - 10 + "px"
+            scrollbar.style.width = width - 250 + 'px'
+        </script>
         <!--<script src="../script/script_home.js"></script>
         <script src="../script/script_dark.js"></script>-->
 </body>

@@ -1,126 +1,136 @@
-var search = document.getElementById("search");
-var message = document.getElementById("message");
-var cart = document.getElementById("cart");
-var post = document.getElementById("post");
-var profile = document.getElementById("profile");
-var content = document.getElementById("contents");
+var search = document.getElementById("search")
+var message = document.getElementById("message")
+var cart = document.getElementById("cart")
+var post = document.getElementById("post")
+var profile = document.getElementById("profile")
+var content = document.getElementById("contents")
 
-var Home = document.getElementById("Home");
-var Search = document.getElementById("Search");
-var Message = document.getElementById("Message");
-var Cart = document.getElementById("Cart");
-var Post = document.getElementById("Post");
-var Profile = document.getElementById("Profile");
+var Home = document.getElementById("Home")
+var Search = document.getElementById("Search")
+var Message = document.getElementById("Message")
+var Cart = document.getElementById("Cart")
+var Post = document.getElementById("Post")
+var Profile = document.getElementById("Profile")
 
 var title = document.getElementById("titolo")
-var search_box = document.getElementById("search_box");
-var next_post = document.getElementById("Next");
-var back_post = document.getElementById("Back");
+var search_box = document.getElementById("search_box")
+var next_post = document.getElementById("Next")
+var back_post = document.getElementById("Back")
 
-var menu = document.getElementById("menu");
-var main = document.getElementById("main");
+var menu = document.getElementById("menu")
+var main = document.getElementById("main")
 
-var r1 = document.getElementById("r1");
-var r2 = document.getElementById("r2");
-var r3 = document.getElementById("r3");
+var r1 = document.getElementById("r1")
+var r2 = document.getElementById("r2")
+var r3 = document.getElementById("r3")
 
-var div_post = document.getElementById("div_post");
-var PostModal = document.getElementById("PostModal");
-var Scrollbar = document.getElementById("scrollbar");
+var div_post = document.getElementById("div_post")
+var PostModal = document.getElementById("PostModal")
+var Scrollbar = document.getElementById("scrollbar")
+var header = document.getElementById("header")
 
 Scrollbar.style.height = window.innerHeight - 1 + 'px'
 Scrollbar.style.minHeight = window.innerHeight - 1 + 'px'
 console.log(Scrollbar.style.height)
-div_post.style.width="450px";
-div_post.style.left="0px";
-menu.style.width = "200px";
-search_box.style.left="-100px";
-title.style.left="0px";
+div_post.style.width="450px"
+div_post.style.left="0px"
+menu.style.width = "200px"
+search_box.style.left="-100px"
+title.style.left="0px"
 
 var sea = false;
 var next = false;
 
 Home.onclick = () => {
-    if(sea)document.getElementById("Search").click();
-    content.style.display="block";
-    post.style.display="none";
+    header.style.display="grid"
+    if(sea)document.getElementById("Search").click()
+    content.style.display="block"
+    post.style.display="none"
     message.style.display="none"
+    profile.style.display="none"
 }
 
 Search.onclick = () => {
-    post.style.display="none";
+    post.style.display="none"
     if(!sea){
-        document.getElementById('p_home').innerHTML ='';
-        document.getElementById('p_search').innerHTML='';
-        document.getElementById('p_message').innerHTML='';
-        document.getElementById('p_cart').innerHTML='';
-        document.getElementById('p_post').innerHTML='';
-        document.getElementById('p_profile').innerHTML='';
+        document.getElementById('p_home').innerHTML =''
+        document.getElementById('p_search').innerHTML=''
+        document.getElementById('p_message').innerHTML=''
+        document.getElementById('p_cart').innerHTML=''
+        document.getElementById('p_post').innerHTML=''
+        document.getElementById('p_profile').innerHTML=''
 
         document.getElementById("list").classList.replace("list", "list_search")
-        Home.classList.replace('btn_list', 'btn_list_search');
-        Search.classList.replace('btn_list', 'btn_list_search');
-        Message.classList.replace('btn_list', 'btn_list_search');
-        Cart.classList.replace('btn_list', 'btn_list_search');
-        Post.classList.replace('btn_list', 'btn_list_search');
-        Profile.classList.replace('btn_list', 'btn_list_search');
+        Home.classList.replace('btn_list', 'btn_list_search')
+        Search.classList.replace('btn_list', 'btn_list_search')
+        Message.classList.replace('btn_list', 'btn_list_search')
+        Cart.classList.replace('btn_list', 'btn_list_search')
+        Post.classList.replace('btn_list', 'btn_list_search')
+        Profile.classList.replace('btn_list', 'btn_list_search')
 
-        search_box.style.display="flex";
+        search_box.style.display="flex"
 
-        Move();
+        Move()
 
     }
     else{
-        document.getElementById('p_home').innerHTML ='Home';
-        document.getElementById('p_search').innerHTML='Search';
-        document.getElementById('p_message').innerHTML='Message';
-        document.getElementById('p_cart').innerHTML='Cart';
-        document.getElementById('p_post').innerHTML='Post';
-        document.getElementById('p_profile').innerHTML='Profile';
+        document.getElementById('p_home').innerHTML ='Home'
+        document.getElementById('p_search').innerHTML='Search'
+        document.getElementById('p_message').innerHTML='Message'
+        document.getElementById('p_cart').innerHTML='Cart'
+        document.getElementById('p_post').innerHTML='Post'
+        document.getElementById('p_profile').innerHTML='Profile'
 
         document.getElementById("list").classList.replace("list_search", "list")
-        Home.classList.replace('btn_list_search', 'btn_list');
-        Search.classList.replace('btn_list_search', 'btn_list');
-        Message.classList.replace('btn_list_search', 'btn_list');
-        Cart.classList.replace('btn_list_search', 'btn_list');
-        Post.classList.replace('btn_list_search', 'btn_list');
-        Profile.classList.replace('btn_list_search', 'btn_list');
+        Home.classList.replace('btn_list_search', 'btn_list')
+        Search.classList.replace('btn_list_search', 'btn_list')
+        Message.classList.replace('btn_list_search', 'btn_list')
+        Cart.classList.replace('btn_list_search', 'btn_list')
+        Post.classList.replace('btn_list_search', 'btn_list')
+        Profile.classList.replace('btn_list_search', 'btn_list')
 
-        search_box.style.display="none";
+        search_box.style.display="none"
 
-        Radio1.checked=false;
-        Radio2.checked=false;
-        Radio3.checked=false;
-        r1.style.display="none";
-        r2.style.display="none";
-        r3.style.display="none";
+        Radio1.checked=false
+        Radio2.checked=false
+        Radio3.checked=false
+        r1.style.display="none"
+        r2.style.display="none"
+        r3.style.display="none"
 
         Move();
     }
 }
 
 Message.onclick = () => {
-    console.log('ao     ')
+    header.style.display="grid"
     if(sea)document.getElementById("Search").click();
-    post.style.display="none";
+    post.style.display="none"
     content.style.display="none"
     message.style.display="block"
+    profile.style.display="none"
 }
 
 Cart.onclick = () => {
+    header.style.display="grid"
     if(sea)document.getElementById("Search").click();
-    post.style.display="none";
+    post.style.display="none"
+    profile.style.display="none"
 }
 
 Post.onclick = () => {
     if(sea)document.getElementById("Search").click();
-    post.style.display="block";
+    post.style.display="block"
 
 }
 
 Profile.onclick = () => {
     if(sea)document.getElementById("Search").click();
-    post.style.display="none";
+    post.style.display="none"
+    message.style.display="none"
+    header.style.display="none"
+    profile.style.display="block"
+    content.style.display="none"
 }
 
 /*document.getElementById("like").onclick = () => {
