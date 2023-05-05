@@ -12,6 +12,9 @@ var Cart = document.getElementById("Cart")
 var Post = document.getElementById("Post")
 var Profile = document.getElementById("Profile")
 
+var viewpost = document.getElementById('profile_viewpost')
+var profile_like = document.getElementById('profile_like')
+
 var title = document.getElementById("titolo")
 var search_box = document.getElementById("search_box")
 var next_post = document.getElementById("Next")
@@ -132,7 +135,9 @@ Profile.onclick = () => {
     profile.style.display="block"
     content.style.display="none"
 }
-
+document.getElementById('a_profile').addEventListener('click', function () {
+    Profile.click()
+})
 /*document.getElementById("like").onclick = () => {
     
 }
@@ -274,6 +279,75 @@ function move_div(){
     }
 }
 
-PostModal.onblur = () => {
-    //quando esci
-}
+viewpost.addEventListener('click', function () {
+    viewpost.style.textDecoration = 'underline red'
+    profile_like.style.textDecoration = 'none'
+    $.ajax({
+        type: "POST",
+        url: "./ajax/profile_post.php",
+        data: {
+            "username": username,
+            "view": "post",
+        },
+        dataType: "json",
+        success: function (response) {
+            var foto_profilo = response
+            var prof_view = document.getElementById('table')
+            prof_view.innerHTML=""
+            var table = document.createElement("table")
+            document.getElementById('profile_npost').innerHTML = "Post: " + response.length
+            for (let i = 0; i < foto_profilo.length; i++) {
+                if(i==0 || i%3==0)var tr = document.createElement("tr")
+                var td = document.createElement("td")
+                var button = document.createElement("button")
+                var img = document.createElement("img")
+                img.src = foto_profilo[i]['foto']
+                button.appendChild(img)
+                td.appendChild(button)
+                tr.appendChild(td)
+                table.appendChild(tr)
+                table.classList.add("post_profile")
+                prof_view.appendChild(table)
+            }
+        },
+        error: function (response) {
+            console.log(response)
+        }
+    });
+})
+profile_like.addEventListener('click', function () {
+    viewpost.style.textDecoration = 'none'
+    profile_like.style.textDecoration = 'underline red'
+    $.ajax({
+        type: "POST",
+        url: "./ajax/profile_post.php",
+        data: {
+            "username": username,
+            "view": "like",
+        },
+        dataType: "json",
+        success: function (response) {
+            var foto_profilo = response
+            var prof_view = document.getElementById('table')
+            prof_view.innerHTML=""
+            var table = document.createElement("table")
+            document.getElementById('profile_npost').innerHTML = "Post: " + response.length
+            for (let i = 0; i < foto_profilo.length; i++) {
+                if(i==0 || i%3==0)var tr = document.createElement("tr")
+                var td = document.createElement("td")
+                var button = document.createElement("button")
+                var img = document.createElement("img")
+                img.src = foto_profilo[i]['foto']
+                button.appendChild(img)
+                td.appendChild(button)
+                tr.appendChild(td)
+                table.appendChild(tr)
+                table.classList.add("post_profile")
+                prof_view.appendChild(table)
+            }
+        },
+        error: function (response) {
+            console.log(response)
+        }
+    });
+})

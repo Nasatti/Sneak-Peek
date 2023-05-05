@@ -14,6 +14,8 @@ Search                          IMP
 Storie-algoritmo search         IMP
 carrello
 Pagina login = home             IMP
+like                            IMP  FATTO
+carousel per i post del profilo
 chat
 -->
 
@@ -217,53 +219,8 @@ chat
                             <div class="profile_view">
                                 <button id="profile_viewpost" style="text-decoration: underline red;"><i class="bi bi-stickies"></i>POST</button>
                                 <button id="profile_like"><i class="bi bi-heart"></i>LIKE</button>
-                                <script>
-                                    var viewpost = document.getElementById('profile_viewpost')
-                                    var profile_like = document.getElementById('profile_like')
-
-                                    viewpost.addEventListener('click', function () {
-                                        viewpost.style.textDecoration = 'underline red'
-                                        profile_like.style.textDecoration = 'none'
-                                    })
-                                    profile_like.addEventListener('click', function () {
-                                        viewpost.style.textDecoration = 'none'
-                                        profile_like.style.textDecoration = 'underline red'
-                                    })
-                                </script>
                             </div>
                             <div id="table"></div>
-                            <script>
-                                $.ajax({
-                                    type: "POST",
-                                    url: "./ajax/profile_post.php",
-                                    data: {
-                                        "username": username
-                                    },
-                                    dataType: "json",
-                                    success: function (response) {
-                                        var foto_profilo = response
-                                        var prof_view = document.getElementById('table')
-                                        var table = document.createElement("table")
-                                        document.getElementById('profile_npost').innerHTML = "Post: " + response.length
-                                        for (let i = 0; i < foto_profilo.length; i++) {
-                                            if(i==0 || i%3==0)var tr = document.createElement("tr")
-                                            var td = document.createElement("td")
-                                            var button = document.createElement("button")
-                                            var img = document.createElement("img")
-                                            img.src = foto_profilo[i]['foto']
-                                            button.appendChild(img)
-                                            td.appendChild(button)
-                                            tr.appendChild(td)
-                                            table.appendChild(tr)
-                                            table.classList.add("post_profile")
-                                            prof_view.appendChild(table)
-                                        }
-                                    },
-                                    error: function (response) {
-                                        console.log(response)
-                                    }
-                                });
-                            </script>
                         </div>
                     </div>
                     <div id="header" class="header">
@@ -279,7 +236,7 @@ chat
                             <input type = "image" height='60px' width='60px' src="img/jordan.jpg">
                         </div>
                         <div class="storie header_right">
-                            <a href='profile.php' id="a_profile" value='b'>a</a>
+                            <button id="a_profile" value='b' style="background-color: transparent;border:none;">a</button>
                             <script>
                                 $.ajax({
                                     type: "POST",
@@ -437,6 +394,7 @@ chat
                                                         "action": "like",
                                                         "id": id,
                                                         "inc": inc,
+                                                        "username": username
                                                     },
                                                     dataType: "json",
                                                     success: function (response) {
@@ -472,6 +430,7 @@ chat
                                                         "action": "prefer",
                                                         "id": id,
                                                         "inc": inc,
+                                                        "username": username,
                                                     },
                                                     dataType: "json",
                                                     success: function (response) {
@@ -554,24 +513,6 @@ chat
                         
                     </div>
                 </div>
-                <div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-body">
-                        <div class="modal-contet">
-                          <div class="card">
-                            <div class="chat-header">Chat</div>
-                            <div class="chat-window">
-                              <ul class="message-list"></ul>
-                            </div>
-                            <div class="chat-input">
-                              <input type="text" class="message-input" placeholder="Type your message here">
-                              <button class="send-button">Send</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 <div id="post">
                     <div class="modal fade" id="PostModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
@@ -738,5 +679,102 @@ chat
         <script src="script/script_dark.js"></script>
         <script src="script/script_media.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <!--  Profile Modal  -->
+        <div class="modal fade" id="Profile_post_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header view_header">
+                  <h1 class="view_center" id="view_header" ></h1>
+                  <p class="view_left" id="view_data"></p>
+                  <button type="button" class="btn-close view_right" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center" id="view_body"></div>
+                <div class="modal-footer" style="text-align: left;display:block" id="view_footer">
+                    <div id="view_like_prefer"></div>
+                    <div id="view_descr"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <!--  Chat Modal  -->
+          <div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-body">
+                <div class="modal-contet">
+                  <div class="card">
+                    <div class="chat-header">Chat</div>
+                    <div class="chat-window">
+                      <ul class="message-list"></ul>
+                    </div>
+                    <div class="chat-input">
+                      <input type="text" class="message-input" placeholder="Type your message here">
+                      <button class="send-button">Send</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <script>
+            $.ajax({
+                type: "POST",
+                url: "./ajax/profile_post.php",
+                data: {
+                    "username": username,
+                    "view": "post",
+                },
+                dataType: "json",
+                success: function (response) {
+                    var foto_profilo = response
+                    var prof_view = document.getElementById('table')
+                    var table = document.createElement("table")
+                    document.getElementById('profile_npost').innerHTML = "Post: " + response.length
+                    for (let i = 0; i < foto_profilo.length; i++) {
+                        if(i==0 || i%3==0)var tr = document.createElement("tr")
+                        var td = document.createElement("td")
+                        var button = document.createElement("button")
+                        button.setAttribute("data-bs-toggle", "modal");
+                        button.setAttribute("data-bs-target", "#Profile_post_Modal");
+                        var img = document.createElement("img")
+                        img.src = foto_profilo[i]['foto']
+                        button.appendChild(img)
+                        button.id="pro_b" + i
+                        td.appendChild(button)
+                        tr.appendChild(td)
+                        table.appendChild(tr)
+                        table.classList.add("post_profile")
+                        prof_view.appendChild(table)
+                        $(document).ready(function(){
+                            $('#pro_b' + i).click(function(){
+                                var foto_view = foto_profilo[i]['foto']
+                                var descrizione_view = foto_profilo[i]['descrizione']
+                                var data_view = foto_profilo[i]['data']
+                                var like_view = foto_profilo[i]['piace']
+                                var prefer_view = foto_profilo[i]['prefer']
+                                var modello_view = foto_profilo[i]['marca']
+                                var hashtag_view = foto_profilo[i]['hashtag']
+                                var vendita_view = foto_profilo[i]['vendita']
+                                console.log(modello_view)
+
+                                var view_header = document.getElementById("view_header");
+                                var view_body = document.getElementById("view_body");
+                                var view_like_prefer = document.getElementById("view_like_prefer");
+                                var view_descr = document.getElementById("view_descr");
+                                var view_data = document.getElementById("view_data");
+
+                                view_header.innerHTML = modello_view
+                                view_data.innerHTML = data_view
+                                view_body.innerHTML = "<img src='" + foto_view + "' height='400px' width='400px' style='object-fit: cover;'>"
+                                view_like_prefer.innerHTML = "<p>" + descrizione_view + "<b>" + hashtag_view + "</b>" + "</p>"
+                                view_descr.innerHTML += "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p><p>" + vendita_view + "</p>"
+                            });
+                        });
+                    }
+                },
+                error: function (response) {
+                    console.log(response)
+                }
+            });
+        </script>
 </body>
 </html>

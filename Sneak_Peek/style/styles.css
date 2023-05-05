@@ -1073,3 +1073,27 @@ i{
   background-color: transparent;
   border : none;
 }
+.view_header{
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;;
+  grid-gap: 10px; 
+}
+.view_left{
+  grid-column: 1; /* Posiziona l'oggetto nella prima colonna */
+  grid-row: 1;
+  text-align: center;
+}
+.view_center{
+  grid-column: 2; /* Posiziona l'oggetto nella prima colonna */
+  grid-row: 1;
+  text-align: center;
+}
+.view_right{
+  grid-column: 3; /* Posiziona l'oggetto nella seconda colonna */
+  grid-row: 1; /* Posiziona l'oggetto nella prima riga */
+  text-align: center;
+}
+#view_descr p{
+  display: inline-block;
+  padding-right: 5px;
+}
