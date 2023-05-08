@@ -407,3 +407,16 @@ profile_like.addEventListener('click', function () {
         }
     });
 })
+
+function logout(){
+    $.ajax({
+        type: "POST",
+        url: "./ajax/logout.php",
+        success: function (response) {
+            window.location.href = "./index.html";
+        },
+        error: function (response) {
+            console.log(response)
+        }
+    });
+}

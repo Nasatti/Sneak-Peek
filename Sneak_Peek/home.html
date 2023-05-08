@@ -60,6 +60,10 @@ chat
                     var jsonData = JSON.parse(obj)
                     //console.log(jsonData)
                     username = jsonData.username
+                    nome = jsonData.nome
+                    cognome = jsonData.cognome
+                    email = jsonData.email
+                    data_nascita = jsonData.data
                 }
                 else window.location = "index.html"
                 
@@ -196,8 +200,16 @@ chat
                             </div>
                             <div class="info_2"><img id="profile_img" src="img/dunk.webp"></div>
                             <div class="info_3">
-                                <p id="profile_name" style="font-size:35px"></p><button style="font-size:25px"><i class="bi bi-gear"></i></button><br>
+                                <p id="profile_name" style="font-size:35px"></p><button style="font-size:25px" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-gear"></i></button><br>
                                 <p id="profile_npost"></p><span>Follower: 1</span><span>Follower: 1</span>
+                            </div>
+                            <div class="info_4"><button class="view_right" onclick="logout()"><script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
+                                <lord-icon
+                                    src="https://cdn.lordicon.com/moscwhoj.json"
+                                    trigger="hover"
+                                    colors="primary:#121331,secondary:#e83a30"
+                                    style="width:75px;height:75px">
+                                </lord-icon></button>
                             </div>
                             <script>
                                 $.ajax({
@@ -224,9 +236,6 @@ chat
                         </div>
                     </div>
                     <div id="header" class="header">
-                        <div class="storie header_left">
-                            <i class="bi bi-brightness-high-fill light-night" id="toggleDark"></i>
-                        </div>
                         <div id="storie" class="storie header_center">
                             <input type = "image" height='60px' width='60px' src="img/af1.webp">
                             <input type = "image" height='60px' width='60px' src="img/dunk.webp">
@@ -235,7 +244,7 @@ chat
                             <input type = "image" height='60px' width='60px' src="img/dunk.webp">
                             <input type = "image" height='60px' width='60px' src="img/jordan.jpg">
                         </div>
-                        <div class="storie header_right">
+                        <div class="storie header_left">
                             <button id="a_profile" value='b' style="background-color: transparent;border:none;">a</button>
                             <script>
                                 $.ajax({
@@ -686,7 +695,6 @@ chat
                 <div class="modal-header view_header">
                   <h1 class="view_center" id="view_header" ></h1>
                   <p class="view_left" id="view_data"></p>
-                  <button type="button" class="btn-close view_right" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center" id="view_body"></div>
                 <div class="modal-footer" style="text-align: left;display:block" id="view_footer">
@@ -711,6 +719,124 @@ chat
                       <button class="send-button">Send</button>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--Impostazioni-->
+          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content" style="width:600px">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Impostazioni</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body modal_grid">
+                    <div class="modal_grid_left">
+                        <h4>I tuoi dati:</h4>
+                        <form>
+                          <label>Nome: </label><input style="background-color: transparent; border: none;" name="d_name" id="d_name" enable="false" disabled><br>
+                          <label>Cognome: </label><input style="background-color: transparent; border: none;" name="d_surname" id="d_surname" enable="false" disabled><br>
+                          <label>Email: </label><input style="background-color: transparent; border: none;" name="d_email" id="d_email" enable="false" disabled><br>
+                          <label>Data: </label><input style="background-color: transparent; border: none;" name="d_email" type="date" id="d_data" enable="false" disabled><br>
+                          <label>Username: </label><input style="background-color: transparent; border: none;" name="d_username" id="d_username" enable="false" disabled><br>
+                          <button type="button" style="border: none" id="show_Modifica" onclick="show()"><i class="bi bi-pencil-square"></i></button>
+                          <input type="submit"  id="Modifica" value="Modifica" style="display: none; border: none">
+                        </form>
+                        <script>
+                          $(document).ready(function(){
+                            $("#d_name").val(nome);
+                            $("#d_surname").val(cognome);
+                            $("#d_email").val(email);
+                            $("#d_data").val(data_nascita);
+                            $("#d_username").val(username);
+                          });
+                      
+                          function show(){
+                              $("#d_name").removeAttr("disabled");
+                              $("#d_surname").removeAttr("disabled");
+                              $("#d_email").removeAttr("disabled");
+                              $("#d_data").removeAttr("disabled");
+                              $("#d_username").removeAttr("disabled");
+
+                              $("#Modifica").removeAttr("style");
+                          }
+                        </script>
+                    </div>
+                    <div class="modal_grid_right">
+                        <img src="" id="d_image" alt="Profile" style="width: 100px; height: 100px;border-radius: 100px;border:1px solid; object-fit: cover;">
+                        <br>
+                        <form action="" class="form" id="view-form">
+                            <input type="file" accept="image/*" style="border: none" name="show_Mod" id="show_Mod"></input>
+                            <input type="submit" hidden id="view_submit" />
+                        </form>
+                        <button id="Mod2" style="display: none; border: none" onclick="modifica_img()">Modifica</button>
+                        <script>
+                            document.getElementById('show_Mod').onchange = (e) => {
+                                document.getElementById('view_submit').click();
+                            }
+
+                            $.ajax({
+                                type: "POST",
+                                url: "./ajax/profile.php",
+                                data: {
+                                    "username": username
+                                },
+                                success: function (response) {
+                                    document.getElementById('d_image').src = response
+                                }
+                            });
+
+                            $(document).ready(function (e) {
+                                $("#view-form").on('submit', (function (e) {
+                                    e.preventDefault();
+                                    $.ajax({
+                                        url: "./ajax/new_profile_photo.php",
+                                        type: "POST",
+                                        data: new FormData(this),
+                                        contentType: false,
+                                        cache: false,
+                                        processData: false,
+                                        success: function (data) {
+                                            console.log(data);
+                                            temp_path = data;
+                                            document.getElementById("d_image").src = temp_path;
+                                            document.getElementById("Mod2").removeAttribute("style");
+                                        },
+                                        error: function (data) {
+                                            console.log("error");
+                                            console.log(data);
+                                        }
+                                    });
+                                }));
+                            });
+                            function modifica_img(){
+                                var imaage
+                                split = temp_path.split("/");
+                                $.ajax({
+                                    type: "POST",
+                                    url: "./ajax/new_profile.php",
+                                    data: {
+                                        "username": username,
+                                        "img": split[1],
+                                        "temp": temp_path
+                                    },
+                                    success: function (response) {
+                                        imaage = response
+                                        document.getElementById("profile_img").src = response
+                                        document.getElementById('img_profile').src = response
+                                    },
+                                    error: function (response) {
+                                        console.log(response)
+                                    }
+                                });
+                                
+                            }
+                        </script>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
               </div>
             </div>
