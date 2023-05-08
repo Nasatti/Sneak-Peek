@@ -293,21 +293,50 @@ viewpost.addEventListener('click', function () {
         success: function (response) {
             var foto_profilo = response
             var prof_view = document.getElementById('table')
-            prof_view.innerHTML=""
+            prof_view.innerHTML = ""
+            var view_footer = document.getElementById("view_footer");
+            view_footer.innerHTML = '<div id="view_like_prefer"></div><div id="view_descr"></div>'
             var table = document.createElement("table")
-            document.getElementById('profile_npost').innerHTML = "Post: " + response.length
             for (let i = 0; i < foto_profilo.length; i++) {
                 if(i==0 || i%3==0)var tr = document.createElement("tr")
                 var td = document.createElement("td")
                 var button = document.createElement("button")
+                button.setAttribute("data-bs-toggle", "modal");
+                button.setAttribute("data-bs-target", "#Profile_post_Modal");
                 var img = document.createElement("img")
                 img.src = foto_profilo[i]['foto']
                 button.appendChild(img)
+                button.id="pro_b" + i
                 td.appendChild(button)
                 tr.appendChild(td)
                 table.appendChild(tr)
                 table.classList.add("post_profile")
                 prof_view.appendChild(table)
+                $(document).ready(function(){
+                    $('#pro_b' + i).click(function(){
+                        var foto_view = foto_profilo[i]['foto']
+                        var descrizione_view = foto_profilo[i]['descrizione']
+                        var data_view = foto_profilo[i]['data']
+                        var like_view = foto_profilo[i]['piace']
+                        var prefer_view = foto_profilo[i]['prefer']
+                        var modello_view = foto_profilo[i]['marca']
+                        var hashtag_view = foto_profilo[i]['hashtag']
+                        var vendita_view = foto_profilo[i]['vendita']
+                        console.log(modello_view)
+
+                        var view_header = document.getElementById("view_header");
+                        var view_body = document.getElementById("view_body");
+                        var view_like_prefer = document.getElementById("view_like_prefer");
+                        var view_descr = document.getElementById("view_descr");
+                        var view_data = document.getElementById("view_data");
+
+                        view_header.innerHTML = modello_view
+                        view_data.innerHTML = data_view
+                        view_body.innerHTML = "<img src='" + foto_view + "' height='400px' width='400px' style='object-fit: cover;'>"
+                        view_like_prefer.innerHTML = "<p>" + descrizione_view + "<b>" + hashtag_view + "</b>" + "</p>"
+                        view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p><p>" + vendita_view + "</p>"
+                    });
+                });
             }
         },
         error: function (response) {
@@ -329,21 +358,48 @@ profile_like.addEventListener('click', function () {
         success: function (response) {
             var foto_profilo = response
             var prof_view = document.getElementById('table')
-            prof_view.innerHTML=""
+            prof_view.innerHTML = ""
             var table = document.createElement("table")
-            document.getElementById('profile_npost').innerHTML = "Post: " + response.length
             for (let i = 0; i < foto_profilo.length; i++) {
                 if(i==0 || i%3==0)var tr = document.createElement("tr")
                 var td = document.createElement("td")
                 var button = document.createElement("button")
+                button.setAttribute("data-bs-toggle", "modal");
+                button.setAttribute("data-bs-target", "#Profile_post_Modal");
                 var img = document.createElement("img")
                 img.src = foto_profilo[i]['foto']
                 button.appendChild(img)
+                button.id="pro_b" + i
                 td.appendChild(button)
                 tr.appendChild(td)
                 table.appendChild(tr)
                 table.classList.add("post_profile")
                 prof_view.appendChild(table)
+                $(document).ready(function(){
+                    $('#pro_b' + i).click(function(){
+                        var foto_view = foto_profilo[i]['foto']
+                        var descrizione_view = foto_profilo[i]['descrizione']
+                        var data_view = foto_profilo[i]['data']
+                        var like_view = foto_profilo[i]['piace']
+                        var prefer_view = foto_profilo[i]['prefer']
+                        var modello_view = foto_profilo[i]['marca']
+                        var hashtag_view = foto_profilo[i]['hashtag']
+                        var vendita_view = foto_profilo[i]['vendita']
+                        console.log(modello_view)
+
+                        var view_header = document.getElementById("view_header");
+                        var view_body = document.getElementById("view_body");
+                        var view_like_prefer = document.getElementById("view_like_prefer");
+                        var view_descr = document.getElementById("view_descr");
+                        var view_data = document.getElementById("view_data");
+
+                        view_header.innerHTML = modello_view
+                        view_data.innerHTML = data_view
+                        view_body.innerHTML = "<img src='" + foto_view + "' height='400px' width='400px' style='object-fit: cover;'>"
+                        view_like_prefer.innerHTML = "<p>" + descrizione_view + "<b>" + hashtag_view + "</b>" + "</p>"
+                        view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p><p>" + vendita_view + "</p>"
+                    });
+                });
             }
         },
         error: function (response) {

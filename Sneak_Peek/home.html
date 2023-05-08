@@ -727,6 +727,7 @@ chat
                 success: function (response) {
                     var foto_profilo = response
                     var prof_view = document.getElementById('table')
+                    prof_view.innerHTML = ""
                     var table = document.createElement("table")
                     document.getElementById('profile_npost').innerHTML = "Post: " + response.length
                     for (let i = 0; i < foto_profilo.length; i++) {
@@ -758,15 +759,15 @@ chat
 
                                 var view_header = document.getElementById("view_header");
                                 var view_body = document.getElementById("view_body");
-                                var view_like_prefer = document.getElementById("view_like_prefer");
                                 var view_descr = document.getElementById("view_descr");
+                                var view_like_prefer = document.getElementById("view_like_prefer");
                                 var view_data = document.getElementById("view_data");
 
                                 view_header.innerHTML = modello_view
                                 view_data.innerHTML = data_view
                                 view_body.innerHTML = "<img src='" + foto_view + "' height='400px' width='400px' style='object-fit: cover;'>"
                                 view_like_prefer.innerHTML = "<p>" + descrizione_view + "<b>" + hashtag_view + "</b>" + "</p>"
-                                view_descr.innerHTML += "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p><p>" + vendita_view + "</p>"
+                                view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p><p>" + vendita_view + "</p>"
                             });
                         });
                     }
