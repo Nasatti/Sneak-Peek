@@ -4,6 +4,7 @@ var cart = document.getElementById("cart")
 var post = document.getElementById("post")
 var profile = document.getElementById("profile")
 var content = document.getElementById("contents")
+var profile_users = document.getElementById("profile_users")
 
 var Home = document.getElementById("Home")
 var Search = document.getElementById("Search")
@@ -17,6 +18,7 @@ var profile_like = document.getElementById('profile_like')
 
 var title = document.getElementById("titolo")
 var search_box = document.getElementById("search_box")
+var inputElement = document.getElementById('searchbar')
 var next_post = document.getElementById("Next")
 var back_post = document.getElementById("Back")
 
@@ -31,6 +33,8 @@ var div_post = document.getElementById("div_post")
 var PostModal = document.getElementById("PostModal")
 var Scrollbar = document.getElementById("scrollbar")
 var header = document.getElementById("header")
+
+var scelta = 1
 
 Scrollbar.style.height = window.innerHeight - 1 + 'px'
 Scrollbar.style.minHeight = window.innerHeight - 1 + 'px'
@@ -51,6 +55,7 @@ Home.onclick = () => {
     post.style.display="none"
     message.style.display="none"
     profile.style.display="none"
+    profile_users.style.display="none"
 }
 
 Search.onclick = () => {
@@ -94,7 +99,7 @@ Search.onclick = () => {
 
         search_box.style.display="none"
 
-        Radio1.checked=false
+        Radio1.checked=true
         Radio2.checked=false
         Radio3.checked=false
         r1.style.display="none"
@@ -112,6 +117,7 @@ Message.onclick = () => {
     content.style.display="none"
     message.style.display="block"
     profile.style.display="none"
+    profile_users.style.display="none"
 }
 
 Cart.onclick = () => {
@@ -119,6 +125,7 @@ Cart.onclick = () => {
     if(sea)document.getElementById("Search").click();
     post.style.display="none"
     profile.style.display="none"
+    profile_users.style.display="none"
 }
 
 Post.onclick = () => {
@@ -134,6 +141,7 @@ Profile.onclick = () => {
     header.style.display="none"
     profile.style.display="block"
     content.style.display="none"
+    profile_users.style.display="none"
 }
 document.getElementById('a_profile').addEventListener('click', function () {
     Profile.click()
@@ -190,16 +198,19 @@ function Move(){
     }*/
 }
 Radio1.onclick = () => {
+    scelta=1
     r1.style.display="block";
     r2.style.display="none";
     r3.style.display="none";
 }
 Radio2.onclick = () => {
+    scelta=2
     r2.style.display="block";
     r1.style.display="none";
     r3.style.display="none";
 }
 Radio3.onclick = () => {
+    scelta=3
     r3.style.display="block";
     r1.style.display="none";
     r2.style.display="none";
@@ -263,7 +274,41 @@ next_post.onclick = () => {
     next_post.style.display="none";
         move_div();
 }
-
+inputElement.addEventListener('input', function() {
+    var search_result = document.getElementById("search_result"); 
+    console.log("input");
+    $.ajax({
+      url: "ajax/DynamicSearch.php",
+      type: "POST",
+      dataType: "json",
+      data: {
+        search: inputElement.value,
+        scelta: scelta,
+      },
+      success: function(data){
+        search_result.innerHTML = ""
+        console.log(data);
+        var jsonData = data
+        console.log(jsonData)
+        console.log(jsonData[1])
+        for (let i = 0; i < data.length; i++) {
+            if(scelta == 1){
+                var usern_search = jsonData[i]
+            }
+            else if(scelta == 2 || scelta == 3){
+                var usern_search = jsonData[i]['username']
+                var model_search = jsonData[i]['marca']
+                var id_search = jsonData[i]['id']
+            }
+            search_result.innerHTML += "<button style='background-color:transparent;margin-top:10px;border:none'>" + usern_search + "</button><br>"
+        }
+      },
+      error: function (data) {
+        console.log(data)
+      }
+    })
+  }
+);
 
 function move_div(){
     if(!next){

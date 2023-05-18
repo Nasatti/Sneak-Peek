@@ -15,7 +15,8 @@ Storie-algoritmo search         IMP
 carrello
 Pagina login = home             IMP
 like                            IMP  FATTO
-carousel per i post del profilo
+psw                             IMP FATTO
+carousel per i post del profilo IMP FATTO
 chat
 -->
 
@@ -130,7 +131,7 @@ chat
                             <tr>
                                 <td>
                                     <div class="search">
-                                        <input type="text" placeholder="Search..." name="q" autocomplete='off'>
+                                        <input id="searchbar" type="text" placeholder="Search..." name="q" autocomplete='off'>
                                         <button type="submit"><i class="bi bi-search"></i></button>
                                     </div>
                                     <br><br>
@@ -186,7 +187,11 @@ chat
                             </div>
                         </div>
                     </form>
+                    <div id="search_result" style="position:absolute;background-color:white;top:250px;left:50px;border-radius: 10px;">
+                        
+                    </div>
                 </div>
+                
             </div>
             
         </div>
@@ -235,6 +240,26 @@ chat
                             <div id="table"></div>
                         </div>
                     </div>
+
+                    <div id="profile_users" style="display:none">  
+                        <div id="info_profiles" class="info_profile">
+                            <div class="info_2"><img id="profile_img" src="img/dunk.webp"></div>
+                            <div class="info_3">
+                                <p id="profile_name" style="font-size:35px"></p><br>
+                                <p id="profile_npost"></p><span>Follower: 1</span><span>Follower: 1</span>
+                            </div>
+                            <div class="info_4"></div>
+                        </div>
+                        <div class="profile_page">
+                            <hr class='border border-danger border-2 opacity-75'>
+                            <div class="profile_view">
+                                <button id="profile_viewpost" style="text-decoration: underline red;"><i class="bi bi-stickies"></i>POST</button>
+                                <button id="profile_like"><i class="bi bi-heart"></i>LIKE</button>
+                            </div>
+                            <div id="table"></div>
+                        </div>
+                    </div>
+
                     <div id="header" class="header">
                         <div id="storie" class="storie header_center">
                             <input type = "image" height='60px' width='60px' src="img/af1.webp">
@@ -292,7 +317,7 @@ chat
                                         var descr = document.createElement("p")
                                         var mod = document.createElement("p")
                                         var data_post = document.createElement('p')
-                                        var a = document.createElement("a")
+                                        var a = document.createElement("button")
                                         var button_heart = document.createElement("button")
                                         var button_prefer = document.createElement("button")
                                         var button_chat = document.createElement("button")
@@ -319,7 +344,7 @@ chat
                                         descr.id = "descr" + i
                                         mod.id = 'mod' + i
                                         a.className = "us_post"
-                                        a.className = 'info_left'
+                                        a.className += ' info_left'
                                         mod.className = 'info_center'
                                         data_post.className = 'info_right'
                                         div_action.className = "action"
@@ -330,7 +355,7 @@ chat
                                         //button_chat.setAttribute('data-bs-target', '#ChatModal');
                                         div.id = "post_user" + id
                                         div_action.id = "action" + i
-                                        a.id="a" + i
+                                        a.id="Profile_users" + id
 
                                         img.src = jsonData[i]['foto']
                                         button_heart.innerHTML = "<i class='bi bi-heart r'></i>"
@@ -348,11 +373,12 @@ chat
                                             },
                                             success: function (response) {
                                                 // console.log(response)
-                                                var a1 = document.getElementById("a"+i)
+                                                var a1 = document.getElementById("Profile_users"+id)
+                                                console.log(a1.innerHTML)
                                                 text = response.split("/")
                                                 us = text[2]
                                                 a1.innerHTML="<img class='prof_img' src="+response+" height='50px' width='50px'><span>" + us + '</span>'
-                                                a1.href = "./users/" + us
+                                                console.log(a1.innerHTML)
                                             }
                                         });
 
@@ -457,7 +483,28 @@ chat
                                                 message.style.display="block"
                                             });
                                         });
+                                        $(document).ready(function(){
+                                            $('#Profile_users' + id).click(function(){
+                                                post.style.display="none"
+                                                message.style.display="none"
+                                                header.style.display="none"
+                                                profile.style.display="none"
+                                                content.style.display="none"
+                                                profile_users.style.display="block"
 
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: "./ajax/profile.php",
+                                                    data: {
+                                                        "username": username_profile
+                                                    },
+                                                    success: function (response) {
+                                                        document.getElementById('profile_name').innerHTML = username
+                                                        document.getElementById('profile_img').src = response
+                                                    }
+                                                });
+                                            });
+                                        });
                                     }
                                 },
                                 error: function (response) {
@@ -644,9 +691,6 @@ chat
                             </div>
                         </div>
                     </div>
-                </div>
-                <div id="logout" class="home" style="display:none">
-                    <p>ao</p>
                 </div>
                 </div>
             </div>

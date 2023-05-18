@@ -349,6 +349,8 @@ i{
     text-align: center; 
     color: var(--font-light);
     display: flex;
+    background-color: transparent;
+    border: 0px;
 }
 .image_post{
     z-index:1;
