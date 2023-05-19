@@ -17,7 +17,7 @@
   --dark: #1C2833;
   --dark-menu: #17202A;
   --font-light: white;
-  --font-dark: white;
+  --font-dark: rgb(0, 0, 0);
 }
 
 #body{
@@ -347,7 +347,7 @@ i{
 }
 .us_post{
     text-align: center; 
-    color: var(--font-light);
+    color: var(--font-dark);
     display: flex;
     background-color: transparent;
     border: 0px;
@@ -960,8 +960,7 @@ i{
   grid-column: 1; /* Posiziona l'oggetto nella prima colonna */
   grid-row: 1;
 }
-.info_left span{
-  text-decoration: none;
+.info_left button{
   color: black;
   margin-left:10px;
 }

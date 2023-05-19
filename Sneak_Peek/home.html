@@ -8,15 +8,16 @@ prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
 
 GOALS:
 codizione da 1 a 5 stelle 
-MVC                             IMP
-Google Login                    IMP
-Search                          IMP
+MVC                             
+Google Login                    
+Search                          IMP FATTO
 Storie-algoritmo search         IMP
 carrello
 Pagina login = home             IMP
-like                            IMP  FATTO
+like                            IMP FATTO
 psw                             IMP FATTO
 carousel per i post del profilo IMP FATTO
+Profilo altri utenti            IMP FATTO
 chat
 -->
 
@@ -140,7 +141,7 @@ chat
                             <tr>
                                 <div class="radio">
                                     <td><label><input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                id="Radio1"> Users</label></td>
+                                                id="Radio1" checked="checked"> Users</label></td>
                                     <td><label><input class="form-check-input" type="radio" name="flexRadioDefault"
                                                 id="Radio2"> Shoes</label></td>
                                     <td><label><input class="form-check-input" type="radio" name="flexRadioDefault"
@@ -243,19 +244,37 @@ chat
 
                     <div id="profile_users" style="display:none">  
                         <div id="info_profiles" class="info_profile">
-                            <div class="info_2"><img id="profile_img" src="img/dunk.webp"></div>
+                            <div class="info_2"><img id="profile_img_users" src="img/dunk.webp"></div>
                             <div class="info_3">
-                                <p id="profile_name" style="font-size:35px"></p><br>
-                                <p id="profile_npost"></p><span>Follower: 1</span><span>Follower: 1</span>
+                                <p id="profile_name_users" style="font-size:35px"></p><br>
+                                <button id="segui_btn" style="height:30px;border-radius:100px;color:white;width:100px;background-color: rgb(211, 0, 0);margin-left:25px">Segui</button>
+                                <button id="scrivi_btn" style="height:30px;border-radius:100px;color:white;width:100px;background-color: rgb(211, 0, 0);margin-left:25px">Contatta</button>
                             </div>
+                            <script>
+                                document.getElementById('segui_btn').onclick = () => {
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "ajax/follow.php",
+                                        data: {
+                                            us : username_profile
+                                        },
+                                        dataType: "json",
+                                        success: function (response) {
+                                            
+                                        }
+                                    });
+                                }
+                                document.getElementById('scrivi_btn').onclick = () => {
+                                    console.log('a')
+
+                                    contents.style.display="none"
+                                    message.style.display="block"
+                                }
+                            </script>
                             <div class="info_4"></div>
                         </div>
                         <div class="profile_page">
                             <hr class='border border-danger border-2 opacity-75'>
-                            <div class="profile_view">
-                                <button id="profile_viewpost" style="text-decoration: underline red;"><i class="bi bi-stickies"></i>POST</button>
-                                <button id="profile_like"><i class="bi bi-heart"></i>LIKE</button>
-                            </div>
                             <div id="table"></div>
                         </div>
                     </div>
@@ -355,7 +374,9 @@ chat
                                         //button_chat.setAttribute('data-bs-target', '#ChatModal');
                                         div.id = "post_user" + id
                                         div_action.id = "action" + i
-                                        a.id="Profile_users" + id
+                                        a.id="Profile_users" + i
+                                        a.value=usern
+                                        a.textContent = usern
 
                                         img.src = jsonData[i]['foto']
                                         button_heart.innerHTML = "<i class='bi bi-heart r'></i>"
@@ -364,23 +385,6 @@ chat
                                         descr.innerHTML = '<a href="users/"' + usern + '><b>' + usern + ': </b></a><span>' + descrizione + '<b>' + hashtag + '</b></span>'
                                         mod.innerHTML = '<b>' + modello + '</b>'
                                         data_post.innerHTML = data
-
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "./ajax/profile.php",
-                                            data: {
-                                                "username": usern
-                                            },
-                                            success: function (response) {
-                                                // console.log(response)
-                                                var a1 = document.getElementById("Profile_users"+id)
-                                                console.log(a1.innerHTML)
-                                                text = response.split("/")
-                                                us = text[2]
-                                                a1.innerHTML="<img class='prof_img' src="+response+" height='50px' width='50px'><span>" + us + '</span>'
-                                                console.log(a1.innerHTML)
-                                            }
-                                        });
 
                                         document.getElementById("post_user" + id).innerHTML += "<i class='fa-solid fa-heart heart'></i>"
                                         document.getElementById("contents").innerHTML += "<hr class='border border-danger border-2 opacity-75'>"
@@ -483,26 +487,33 @@ chat
                                                 message.style.display="block"
                                             });
                                         });
+                                        console.log(usern)
                                         $(document).ready(function(){
-                                            $('#Profile_users' + id).click(function(){
-                                                post.style.display="none"
-                                                message.style.display="none"
-                                                header.style.display="none"
-                                                profile.style.display="none"
-                                                content.style.display="none"
-                                                profile_users.style.display="block"
-
-                                                $.ajax({
-                                                    type: "POST",
-                                                    url: "./ajax/profile.php",
-                                                    data: {
-                                                        "username": username_profile
-                                                    },
-                                                    success: function (response) {
-                                                        document.getElementById('profile_name').innerHTML = username
-                                                        document.getElementById('profile_img').src = response
-                                                    }
-                                                });
+                                            $('#Profile_users' + i).click(function(){
+                                                username_profile = this.value
+                                                if(username != username_profile){
+                                                    post.style.display="none"
+                                                    message.style.display="none"
+                                                    header.style.display="none"
+                                                    profile.style.display="none"
+                                                    content.style.display="none"
+                                                    profile_users.style.display="block"
+                                                    
+                                                    $.ajax({
+                                                        type: "POST",
+                                                        url: "./ajax/profile.php",
+                                                        data: {
+                                                            "username": username_profile
+                                                        },
+                                                        success: function (response) {
+                                                            document.getElementById('profile_name_users').innerHTML = username_profile
+                                                            document.getElementById('profile_img_users').src = response
+                                                        }
+                                                    });
+                                                }
+                                                else{
+                                                    document.getElementById("Profile").click()
+                                                }
                                             });
                                         });
                                     }
