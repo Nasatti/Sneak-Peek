@@ -3,6 +3,7 @@ include("../php/connection.php");
 include("../php/class_search.php");
 $array = array();
 $scelta = $_POST['scelta'];
+
 if($scelta==1){
 $sql = 'SELECT * FROM credenziali WHERE username LIKE "%'.$_POST['search'].'%" OR nome LIKE "%'.$_POST['search'].'%" OR cognome LIKE "%'.$_POST['search'].'%"';
 }

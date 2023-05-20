@@ -155,9 +155,15 @@
                                                 "data" : data,
                                             },
                                             success: function (response) {
+                                                if(response != 'error'){
                                                 console.log(response)
                                                 document.getElementById("sign_up").style.display="none"
                                                 document.getElementById("log_in").style.display="block"
+                                                }
+                                                else{
+                                                    document.getElementById("errore2").hidden=false;
+                                                    document.getElementById("button_login").click();
+                                                }
                                             },
                                             error: (response) => {
                                                 console.log(response)
@@ -173,6 +179,9 @@
             </div>
             <div class="alert alert-danger errore" role="alert" id="errore1" hidden>
                 <i class="bi bi-exclamation-triangle-fill"></i> Login incoretto!
+            </div>
+            <div class="alert alert-danger errore" role="alert" id="errore2" hidden>
+                <i class="bi bi-exclamation-triangle-fill"></i> Signup incoretto!
             </div>
             <div class="alert alert-danger errore" role="alert" hidden>
                 <i class="bi bi-exclamation-triangle-fill"></i> Effettuare il login!

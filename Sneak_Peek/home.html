@@ -11,13 +11,20 @@ codizione da 1 a 5 stelle
 MVC                             
 Google Login                    
 Search                          IMP FATTO
-Storie-algoritmo search         IMP
-carrello
+Search solo 5 persone e non uguale
+Follower                        IMP FATTO
+Storie-algoritmo search         IMP !
+carrello                        IMP FATTO
 Pagina login = home             IMP
 like                            IMP FATTO
 psw                             IMP FATTO
 carousel per i post del profilo IMP FATTO
 Profilo altri utenti            IMP FATTO
+Modifica                        IMP FATTO
+SEARCH CON IMMAGINI             IMP !
+COMPRA -> EMAIL                 IMP !
+BOTTONE SEGNALA                 IMP !
+email
 chat
 -->
 
@@ -150,45 +157,9 @@ chat
                             </tr>
                         </table>
                         <hr class="border border border-light opacity-100">
-                        <div id="r1" class="search_cond">
-                            <br>
-                            <label>Selling User </label>
-                            <input type="checkbox" class="form-check-input me-1" style="width:20px;height:20px;">
-                        </div>
-                        <div id="r2" class="search_cond">
-                            <br>
-                            <label>Number</label><br>
-                            <div class="range">
-                                <div class="sliderValue">
-                                    <span id="span1">
-                                        <p>41</p>
-                                    </span>
-                                </div>
-                                <div class="field">
-                                    <div class="value left">36</div>
-                                    <input id="ra1" type="range" min="36" max="47" value="100" step="0.5">
-                                    <div class="value right">47</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="r3" class="search_cond">
-                            <br>
-                            <label>Number</label><br>
-                            <div class="range">
-                                <div class="sliderValue">
-                                    <span id="span2">
-                                        <p>41</p>
-                                    </span>
-                                </div>
-                                <div class="field">
-                                    <div class="value left">36</div>
-                                    <input id="ra2" type="range" min="36" max="47" value="100" step="0.5">
-                                    <div class="value right">47</div>
-                                </div>
-                            </div>
-                        </div>
+
                     </form>
-                    <div id="search_result" style="position:absolute;background-color:white;top:250px;left:50px;border-radius: 10px;">
+                    <div id="search_result" style="position:absolute;background-color:white;top:200px;left:50px;border-radius: 10px;">
                         
                     </div>
                 </div>
@@ -207,7 +178,7 @@ chat
                             <div class="info_2"><img id="profile_img" src="img/dunk.webp"></div>
                             <div class="info_3">
                                 <p id="profile_name" style="font-size:35px"></p><button style="font-size:25px" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-gear"></i></button><br>
-                                <p id="profile_npost"></p><span>Follower: 1</span><span>Follower: 1</span>
+                                <p id="profile_npost"></p><span id="profile_follower">Follower: </span><span id="profile_followed">Followed: </span>
                             </div>
                             <div class="info_4"><button class="view_right" onclick="logout()"><script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
                                 <lord-icon
@@ -248,21 +219,40 @@ chat
                             <div class="info_3">
                                 <p id="profile_name_users" style="font-size:35px"></p><br>
                                 <button id="segui_btn" style="height:30px;border-radius:100px;color:white;width:100px;background-color: rgb(211, 0, 0);margin-left:25px">Segui</button>
-                                <button id="scrivi_btn" style="height:30px;border-radius:100px;color:white;width:100px;background-color: rgb(211, 0, 0);margin-left:25px">Contatta</button>
+                                <button id="scrivi_btn" style="height:30px;border-radius:100px;color:white;width:100px;background-color: rgb(211, 0, 0);margin-left:25px;margin-top:15px;">Contatta</button>
                             </div>
                             <script>
                                 document.getElementById('segui_btn').onclick = () => {
-                                    $.ajax({
-                                        type: "POST",
-                                        url: "ajax/follow.php",
-                                        data: {
-                                            us : username_profile
-                                        },
-                                        dataType: "json",
-                                        success: function (response) {
-                                            
-                                        }
-                                    });
+                                    if(document.getElementById('segui_btn').textContent=="Segui"){
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "ajax/follow.php",
+                                            data: {
+                                                followed : username_profile,
+                                                follower : username
+                                            },
+                                            dataType: "json",
+                                            success: function (response) {
+                                                console.log(response)
+                                            },
+                                        });
+                                        document.getElementById('segui_btn').textContent="Segui già"
+                                    }
+                                    else{
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "ajax/unfollow.php",
+                                            data: {
+                                                followed : username_profile,
+                                                follower : username
+                                            },
+                                            dataType: "json",
+                                            success: function (response) {
+                                                console.log(response)
+                                            },
+                                        });
+                                        document.getElementById('segui_btn').textContent="Segui"
+                                    }
                                 }
                                 document.getElementById('scrivi_btn').onclick = () => {
                                     console.log('a')
@@ -275,7 +265,7 @@ chat
                         </div>
                         <div class="profile_page">
                             <hr class='border border-danger border-2 opacity-75'>
-                            <div id="table"></div>
+                            <div id="table_user"></div>
                         </div>
                     </div>
 
@@ -308,276 +298,11 @@ chat
                     </div>
                     <hr class='border border-danger border-2 opacity-75'>
                     <div id="contents">
-                        <script>
-                            $.ajax({
-                                type: "POST",
-                                url: "./ajax/watch.php",
-                                dataType: "json",
-                                //processData: false,
-                                success: function (response) {
-                                    var jsonData = response
-                                    for (let i = 0; i < response.length; i++) {
-                                        var id = jsonData[i]['id']
-                                        var usern = jsonData[i]['username']
-                                        var img = jsonData[i]['foto']
-                                        var like = jsonData[i]['piace']
-                                        var prefer = jsonData[i]['prefer']
-                                        var modello = jsonData[i]['marca']
-                                        var data = jsonData[i]['data']
-                                        var descrizione = jsonData[i]['descrizione']
-                                        var hashtag = jsonData[i]['hashtag']
-                                        var vendita = jsonData[i]['vendita']
-
-                                        var img = document.createElement("img")
-                                        var div = document.createElement("div")
-                                        var div_action = document.createElement("div")
-                                        var div_info = document.createElement("div")
-                                        var div_descr = document.createElement("div")
-                                        var descr = document.createElement("p")
-                                        var mod = document.createElement("p")
-                                        var data_post = document.createElement('p')
-                                        var a = document.createElement("button")
-                                        var button_heart = document.createElement("button")
-                                        var button_prefer = document.createElement("button")
-                                        var button_chat = document.createElement("button")
-
-                                        div_action.appendChild(button_heart)
-                                        div_action.appendChild(button_prefer)
-                                        div_action.appendChild(button_chat)
-                                        div_info.appendChild(a)
-                                        div_info.appendChild(mod)
-                                        div_info.appendChild(data_post)
-                                        div_descr.appendChild(descr)
-                                        div.appendChild(div_info)
-                                        div.appendChild(img)
-                                        div.appendChild(div_action)
-                                        div.appendChild(div_descr)
-                                        
-                                        document.getElementById("contents").appendChild(div)
-
-                                        div.className = "image_post"
-                                        div_info.className = 'div_info'
-                                        div_descr.className = 'div_descr'
-                                        img.className = "img_post"
-                                        img.id="img" + i
-                                        descr.id = "descr" + i
-                                        mod.id = 'mod' + i
-                                        a.className = "us_post"
-                                        a.className += ' info_left'
-                                        mod.className = 'info_center'
-                                        data_post.className = 'info_right'
-                                        div_action.className = "action"
-                                        button_heart.id = "like" + i
-                                        button_prefer.id = "prefer" + i
-                                        button_chat.id = "chat" + i
-                                        //button_chat.setAttribute('data-bs-toggle', 'modal');
-                                        //button_chat.setAttribute('data-bs-target', '#ChatModal');
-                                        div.id = "post_user" + id
-                                        div_action.id = "action" + i
-                                        a.id="Profile_users" + i
-                                        a.value=usern
-                                        a.textContent = usern
-
-                                        img.src = jsonData[i]['foto']
-                                        button_heart.innerHTML = "<i class='bi bi-heart r'></i>"
-                                        button_prefer.innerHTML = "<i class='bi bi-star g'></i>"
-                                        button_chat.innerHTML = '<i class="bi bi-chat b"></i>'
-                                        descr.innerHTML = '<a href="users/"' + usern + '><b>' + usern + ': </b></a><span>' + descrizione + '<b>' + hashtag + '</b></span>'
-                                        mod.innerHTML = '<b>' + modello + '</b>'
-                                        data_post.innerHTML = data
-
-                                        document.getElementById("post_user" + id).innerHTML += "<i class='fa-solid fa-heart heart'></i>"
-                                        document.getElementById("contents").innerHTML += "<hr class='border border-danger border-2 opacity-75'>"
-                                        $(document).ready(function(){
-                                            $('#img' + i).dblclick(function(e){
-                                                
-                                                // Calculate the x and y position of the double-click event
-                                                const centerX = e.target.offsetLeft + e.target.width / 2
-                                                const centerY = (e.target.offsetTop + e.target.height / 2)
-                                                heart = document.querySelector(".heart")
-                                                id_post = this.parentNode.id
-                                                document.getElementById(id_post).appendChild(heart)
-                                                // Set the position of the heart element using the x and y values
-                                                heart.style.left = `${centerX}px`
-                                                heart.style.top = `${centerY}px`
-                                                               
-                                                // Add the active class to the heart element to animate it
-                                                heart.classList.add("active")
-                                                document.getElementById("like" + i).click()
-                                                // Remove the active class after 1 second
-                                                setTimeout(() => {
-                                                  heart.classList.remove("active");
-                                                }, 1000);
-                                            });
-                                        });
-                                        $(document).ready(function(){
-                                            $('#like' + i).click(function(){
-                                                var inc = true
-                                                n = this.id.split("like")[1]
-                                                temp_div = document.getElementById('action' + n)
-                                                id = temp_div.parentNode.id.split("post_user")[1]
-                                                if(document.getElementById("like" + i).innerHTML == '<i class="bi bi-heart-fill r"></i>'){
-                                                    document.getElementById("like" + i).innerHTML = '<i class="bi bi-heart r"></i>';
-                                                    document.getElementById("like" + i).style.color = "black";
-                                                    inc = false
-                                            }
-                                                else{
-                                                    document.getElementById("like" + i).innerHTML = '<i class="bi bi-heart-fill r"></i>';
-                                                    document.getElementById("like" + i).style.color = "red";
-                                                    inc = true
-                                                }
-                                                $.ajax({
-                                                    type: "Post",
-                                                    url: "./ajax/action.php",
-                                                    data: {
-                                                        "action": "like",
-                                                        "id": id,
-                                                        "inc": inc,
-                                                        "username": username
-                                                    },
-                                                    dataType: "json",
-                                                    success: function (response) {
-                                                        console.log(response)
-                                                    },
-                                                    error: function(response){
-                                                        console.log(response)
-                                                    } 
-                                                });
-                                                
-                                            });
-                                        });
-                                        $(document).ready(function(){
-                                            $('#prefer' + i).click(function(){
-                                                var inc = true
-                                                n = this.id.split("prefer")[1]
-                                                temp_div = document.getElementById('action' + n)
-                                                id = temp_div.parentNode.id.split("post_user")[1]
-                                                if(document.getElementById("prefer" + i).innerHTML == '<i class="bi bi-star-fill g"></i>'){
-                                                    document.getElementById("prefer" + i).innerHTML = '<i class="bi bi-star g"></i>';
-                                                    document.getElementById("prefer" + i).style.color = "black";
-                                                    inc = false
-                                                }
-                                                else{
-                                                    document.getElementById("prefer" + i).innerHTML = '<i class="bi bi-star-fill g"></i>';
-                                                    document.getElementById("prefer" + i).style.color = "#CCB48B";
-                                                    inc = true;
-                                                }
-                                                $.ajax({
-                                                    type: "Post",
-                                                    url: "./ajax/action.php",
-                                                    data: {
-                                                        "action": "prefer",
-                                                        "id": id,
-                                                        "inc": inc,
-                                                        "username": username,
-                                                    },
-                                                    dataType: "json",
-                                                    success: function (response) {
-                                                        console.log(response)
-                                                    },
-                                                    error: function(response){
-                                                        console.log(response)
-                                                    } 
-                                                });
-                                            });
-                                        });
-                                        $(document).ready(function(){
-                                            $('#chat' + i).click(function(){
-                                                contents.style.display="none"
-                                                message.style.display="block"
-                                            });
-                                        });
-                                        console.log(usern)
-                                        $(document).ready(function(){
-                                            $('#Profile_users' + i).click(function(){
-                                                username_profile = this.value
-                                                if(username != username_profile){
-                                                    post.style.display="none"
-                                                    message.style.display="none"
-                                                    header.style.display="none"
-                                                    profile.style.display="none"
-                                                    content.style.display="none"
-                                                    profile_users.style.display="block"
-                                                    
-                                                    $.ajax({
-                                                        type: "POST",
-                                                        url: "./ajax/profile.php",
-                                                        data: {
-                                                            "username": username_profile
-                                                        },
-                                                        success: function (response) {
-                                                            document.getElementById('profile_name_users').innerHTML = username_profile
-                                                            document.getElementById('profile_img_users').src = response
-                                                        }
-                                                    });
-                                                }
-                                                else{
-                                                    document.getElementById("Profile").click()
-                                                }
-                                            });
-                                        });
-                                    }
-                                },
-                                error: function (response) {
-                                    console.log(response)
-                                    console.log("error")
-                                }
-                            });
-                        </script>
                     </div>
                     <div id="message" class="home" style="display:none">
-                        <script>
-                            $.ajax({
-                                type: "POST",
-                                url: "./ajax/view_chat.php",
-                                data: {
-                                    "username": username,
-                                },
-                                dataType: "json",
-                                success: function (response) {
-                                    var jsonData = response
-                                    for (let i = 0; i < response.length; i++) {
-                                        var id = jsonData[i]['id']
-                                        var us_mit = jsonData[i]['us_mit']
-                                        var us_dest = jsonData[i]['us_dest']
-                                        var msg = jsonData[i]['msg']
-                                        var data = jsonData[i]['data']
-    
-                                        var div = document.createElement("div")
-                                        var img = document.createElement('img')
-                                        var b_us = document.createElement('button')
-                                        
-                                        div.className = "chat"
-                                        div.id = "chat" + id
-                                        b_us.id = "b_us" + i
-                                        b_us.setAttribute("data-bs-toggle", "modal");
-                                        b_us.setAttribute("data-bs-target", "#chatModal");
-                                        document.getElementById("message").appendChild(div)
-                                        div.appendChild(b_us)
-                                        $.ajax({
-                                                type: "POST",
-                                                url: "./ajax/profile.php",
-                                                data: {
-                                                    "username": us_dest
-                                                },
-                                                success: function (response) {
-                                                    // console.log(response)
-                                                    var a1 = document.getElementById("b_us"+i)
-                                                    text = response.split("/")
-                                                    us = text[2]
-                                                    a1.innerHTML="<img class='prof_img' src="+response+" height='50px' width='50px'>" + "<b>" + us + "</b><span>" + msg+"</span>"
-                                                    a1.href = "./users/" + us
-                                                }
-                                            });
-                                        
-                                    }
-                                },
-                                error: function (response) {
-                                    console.log(response);
-                                }
-                            });
-                        </script>
-                        
+                    </div>
+                    <div id="cart" class="home" style="display:none">
+                        <div id="table_cart"></div>
                     </div>
                 </div>
                 <div id="post">
@@ -615,6 +340,7 @@ chat
                                                     upload_submit.click();
                                                     document.getElementById("div_upload").style.display = "none";
                                                     document.getElementById("div_post").style.display = "flex";
+                                                    document.getElementById("div_post").style.height = "515px"
                                                 }
 
                                                 $(document).ready(function (e) {
@@ -687,6 +413,7 @@ chat
                                                             processData: false,
                                                             success: function (data) {
                                                                 console.log(data);
+                                                                location.href = ""
                                                             },
                                                             error: function (data) {
                                                                 console.log("error");
@@ -789,14 +516,13 @@ chat
                 <div class="modal-body modal_grid">
                     <div class="modal_grid_left">
                         <h4>I tuoi dati:</h4>
-                        <form>
+                        <form action="">
                           <label>Nome: </label><input style="background-color: transparent; border: none;" name="d_name" id="d_name" enable="false" disabled><br>
                           <label>Cognome: </label><input style="background-color: transparent; border: none;" name="d_surname" id="d_surname" enable="false" disabled><br>
                           <label>Email: </label><input style="background-color: transparent; border: none;" name="d_email" id="d_email" enable="false" disabled><br>
                           <label>Data: </label><input style="background-color: transparent; border: none;" name="d_email" type="date" id="d_data" enable="false" disabled><br>
-                          <label>Username: </label><input style="background-color: transparent; border: none;" name="d_username" id="d_username" enable="false" disabled><br>
                           <button type="button" style="border: none" id="show_Modifica" onclick="show()"><i class="bi bi-pencil-square"></i></button>
-                          <input type="submit"  id="Modifica" value="Modifica" style="display: none; border: none">
+                          <button type="button"  id="Modifica" style="display: none; border: none">Modifica</button>
                         </form>
                         <script>
                           $(document).ready(function(){
@@ -816,6 +542,34 @@ chat
 
                               $("#Modifica").removeAttr("style");
                           }
+                          $(document).ready(function(){
+                            $('#Modifica').click(function(){
+                                nomem = document.getElementById('d_name').value
+                                cognomem = document.getElementById('d_surname').value
+                                emailm = document.getElementById('d_email').value
+                                datam = document.getElementById('d_data').value
+
+                                $.ajax({
+                                    type: "Post",
+                                    url: "ajax/modify.php",
+                                    data: {
+                                        nome: nomem,
+                                        cognome: cognomem,
+                                        email: emailm,
+                                        data: datam,
+                                        username: username
+                                    },
+                                    dataType: "json",
+                                    success: function (response) {
+                                        console.log('update')
+                                    },
+                                    error: function (response) {
+                                        console.log(response)
+                                    }
+                                });
+                            });
+                        });
+
                         </script>
                     </div>
                     <div class="modal_grid_right">
@@ -897,66 +651,82 @@ chat
             </div>
           </div>
           <script>
-            $.ajax({
-                type: "POST",
-                url: "./ajax/profile_post.php",
-                data: {
-                    "username": username,
-                    "view": "post",
-                },
-                dataType: "json",
-                success: function (response) {
-                    var foto_profilo = response
-                    var prof_view = document.getElementById('table')
-                    prof_view.innerHTML = ""
-                    var table = document.createElement("table")
-                    document.getElementById('profile_npost').innerHTML = "Post: " + response.length
-                    for (let i = 0; i < foto_profilo.length; i++) {
-                        if(i==0 || i%3==0)var tr = document.createElement("tr")
-                        var td = document.createElement("td")
-                        var button = document.createElement("button")
-                        button.setAttribute("data-bs-toggle", "modal");
-                        button.setAttribute("data-bs-target", "#Profile_post_Modal");
-                        var img = document.createElement("img")
-                        img.src = foto_profilo[i]['foto']
-                        button.appendChild(img)
-                        button.id="pro_b" + i
-                        td.appendChild(button)
-                        tr.appendChild(td)
-                        table.appendChild(tr)
-                        table.classList.add("post_profile")
-                        prof_view.appendChild(table)
-                        $(document).ready(function(){
-                            $('#pro_b' + i).click(function(){
-                                var foto_view = foto_profilo[i]['foto']
-                                var descrizione_view = foto_profilo[i]['descrizione']
-                                var data_view = foto_profilo[i]['data']
-                                var like_view = foto_profilo[i]['piace']
-                                var prefer_view = foto_profilo[i]['prefer']
-                                var modello_view = foto_profilo[i]['marca']
-                                var hashtag_view = foto_profilo[i]['hashtag']
-                                var vendita_view = foto_profilo[i]['vendita']
-                                console.log(modello_view)
+                $.ajax({
+                    type: "POST",
+                    url: "./ajax/profile_post.php",
+                    data: {
+                        "username": username,
+                        "view": "post",
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        var foto_profilo = response
+                        var prof_view = document.getElementById('table')
+                        prof_view.innerHTML = ""
+                        var table = document.createElement("table")
+                        document.getElementById('profile_npost').innerHTML = "Post: " + response.length
+                        for (let i = 0; i < foto_profilo.length; i++) {
+                            if(i==0 || i%3==0)var tr = document.createElement("tr")
+                            var td = document.createElement("td")
+                            var button = document.createElement("button")
+                            button.setAttribute("data-bs-toggle", "modal");
+                            button.setAttribute("data-bs-target", "#Profile_post_Modal");
+                            var img = document.createElement("img")
+                            img.src = foto_profilo[i]['foto']
+                            button.appendChild(img)
+                            button.id="pro_b" + i
+                            td.appendChild(button)
+                            tr.appendChild(td)
+                            table.appendChild(tr)
+                            table.classList.add("post_profile")
+                            prof_view.appendChild(table)
+                            $(document).ready(function(){
+                                $('#pro_b' + i).click(function(){
+                                    var foto_view = foto_profilo[i]['foto']
+                                    var descrizione_view = foto_profilo[i]['descrizione']
+                                    var data_view = foto_profilo[i]['data']
+                                    var like_view = foto_profilo[i]['piace']
+                                    var prefer_view = foto_profilo[i]['prefer']
+                                    var modello_view = foto_profilo[i]['marca']
+                                    var hashtag_view = foto_profilo[i]['hashtag']
+                                    var vendita_view = foto_profilo[i]['vendita']
+                                    console.log(modello_view)
 
-                                var view_header = document.getElementById("view_header");
-                                var view_body = document.getElementById("view_body");
-                                var view_descr = document.getElementById("view_descr");
-                                var view_like_prefer = document.getElementById("view_like_prefer");
-                                var view_data = document.getElementById("view_data");
+                                    var view_header = document.getElementById("view_header");
+                                    var view_body = document.getElementById("view_body");
+                                    var view_descr = document.getElementById("view_descr");
+                                    var view_like_prefer = document.getElementById("view_like_prefer");
+                                    var view_data = document.getElementById("view_data");
 
-                                view_header.innerHTML = modello_view
-                                view_data.innerHTML = data_view
-                                view_body.innerHTML = "<img src='" + foto_view + "' height='400px' width='400px' style='object-fit: cover;'>"
-                                view_like_prefer.innerHTML = "<p>" + descrizione_view + "<b>" + hashtag_view + "</b>" + "</p>"
-                                view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p><p>" + vendita_view + "</p>"
+                                    view_header.innerHTML = modello_view
+                                    view_data.innerHTML = data_view
+                                    view_body.innerHTML = "<img src='" + foto_view + "' height='400px' width='400px' style='object-fit: cover;'>"
+                                    view_like_prefer.innerHTML = "<p>" + descrizione_view + "<b>" + hashtag_view + "</b>" + "</p>"
+                                    view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p><p>" + vendita_view + "</p>"
+                                });
                             });
-                        });
+                        }
+                    },
+                    error: function (response) {
+                        console.log(response)
                     }
-                },
-                error: function (response) {
-                    console.log(response)
-                }
-            });
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: "ajax/profile_followers.php",
+                    data: {
+                        follower: username,
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        document.getElementById('profile_follower').innerHTML = "Followers: " + response['followers']
+                        document.getElementById('profile_followed').innerHTML = "Following: " + response['following']
+                    },
+                    error: function (response) {
+                        console.log(response)
+                    }
+                });
         </script>
 </body>
 </html>

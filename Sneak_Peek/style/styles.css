@@ -40,7 +40,7 @@
 }
 
 .menu_footer{
-  position: absolute;
+  position: fixed;
   left: 0px;
   bottom: 0; /* posiziona il div in basso */
   width: 100%; /* imposta la larghezza del div */
@@ -969,7 +969,10 @@ i{
   grid-column: 2; /* Posiziona l'oggetto nella prima colonna */
   grid-row: 1;
   text-align: center;
+  font-size: 20px;
+  font-family: 'Unbounded', cursive;
 }
+
 .info_right{
   padding: 20px;
   grid-column: 3; /* Posiziona l'oggetto nella seconda colonna */
@@ -1078,8 +1081,9 @@ i{
   object-fit: cover;
 }
 .post_profile button{
-  background-color: transparent;
+  background-color: var(--light-menu);
   border : none;
+  color: white;
 }
 .view_header{
   display: grid;
@@ -1118,4 +1122,12 @@ i{
   grid-column: 2; /* Posiziona l'oggetto nella prima colonna */
   grid-row: 1;
   text-align: center;
+}
+.btn_classic{
+  height:30px;
+  border-radius:100px;
+  color:rgb(0, 0, 0);
+  width:100px;
+  background-color: #55555510;
+  margin-left: 25px;
 }

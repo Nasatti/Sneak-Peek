@@ -1,6 +1,6 @@
 <?php
 include("../php/connection.php");                              
-if(isset($_POST['email'])){
+if(isset($_POST['email']) && isset($_POST['username']) && isset($_POST['password'])){
     $email = htmlspecialchars($_POST['email'], ENT_QUOTES, 'UTF-8');
     $username = htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8');
     $nome = htmlspecialchars($_POST['nome'], ENT_QUOTES, 'UTF-8');
@@ -9,7 +9,7 @@ if(isset($_POST['email'])){
     $password = htmlspecialchars($_POST['password'], ENT_QUOTES, 'UTF-8');
     $hash = password_hash($password, PASSWORD_DEFAULT);
     if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $sql = 'INSERT INTO credenziali (username, nome, cognome, data, email, password) VALUES ("$username","$nome","$cognome","$data","$email","$hash")';
+        $sql = "INSERT INTO credenziali (username, nome, cognome, data, email, password) VALUES ('$username','$nome','$cognome','$data','$email','$hash')";
         if ($connection->query($sql)) {
             mkdir("../users/".$_POST['username']);
             $img = "../img/user.png";
