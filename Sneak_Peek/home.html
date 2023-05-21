@@ -11,9 +11,9 @@ codizione da 1 a 5 stelle
 MVC                             
 Google Login                    
 Search                          IMP FATTO
-Search solo 5 persone e non uguale
+Search solo 5 persone           IMP FATTO
 Follower                        IMP FATTO
-Storie-algoritmo search         IMP !
+Storie-algoritmo search         IMP FATTO -> SERVE SEARCH
 carrello                        IMP FATTO
 Pagina login = home             IMP
 like                            IMP FATTO
@@ -21,10 +21,15 @@ psw                             IMP FATTO
 carousel per i post del profilo IMP FATTO
 Profilo altri utenti            IMP FATTO
 Modifica                        IMP FATTO
-SEARCH CON IMMAGINI             IMP !
+Modifica elimina img extra      IMP FATTO
+SEARCH CON IMMAGINI             IMP FATTO
 COMPRA -> EMAIL                 IMP !
-BOTTONE SEGNALA                 IMP !
-email
+BOTTONE SEGNALA                 IMP FATTO
+BOTTONE ELIMINA POST            IMP !
+STELLA SE VENDE                 IMP
+CART DUE VOLTE NON ESCE         IMP FATTO
+email                           IMP
+tema scuro
 chat
 -->
 
@@ -140,7 +145,7 @@ chat
                                 <td>
                                     <div class="search">
                                         <input id="searchbar" type="text" placeholder="Search..." name="q" autocomplete='off'>
-                                        <button type="submit"><i class="bi bi-search"></i></button>
+                                        <button type="button" onclick="Dynamic_Search()"><i class="bi bi-search"></i></button>
                                     </div>
                                     <br><br>
                                 </td>
@@ -159,7 +164,7 @@ chat
                         <hr class="border border border-light opacity-100">
 
                     </form>
-                    <div id="search_result" style="position:absolute;background-color:white;top:200px;left:50px;border-radius: 10px;">
+                    <div id="search_result" class="scrollbar-search scrollbar-danger">
                         
                     </div>
                 </div>
@@ -271,12 +276,6 @@ chat
 
                     <div id="header" class="header">
                         <div id="storie" class="storie header_center">
-                            <input type = "image" height='60px' width='60px' src="img/af1.webp">
-                            <input type = "image" height='60px' width='60px' src="img/dunk.webp">
-                            <input type = "image" height='60px' width='60px' src="img/jordan.jpg">
-                            <input type = "image" height='60px' width='60px' src="img/af1.webp">
-                            <input type = "image" height='60px' width='60px' src="img/dunk.webp">
-                            <input type = "image" height='60px' width='60px' src="img/jordan.jpg">
                         </div>
                         <div class="storie header_left">
                             <button id="a_profile" value='b' style="background-color: transparent;border:none;">a</button>
@@ -631,6 +630,7 @@ chat
                                         "temp": temp_path
                                     },
                                     success: function (response) {
+                                        console.log(response)
                                         imaage = response
                                         document.getElementById("profile_img").src = response
                                         document.getElementById('img_profile').src = response
@@ -702,7 +702,7 @@ chat
                                     view_data.innerHTML = data_view
                                     view_body.innerHTML = "<img src='" + foto_view + "' height='400px' width='400px' style='object-fit: cover;'>"
                                     view_like_prefer.innerHTML = "<p>" + descrizione_view + "<b>" + hashtag_view + "</b>" + "</p>"
-                                    view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p><p>" + vendita_view + "</p>"
+                                    view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p>"
                                 });
                             });
                         }

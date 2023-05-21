@@ -44,7 +44,7 @@ menu.style.width = "200px"
 search_box.style.left="-100px"
 title.style.left="0px"
 Show_Home()
-
+Storie()
 var sea = false;
 var next = false;
 
@@ -58,6 +58,46 @@ Home.onclick = () => {
     profile.style.display="none"
     profile_users.style.display="none"
     Show_Home()
+}
+
+function Storie(){
+    $.ajax({
+        type: "POST",
+        url: "./ajax/storie.php",
+        data:{
+            'username': username
+        },
+        dataType: "json",
+        success: function (response) {
+            var jsonData = response
+            jsonData.sort(function(a, b) {
+                return parseFloat(b['piace']) - parseFloat(a['piace']);
+            });
+            for (let i = 0; i < response.length; i++) {
+                var marca = jsonData[i]['marca']
+                var piace = jsonData[i]['piace']
+                console.log(marca)
+                $.ajax({
+                    type: "POST",
+                    url: "ajax/img_storie.php",
+                    data: {
+                        modello : marca
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        storie = document.getElementById("storie")
+                        storie.innerHTML += "<input id='storia"+i+"' type = 'image' height='60px' width='60px' src='"+response['foto']+"'>"
+                    },
+                    error: function (response) {
+                        console.log(response)
+                    }
+                });                
+            }
+        },
+        error: function (response) {
+            console.log(response)
+        }
+    });
 }
 
 function Show_Home(){
@@ -93,10 +133,12 @@ function Show_Home(){
                 var button_heart = document.createElement("button")
                 var button_prefer = document.createElement("button")
                 var button_chat = document.createElement("button")
+                var button_report = document.createElement("button")
 
                 div_action.appendChild(button_heart)
                 div_action.appendChild(button_prefer)
                 div_action.appendChild(button_chat)
+                div_action.appendChild(button_report)
                 div_info.appendChild(a)
                 div_info.appendChild(mod)
                 div_info.appendChild(data_post)
@@ -123,6 +165,7 @@ function Show_Home(){
                 button_heart.id = "like" + i
                 button_prefer.id = "prefer" + i
                 button_chat.id = "chat" + i
+                button_report.id = "report" + i
                 //button_chat.setAttribute('data-bs-toggle', 'modal');
                 //button_chat.setAttribute('data-bs-target', '#ChatModal');
                 div.id = "post_user" + id
@@ -135,6 +178,7 @@ function Show_Home(){
                 button_heart.innerHTML = "<i class='bi bi-heart r'></i>"
                 button_prefer.innerHTML = "<i class='bi bi-star g'></i>"
                 button_chat.innerHTML = '<i class="bi bi-chat b"></i>'
+                button_report.innerHTML = '<i class="bi bi-flag z"></i>'
                 descr.innerHTML = '<a href="users/"' + usern + '><b>' + usern + ': </b></a><span>' + descrizione + '<b>' + hashtag + '</b></span>'
                 mod.innerHTML = '<b>' + modello + '</b>'
                 data_post.innerHTML = data
@@ -187,7 +231,30 @@ function Show_Home(){
                         console.log(response)
                     }
                 });
-
+                $.ajax({
+                    type: "POST",
+                    url: "ajax/check_report.php",
+                    data: {
+                        id: id,
+                        username: username
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        if (response == false){
+                            document.getElementById("report" + i).innerHTML = '<i class="bi bi-flag z"></i>';
+                            document.getElementById("report" + i).style.color = "black";
+                            inc = false
+                        }
+                        else{
+                            document.getElementById("report" + i).innerHTML = '<i class="bi bi-flag-fill z"></i>';
+                            document.getElementById("report" + i).style.color = "orange";
+                            inc = true;
+                        }
+                    },
+                    error: function (response) {
+                        console.log(response)
+                    }
+                });
                 document.getElementById("post_user" + id).innerHTML += "<i class='fa-solid fa-heart heart'></i>"
                 document.getElementById("contents").innerHTML += "<hr class='border border-danger border-2 opacity-75'>"
                 $(document).ready(function(){
@@ -287,6 +354,44 @@ function Show_Home(){
                     $('#chat' + i).click(function(){
                         contents.style.display="none"
                         message.style.display="block"
+                        Show_Message()
+                    });
+                });
+                
+                $(document).ready(function(){
+                    $('#report' + i).click(function(){
+                        var inc = true
+                        n = this.id.split("report")[1]
+                        temp_div = document.getElementById('action' + n)
+                        id = temp_div.parentNode.id.split("post_user")[1]
+                        if(document.getElementById("report" + i).innerHTML == '<i class="bi bi-flag-fill z"></i>'){
+                            document.getElementById("report" + i).innerHTML = '<i class="bi bi-flag z"></i>';
+                            document.getElementById("report" + i).style.color = "black";
+                            inc = false
+                        }
+                        else{
+                            document.getElementById("report" + i).innerHTML = '<i class="bi bi-flag-fill z"></i>';
+                            document.getElementById("report" + i).style.color = "orange";
+                            inc = true
+                        }
+                        $.ajax({
+                            type: "Post",
+                            url: "./ajax/action.php",
+                            data: {
+                                "action": "report",
+                                "id": id,
+                                "inc": inc,
+                                "username": username
+                            },
+                            dataType: "json",
+                            success: function (response) {
+                                console.log(response)
+                            },
+                            error: function(response){
+                                console.log(response)
+                            } 
+                        });
+                        
                     });
                 });
                 $(document).ready(function(){
@@ -362,6 +467,7 @@ function Show_Home(){
                                                 prof_view.appendChild(table)
                                                 $(document).ready(function(){
                                                     $('#pro_b_u' + i).click(function(){
+                                                        var id_view = foto_profilo[i]['id']
                                                         var foto_view = foto_profilo[i]['foto']
                                                         var descrizione_view = foto_profilo[i]['descrizione']
                                                         var data_view = foto_profilo[i]['data']
@@ -381,8 +487,31 @@ function Show_Home(){
                                                         view_data.innerHTML = data_view
                                                         view_body.innerHTML = "<img src='" + foto_view + "' height='400px' width='400px' style='object-fit: cover;'>"
                                                         view_like_prefer.innerHTML = "<p>" + descrizione_view + "<b>" + hashtag_view + "</b>" + "</p>"
-                                                        if(vendita_view == 0)view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p>"
-                                                        else view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p><button>Compra!</button>"
+
+                                                        $.ajax({
+                                                            type: "POST",
+                                                            url: "ajax/check_prefer.php",
+                                                            data: {
+                                                                id: id_view,
+                                                                username: username
+                                                            },
+                                                            dataType: "json",
+                                                            success: function (response) {
+                                                                if (response == false){
+                                                                    inc = true
+                                                                    if(vendita_view == 0)view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p>"
+                                                                    else view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p><button id='add_cart' value='"+id_view+"_"+inc+"'class='btn_classic' onclick='Add_Cart(this.value)'>Add Cart!</button>"            
+                                                                }
+                                                                else{
+                                                                    inc = false;
+                                                                    if(vendita_view == 0)view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p>"
+                                                                    else view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p><button id='add_cart' value='"+id_view+"_"+inc+"_'class='btn_classic' onclick='Add_Cart(this.value)'>Remove Cart!</button>"            
+                                                                }
+                                                            },
+                                                            error: function (response) {
+                                                                console.log(response)
+                                                            }
+                                                        });
                                                     });
                                                 });
                                             }
@@ -566,7 +695,7 @@ function Show_Cart(){
                 button_buy.classList.add("btn_classic")
                 button_remove.classList.add("btn_classic")
                 button.appendChild(img)
-                button.id="pro_b_u" + i
+                button.id="pro_b_u_c" + i
                 button_buy.id="buy" + i
                 button_remove.id="remove" + i
                 button_user.id="b_user_cart" + i
@@ -582,7 +711,8 @@ function Show_Cart(){
                 table.classList.add("post_profile")
                 prof_view.appendChild(table)
                 $(document).ready(function(){
-                    $('#pro_b_u' + i).click(function(){
+                    $('#pro_b_u_c' + i).click(function(){
+                        var id_view = foto_profilo[i]['id']
                         var foto_view = foto_profilo[i]['foto']
                         var descrizione_view = foto_profilo[i]['descrizione']
                         var data_view = foto_profilo[i]['data']
@@ -602,8 +732,31 @@ function Show_Cart(){
                         view_data.innerHTML = data_view
                         view_body.innerHTML = "<img src='" + foto_view + "' height='400px' width='400px' style='object-fit: cover;'>"
                         view_like_prefer.innerHTML = "<p>" + descrizione_view + "<b>" + hashtag_view + "</b>" + "</p>"
-                        if(vendita_view == 0)view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p>"
-                        else view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p><button>Compra!</button>"
+                        console.log('aaaaa'+id_view)
+                        $.ajax({
+                            type: "POST",
+                            url: "ajax/check_prefer.php",
+                            data: {
+                                id: id_view,
+                                username: username
+                            },
+                            dataType: "json",
+                            success: function (response) {
+                                if (response == false){
+                                    inc = true
+                                    if(vendita_view == 0)view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p>"
+                                    else view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p><button id='add_cart' value='"+id_view+"_"+inc+"'class='btn_classic' onclick='Add_Cart(this.value)'>Add Cart!</button>"            
+                                }
+                                else{
+                                    inc = false;
+                                    if(vendita_view == 0)view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p>"
+                                    else view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p><button id='add_cart' value='"+id_view+"_"+inc+"_'class='btn_classic' onclick='Add_Cart(this.value)'>Remove Cart!</button>"            
+                                }
+                            },
+                            error: function (response) {
+                                console.log(response)
+                            }
+                        });
                     });
                 });
                 $(document).ready(function(){
@@ -707,6 +860,7 @@ function Show_Cart(){
                                                 prof_view.appendChild(table)
                                                 $(document).ready(function(){
                                                     $('#pro_b_u' + i).click(function(){
+                                                        var id_view = foto_profilo[i]['id']
                                                         var foto_view = foto_profilo[i]['foto']
                                                         var descrizione_view = foto_profilo[i]['descrizione']
                                                         var data_view = foto_profilo[i]['data']
@@ -726,8 +880,31 @@ function Show_Cart(){
                                                         view_data.innerHTML = data_view
                                                         view_body.innerHTML = "<img src='" + foto_view + "' height='400px' width='400px' style='object-fit: cover;'>"
                                                         view_like_prefer.innerHTML = "<p>" + descrizione_view + "<b>" + hashtag_view + "</b>" + "</p>"
-                                                        if(vendita_view == 0)view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p>"
-                                                        else view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p><button>Compra!</button>"
+
+                                                        $.ajax({
+                                                            type: "POST",
+                                                            url: "ajax/check_prefer.php",
+                                                            data: {
+                                                                id: id_view,
+                                                                username: username
+                                                            },
+                                                            dataType: "json",
+                                                            success: function (response) {
+                                                                if (response == false){
+                                                                    inc = true
+                                                                    if(vendita_view == 0)view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p>"
+                                                                    else view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p><button id='add_cart' value='"+id_view+"_"+inc+"'class='btn_classic' onclick='Add_Cart(this.value)'>Add Cart!</button>"            
+                                                                }
+                                                                else{
+                                                                    inc = false;
+                                                                    if(vendita_view == 0)view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p>"
+                                                                    else view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p><button id='add_cart' value='"+id_view+"_"+inc+"_'class='btn_classic' onclick='Add_Cart(this.value)'>Remove Cart!</button>"            
+                                                                }
+                                                            },
+                                                            error: function (response) {
+                                                                console.log(response)
+                                                            }
+                                                        });
                                                     });
                                                 });
                                             }
@@ -794,16 +971,16 @@ function Move(){
 
 Back = document.getElementById("Back"); 
 Back.onclick = () => {
-    document.getElementById("div_upload").style.display="flex";
-    document.getElementById("div_post").style.display="none";
-    document.getElementById("div_descr").style.display="none"; 
-    fileInput.value=null;
-    div_post.style.width="450px";
-    document.getElementById("Next_in").hidden=true;
-    next_post.display="flex";
     var r = confirm("Are you sure you want to delete this Image?")
     if(r == true)
     {
+        document.getElementById("div_upload").style.display="flex";
+        document.getElementById("div_post").style.display="none";
+        document.getElementById("div_descr").style.display="none"; 
+        fileInput.value=null;
+        div_post.style.width="450px";
+        document.getElementById("Next_in").hidden=true;
+        next_post.display="flex";
         $.ajax({
           url: 'ajax/delete.php',
           data: {'file' : "../" + temp_path },
@@ -815,6 +992,10 @@ Back.onclick = () => {
           }
         });
     }
+    else
+    {
+        console.log("no delete")
+    }
 }
 
 next_post.onclick = () => {
@@ -824,8 +1005,15 @@ next_post.onclick = () => {
         move_div();
 }
 inputElement.addEventListener('input', function() {
+    Dynamic_Search()
+}
+);
+
+function Dynamic_Search(){
     var search_result = document.getElementById("search_result"); 
+    search_result.style.display="block";
     if(inputElement.value.length > 0){
+        console.log('oo'+scelta)
         $.ajax({
           url: "ajax/DynamicSearch.php",
           type: "POST",
@@ -836,18 +1024,18 @@ inputElement.addEventListener('input', function() {
           },
           success: function(data){
             search_result.innerHTML = ""
-            console.log(data);
             var jsonData = data
             for (let i = 0; i < data.length; i++) {
                 if(scelta == 1){
                     var usern_search = jsonData[i]
+                    search_result.innerHTML += "<button value='"+usern_search+"' style='background-color:transparent;margin:10px;border:none' onclick='search_results(this.value)'>" + usern_search + "</button><br>"
                 }
                 else if(scelta == 2 || scelta == 3){
                     var usern_search = jsonData[i]['username']
-                    var model_search = jsonData[i]['marca']
-                    var id_search = jsonData[i]['id']
+                    var foto_search = jsonData[i]['foto']
+                    search_result.innerHTML += "<button value='"+usern_search+"' style='background-color:transparent;margin:10px;border:none' onclick='search_results(this.value)'><img class='search_img' src="+foto_search+ ">" + usern_search + "</button><br>"
+
                 }
-                search_result.innerHTML += "<button value='"+usern_search+"' style='background-color:transparent;margin:10px;border:none' onclick='search_results(this.value)'>" + usern_search + "</button><br>"
             }
           },
           error: function (data) {
@@ -857,9 +1045,9 @@ inputElement.addEventListener('input', function() {
     }
     else{
         search_result.innerHTML = ""
+        search_result.style.display="none";
     }
-    }
-);
+}
 Radio1.onclick = () => {
     scelta=1
 }
@@ -877,6 +1065,7 @@ function search_results(value){
         header.style.display="none"
         profile.style.display="none"
         content.style.display="none"
+        cart.style.display="none"
         profile_users.style.display="block"
         
         $.ajax({
@@ -910,14 +1099,15 @@ function search_results(value){
                             var img = document.createElement("img")
                             img.src = foto_profilo[i]['foto']
                             button.appendChild(img)
-                            button.id="pro_b" + i
+                            button.id="pro_b_s" + i
                             td.appendChild(button)
                             tr.appendChild(td)
                             table.appendChild(tr)
                             table.classList.add("post_profile")
                             prof_view.appendChild(table)
                             $(document).ready(function(){
-                                $('#pro_b' + i).click(function(){
+                                $('#pro_b_s' + i).click(function(){
+                                    var id_view = foto_profilo[i]['id']
                                     var foto_view = foto_profilo[i]['foto']
                                     var descrizione_view = foto_profilo[i]['descrizione']
                                     var data_view = foto_profilo[i]['data']
@@ -926,7 +1116,6 @@ function search_results(value){
                                     var modello_view = foto_profilo[i]['marca']
                                     var hashtag_view = foto_profilo[i]['hashtag']
                                     var vendita_view = foto_profilo[i]['vendita']
-                                    console.log(modello_view)
                                 
                                     var view_header = document.getElementById("view_header");
                                     var view_body = document.getElementById("view_body");
@@ -938,7 +1127,33 @@ function search_results(value){
                                     view_data.innerHTML = data_view
                                     view_body.innerHTML = "<img src='" + foto_view + "' height='400px' width='400px' style='object-fit: cover;'>"
                                     view_like_prefer.innerHTML = "<p>" + descrizione_view + "<b>" + hashtag_view + "</b>" + "</p>"
-                                    view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p><p>" + vendita_view + "</p>"
+
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "ajax/check_prefer.php",
+                                        data: {
+                                            id: id_view,
+                                            username: username
+                                        },
+                                        dataType: "json",
+                                        success: function (response) {
+                                            if (response == false){
+                                                inc = true
+                                                if(vendita_view == 0)view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p>"
+                                                else view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p><button id='add_cart' value='"+id_view+"_"+inc+"'class='btn_classic' onclick='Add_Cart(this.value)'>Add Cart!</button>"            
+                                            }
+                                            else{
+                                                inc = false;
+                                                if(vendita_view == 0)view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p>"
+                                                else view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p><button id='add_cart' value='"+id_view+"_"+inc+"_'class='btn_classic' onclick='Add_Cart(this.value)'>Remove Cart!</button>"            
+                                            }
+                                        },
+                                        error: function (response) {
+                                            console.log(response)
+                                        }
+                                    });
+                    
+
                                 });
                             });
                         }
@@ -953,6 +1168,41 @@ function search_results(value){
     else{
         document.getElementById("Profile").click()
     }
+}
+
+function Add_Cart(value){
+    var id_p = value.split("_")[0]
+    inc = value.split("_")[1]
+    console.log('1'+inc)
+    $.ajax({
+        type: "Post",
+        url: "./ajax/action.php",
+        data: {
+            "action": "prefer",
+            "id": id_p,
+            "inc": inc,
+            "username": username,
+        },
+        dataType: "json",
+        success: function (response) {
+            console.log('4'+inc)
+            if(inc == "true"){
+                inc = false
+                document.getElementById("add_cart").innerHTML = "Remove Cart!"
+                document.getElementById("add_cart").value = id_p + "_" + inc
+                console.log('2'+inc)
+            }
+            else{
+                inc = true
+                document.getElementById("add_cart").innerHTML = "Add Cart!"
+                document.getElementById("add_cart").value = id_p + "_" + inc
+                console.log('3'+inc)
+            }
+        },
+        error: function(response){
+            console.log(response)
+        } 
+    });
 }
 
 function move_div(){
@@ -1024,7 +1274,7 @@ viewpost.addEventListener('click', function () {
                         view_data.innerHTML = data_view
                         view_body.innerHTML = "<img src='" + foto_view + "' height='400px' width='400px' style='object-fit: cover;'>"
                         view_like_prefer.innerHTML = "<p>" + descrizione_view + "<b>" + hashtag_view + "</b>" + "</p>"
-                        view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p><p>" + vendita_view + "</p>"
+                        view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p>"
                     });
                 });
             }
@@ -1087,7 +1337,7 @@ profile_like.addEventListener('click', function () {
                         view_data.innerHTML = data_view
                         view_body.innerHTML = "<img src='" + foto_view + "' height='400px' width='400px' style='object-fit: cover;'>"
                         view_like_prefer.innerHTML = "<p>" + descrizione_view + "<b>" + hashtag_view + "</b>" + "</p>"
-                        view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p><p>" + vendita_view + "</p>"
+                        view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p>"
                     });
                 });
             }

@@ -23,7 +23,7 @@ if ($response->num_rows > 0) {
     }
     elseif($scelta==2 || $scelta==3){
         while($row = $response->fetch_assoc()){
-            $search = new Search($row['username'], $row['id'], $row['marca']);
+            $search = new Search($row['username'], $row['id'], $row['marca'], $row['foto']);
             array_push($array, $search);
         }
     }
