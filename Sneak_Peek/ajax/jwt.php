@@ -1,10 +1,12 @@
 <?php
-if(isset($_POST['user'])){
+if(isset($_POST['user']) && isset($_POST['psw'])){
 	$user = htmlspecialchars($_POST['user'], ENT_QUOTES, 'UTF-8');
 	$password = htmlspecialchars($_POST['psw'], ENT_QUOTES, 'UTF-8');
 	include("../php/connection.php");
-	$sql = "SELECT * FROM credenziali WHERE username='$user'";
-	$response = $connection->query($sql);
+	$sql = $connection->prepare("SELECT * FROM credenziali WHERE username=?");
+	$sql->bind_param("s", $user);
+	$sql->execute();
+	$response = $sql->get_result();
 	if ($response->num_rows > 0) {
 		$data = $response->fetch_assoc();
   		if (password_verify($password, $data['password'])) {

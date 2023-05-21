@@ -824,7 +824,7 @@ i{
     margin-bottom: 25px;
     z-index: 10;
     width: 250px;
-    height: 99%;
+    height: 150%;
     border-radius: 10px;
     display:none;
 }
@@ -1105,7 +1105,7 @@ i{
 }
 .view_header{
   display: grid;
-  grid-template-columns: 1fr 3fr 1fr;;
+  grid-template-columns: 1fr 2fr 1fr;;
   grid-gap: 10px; 
 }
 .view_left{

@@ -49,15 +49,23 @@
                     <button id="Post" class="btn_list"><script src="https://cdn.lordicon.com/ritcuqlt.js"></script><lord-icon class="ico" src="https://cdn.lordicon.com/pnwpbzow.json" trigger="hover" colors="primary:#ffffff" style="width:30px;height:30px"></lord-icon><p id="p_post">Post</p></button><br><br>
                     <button id="Profile" class="btn_list"><script src="https://cdn.lordicon.com/ritcuqlt.js"></script><lord-icon class="ico" src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" colors="primary:#ffffff" style="width:30px;height:30px"></lord-icon><p id="p_profile">Profile</p></button><br><br>
                 </div>
-                </div>
             </div>
             <div id="main">
-
-                <div class="log_center">
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn_login" data-bs-toggle="modal" id="button_login" data-bs-target="#exampleModal">
-                      Login
-                    </button>   
+                <div style="height:200px">
+                    <div class="log_center">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn_login" data-bs-toggle="modal" id="button_login" data-bs-target="#exampleModal">
+                          Login
+                        </button>   
+                    </div>
+                </div>
+                <div id="Page" class="page" style="top:100px">
+                    <div id="scrollbar" class="scrollbar scrollbar-danger">
+                        <div id="contents">
+                        </div>
+                    </div>
+                </div>
+                
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog">
@@ -186,50 +194,14 @@
             <div class="alert alert-danger errore" role="alert" hidden>
                 <i class="bi bi-exclamation-triangle-fill"></i> Effettuare il login!
             </div>
-            <div class="Image_login">
-                <img src="./img/jordan.jpg" width="400px" height="500px">
-            </div>
+            
+
             
         </div>
         </div>
         <div id="menu_footer" class="menu_footer" hidden>
-            <!--<button id="Home" class="btn_list">
-                <script src="https://cdn.lordicon.com/ritcuqlt.js"></script><lord-icon class="ico"
-                    src="https://cdn.lordicon.com/osuxyevn.json" trigger="hover" colors="primary:#ffffff"
-                    style="width:30px;height:30px"></lord-icon>
-                <p id="p_home">Home</p>
-            </button><br><br>
-            <button id="Search" class="btn_list">
-                <script src="https://cdn.lordicon.com/ritcuqlt.js"></script><lord-icon class="ico"
-                    src="https://cdn.lordicon.com/xfftupfv.json" trigger="hover" colors="primary:#ffffff"
-                    style="width:30px;height:30px"></lord-icon>
-                <p id="p_search">Search</p>
-            </button><br><br>
-            <button id="Message" class="btn_list">
-                <script src="https://cdn.lordicon.com/ritcuqlt.js"></script><lord-icon class="ico"
-                    src="https://cdn.lordicon.com/hpivxauj.json" trigger="hover" colors="primary:#ffffff"
-                    style="width:30px;height:30px"></lord-icon>
-                <p id="p_message">Message</p>
-            </button><br><br>
-            <button id="Cart" class="btn_list">
-                <script src="https://cdn.lordicon.com/ritcuqlt.js"></script><lord-icon class="ico"
-                    src="https://cdn.lordicon.com/hyhnpiza.json" trigger="hover" colors="primary:#ffffff"
-                    style="width:30px;height:30px"></lord-icon>
-                <p id="p_cart">Cart</p>
-            </button><br><br>
-            <button id="Post" class="btn_list" data-bs-toggle="modal" data-bs-target="#PostModal">
-                <script src="https://cdn.lordicon.com/ritcuqlt.js"></script><lord-icon class="ico"
-                    src="https://cdn.lordicon.com/pnwpbzow.json" trigger="hover" colors="primary:#ffffff"
-                    style="width:30px;height:30px"></lord-icon>
-                <p id="p_post">Post</p>
-            </button><br><br>
-            <a href="./users/profile.html"><button id="Profile" class="btn_list">
-                <script src="https://cdn.lordicon.com/ritcuqlt.js"></script><lord-icon class="ico"
-                    src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" colors="primary:#ffffff"
-                    style="width:30px;height:30px"></lord-icon>
-                <p id="p_profile">Profile</p>
-            </button></a><br><br>-->
         </div>
-        <script src="script/script_login.js"></script>
+    </div>
+    <script src="script/script_login.js"></script>
     </body>
 </html>

@@ -9,8 +9,9 @@ if(isset($_POST['email']) && isset($_POST['username']) && isset($_POST['password
     $password = htmlspecialchars($_POST['password'], ENT_QUOTES, 'UTF-8');
     $hash = password_hash($password, PASSWORD_DEFAULT);
     if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $sql = "INSERT INTO credenziali (username, nome, cognome, data, email, password) VALUES ('$username','$nome','$cognome','$data','$email','$hash')";
-        if ($connection->query($sql)) {
+        $sql = $connection->prepare("INSERT INTO credenziali (username, nome, cognome, data, email, password) VALUES (?, ?, ?, ?, ?, ?)");
+        $sql->bind_param("ssssss", $username, $nome, $cognome, $data, $email, $hash);
+        if ($sql->execute()) {
             mkdir("../users/".$_POST['username']);
             $img = "../img/user.png";
             $newimg = "../users/".$_POST['username']."/user.png";
@@ -23,9 +24,6 @@ if(isset($_POST['email']) && isset($_POST['username']) && isset($_POST['password
         else{
             echo "error";
         }
-    }
-    else{
-        echo "error";
     }
 }
 ?>

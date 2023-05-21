@@ -59,17 +59,3 @@ function setWidthHeight(){
     scrollbar.style.minHeight = '99%'
     scrollbar.style.width = '99%'
 }
-
-var Homef = document.getElementById("Home_footer");
-var Messagef = document.getElementById("Message_footer");
-var homef = document.getElementById("home");
-var messagef = document.getElementById("message");
-
-Homef.onclick = () => {
-    homef.style.display="block";
-    messagef.style.display="none"
-}
-Messagef.onclick = () => {
-    homef.style.display="none"
-    messagef.style.display="block"
-}

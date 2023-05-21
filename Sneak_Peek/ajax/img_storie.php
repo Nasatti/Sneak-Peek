@@ -1,6 +1,6 @@
 <?php
 include("../php/connection.php");
-$sql = $connection->prepare("SELECT foto FROM post WHERE marca=?");
+$sql = $connection->prepare("SELECT marca, foto FROM post WHERE marca=?");
 $sql->bind_param("s", $_POST["modello"]);
 $sql->execute();
 $result = $sql->get_result();

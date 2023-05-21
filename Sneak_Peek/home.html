@@ -1,38 +1,3 @@
-<!--
-title: https://uiverse.io/biswacpcode/curvy-crab-71 -> appena viene verificato l'accesso
-chat:https://uiverse.io/ahmed150up/chilly-rattlesnake-8
-pagamento:https://uiverse.io/zanina-yassine/angry-shrimp-34
-like: https://uiverse.io/KSAplay/smart-bobcat-50
-prefer: https://uiverse.io/andrew-demchenk0/light-lionfish-40
-
-
-GOALS:
-codizione da 1 a 5 stelle 
-MVC                             
-Google Login                    
-Search                          IMP FATTO
-Search solo 5 persone           IMP FATTO
-Follower                        IMP FATTO
-Storie-algoritmo search         IMP FATTO -> SERVE SEARCH
-carrello                        IMP FATTO
-Pagina login = home             IMP
-like                            IMP FATTO
-psw                             IMP FATTO
-carousel per i post del profilo IMP FATTO
-Profilo altri utenti            IMP FATTO
-Modifica                        IMP FATTO
-Modifica elimina img extra      IMP FATTO
-SEARCH CON IMMAGINI             IMP FATTO
-COMPRA -> EMAIL                 IMP !
-BOTTONE SEGNALA                 IMP FATTO
-BOTTONE ELIMINA POST            IMP !
-STELLA SE VENDE                 IMP
-CART DUE VOLTE NON ESCE         IMP FATTO
-email                           IMP
-tema scuro
-chat
--->
-
 <!DOCTYPE html>
 <html>
 
@@ -61,6 +26,10 @@ chat
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+
+    <title>Sneak Peek | Home</title>
+</head>
+<body>
     <script>
         var username = ""
         $.ajax({
@@ -80,18 +49,13 @@ chat
                     data_nascita = jsonData.data
                 }
                 else window.location = "index.html"
-                
+
             },
             error: function (response) {
                 console.log(response);
             }
         });
     </script>
-
-    <title>Sneak Peek | Home</title>
-</head>
-
-<body>
     <div name="body">
         <div id="menu" class="menu">
             <ul>
@@ -145,7 +109,7 @@ chat
                                 <td>
                                     <div class="search">
                                         <input id="searchbar" type="text" placeholder="Search..." name="q" autocomplete='off'>
-                                        <button type="button" onclick="Dynamic_Search()"><i class="bi bi-search"></i></button>
+                                        <button type="button" id="button_search" onclick="Dynamic_Search()"><i class="bi bi-search"></i></button>
                                     </div>
                                     <br><br>
                                 </td>
@@ -193,19 +157,6 @@ chat
                                     style="width:75px;height:75px">
                                 </lord-icon></button>
                             </div>
-                            <script>
-                                $.ajax({
-                                    type: "POST",
-                                    url: "./ajax/profile.php",
-                                    data: {
-                                        "username": username
-                                    },
-                                    success: function (response) {
-                                        document.getElementById('profile_name').innerHTML = username
-                                        document.getElementById('profile_img').src = response
-                                    }
-                                });
-                            </script>
                             <div class="info_4"></div>
                         </div>
                         <div class="profile_page">
@@ -224,48 +175,8 @@ chat
                             <div class="info_3">
                                 <p id="profile_name_users" style="font-size:35px"></p><br>
                                 <button id="segui_btn" style="height:30px;border-radius:100px;color:white;width:100px;background-color: rgb(211, 0, 0);margin-left:25px">Segui</button>
-                                <button id="scrivi_btn" style="height:30px;border-radius:100px;color:white;width:100px;background-color: rgb(211, 0, 0);margin-left:25px;margin-top:15px;">Contatta</button>
+                                <button id="scrivi_btn" data-bs-toggle="modal" data-bs-target="#EmailModal" onclick="Contatta(this.value)" style="height:30px;border-radius:100px;color:white;width:100px;background-color: rgb(211, 0, 0);margin-left:25px;margin-top:15px;">Contatta</button>
                             </div>
-                            <script>
-                                document.getElementById('segui_btn').onclick = () => {
-                                    if(document.getElementById('segui_btn').textContent=="Segui"){
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "ajax/follow.php",
-                                            data: {
-                                                followed : username_profile,
-                                                follower : username
-                                            },
-                                            dataType: "json",
-                                            success: function (response) {
-                                                console.log(response)
-                                            },
-                                        });
-                                        document.getElementById('segui_btn').textContent="Segui già"
-                                    }
-                                    else{
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "ajax/unfollow.php",
-                                            data: {
-                                                followed : username_profile,
-                                                follower : username
-                                            },
-                                            dataType: "json",
-                                            success: function (response) {
-                                                console.log(response)
-                                            },
-                                        });
-                                        document.getElementById('segui_btn').textContent="Segui"
-                                    }
-                                }
-                                document.getElementById('scrivi_btn').onclick = () => {
-                                    console.log('a')
-
-                                    contents.style.display="none"
-                                    message.style.display="block"
-                                }
-                            </script>
                             <div class="info_4"></div>
                         </div>
                         <div class="profile_page">
@@ -279,20 +190,6 @@ chat
                         </div>
                         <div class="storie header_left">
                             <button id="a_profile" value='b' style="background-color: transparent;border:none;">a</button>
-                            <script>
-                                $.ajax({
-                                    type: "POST",
-                                    url: "./ajax/profile.php",
-                                    data: {
-                                        "username": username
-                                    },
-                                    success: function (response) {
-                                        document.getElementById('a_profile').innerHTML = "<img class='prof_img' id='img_profile' src=''><span>" + username + "</span>"
-                                        document.getElementById('img_profile').src = response
-                                    }
-                                });
-                            </script>
-        
                         </div>
                     </div>
                     <hr class='border border-danger border-2 opacity-75'>
@@ -320,51 +217,6 @@ chat
                                                     id="upload_submit" />
                                                 <i class='bx bx-cloud-upload icon'></i>
                                             </form>
-                                            <script type="text/javascript">
-
-                                                const form = document.getElementById('post-form'),
-                                                    fileInput = document.getElementById('file-input'),
-                                                    progressArea = document.getElementById('progress-area'),
-                                                    uploadedArea = document.getElementById('uploaded-area');
-                                                var upload_submit = document.getElementById('upload_submit');
-                                                var ifRunning = false;
-                                                var temp_path;
-
-                                                // form click Event
-                                                form.addEventListener("click", () => {
-                                                    fileInput.click();
-                                                })
-
-                                                fileInput.onchange = (e) => {
-                                                    upload_submit.click();
-                                                    document.getElementById("div_upload").style.display = "none";
-                                                    document.getElementById("div_post").style.display = "flex";
-                                                    document.getElementById("div_post").style.height = "515px"
-                                                }
-
-                                                $(document).ready(function (e) {
-                                                    $("#post-form").on('submit', (function (e) {
-                                                        e.preventDefault();
-                                                        $.ajax({
-                                                            url: "./ajax/upload.php",
-                                                            type: "POST",
-                                                            data: new FormData(this),
-                                                            contentType: false,
-                                                            cache: false,
-                                                            processData: false,
-                                                            success: function (data) {
-                                                                temp_path = data;
-                                                                document.getElementById("down_post").src = temp_path;
-                                                                document.getElementById("imgPost").value = temp_path;
-                                                            },
-                                                            error: function (data) {
-                                                                console.log("error");
-                                                                console.log(data);
-                                                            }
-                                                        });
-                                                    }));
-                                                });
-                                            </script>
                                             <section class="progress-area" id="progress-area">
                                             </section>
                                             <section class="uploaded-area" id="uploaded-area">
@@ -397,31 +249,6 @@ chat
                                                 <input type="submit" class="div_upload_post_but" id="Next_in"
                                                     value="Post" hidden>
                                             </form>
-                                            <script>
-                                                $(document).ready(function (e) {
-
-                                                    $("#post-form2").on('submit', (function (e) {
-
-                                                        e.preventDefault();
-
-                                                        $.ajax({
-                                                            url: "./ajax/post.php",
-                                                            type: "POST",
-                                                            data: new FormData(this),
-                                                            contentType: false,
-                                                            processData: false,
-                                                            success: function (data) {
-                                                                console.log(data);
-                                                                location.href = ""
-                                                            },
-                                                            error: function (data) {
-                                                                console.log("error");
-                                                                console.log(data);
-                                                            }
-                                                        });
-                                                    }));
-                                                });
-                                            </script>
                                         </div>
                                     </div>
                                 </div>
@@ -439,7 +266,7 @@ chat
                     src="https://cdn.lordicon.com/osuxyevn.json" trigger="hover" colors="primary:#ffffff"
                     style="width:30px;height:30px"></lord-icon>
             </button>
-            <button id="Search" class="btn_list_footer">
+            <button id="Search_footer" class="btn_list_footer">
                 <script src="https://cdn.lordicon.com/ritcuqlt.js"></script><lord-icon class="ico"
                     src="https://cdn.lordicon.com/xfftupfv.json" trigger="hover" colors="primary:#ffffff"
                     style="width:30px;height:30px"></lord-icon>
@@ -449,26 +276,23 @@ chat
                     src="https://cdn.lordicon.com/hpivxauj.json" trigger="hover" colors="primary:#ffffff"
                     style="width:30px;height:30px"></lord-icon>
             </button>
-            <button id="Cart" class="btn_list_footer">
+            <button id="Cart_footer" class="btn_list_footer">
                 <script src="https://cdn.lordicon.com/ritcuqlt.js"></script><lord-icon class="ico"
                     src="https://cdn.lordicon.com/hyhnpiza.json" trigger="hover" colors="primary:#ffffff"
                     style="width:30px;height:30px"></lord-icon>
             </button>
-            <button id="Post" class="btn_list_footer" data-bs-toggle="modal" data-bs-target="#PostModal">
+            <button id="Post_footer" class="btn_list_footer" data-bs-toggle="modal" data-bs-target="#PostModal">
                 <script src="https://cdn.lordicon.com/ritcuqlt.js"></script><lord-icon class="ico"
                     src="https://cdn.lordicon.com/pnwpbzow.json" trigger="hover" colors="primary:#ffffff"
                     style="width:30px;height:30px"></lord-icon>
             </button>
-            <a href="./users/profile.html"><button id="Profile" class="btn_list_footer">
+            <button id="Profile_footer" class="btn_list_footer">
                 <script src="https://cdn.lordicon.com/ritcuqlt.js"></script><lord-icon class="ico"
                     src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" colors="primary:#ffffff"
                     style="width:30px;height:30px"></lord-icon>
-            </button></a>
+            </button>
         </div>
-        <script src="script/script_home.js"></script>
-        <script src="script/script_dark.js"></script>
-        <script src="script/script_media.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        
         <!--  Profile Modal  -->
         <div class="modal fade" id="Profile_post_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -476,6 +300,7 @@ chat
                 <div class="modal-header view_header">
                   <h1 class="view_center" id="view_header" ></h1>
                   <p class="view_left" id="view_data"></p>
+                  <button class="view_right btn_classic" id="btn_elimina" onclick="Elimina_post(this.value)">Elimina</button>
                 </div>
                 <div class="modal-body text-center" id="view_body"></div>
                 <div class="modal-footer" style="text-align: left;display:block" id="view_footer">
@@ -504,6 +329,23 @@ chat
               </div>
             </div>
           </div>
+          <!--  Email  -->
+          <div class="modal fade" id="EmailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Contatta per comprare!</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p id="email_body"></p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
           <!--Impostazioni-->
           <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -523,53 +365,6 @@ chat
                           <button type="button" style="border: none" id="show_Modifica" onclick="show()"><i class="bi bi-pencil-square"></i></button>
                           <button type="button"  id="Modifica" style="display: none; border: none">Modifica</button>
                         </form>
-                        <script>
-                          $(document).ready(function(){
-                            $("#d_name").val(nome);
-                            $("#d_surname").val(cognome);
-                            $("#d_email").val(email);
-                            $("#d_data").val(data_nascita);
-                            $("#d_username").val(username);
-                          });
-                      
-                          function show(){
-                              $("#d_name").removeAttr("disabled");
-                              $("#d_surname").removeAttr("disabled");
-                              $("#d_email").removeAttr("disabled");
-                              $("#d_data").removeAttr("disabled");
-                              $("#d_username").removeAttr("disabled");
-
-                              $("#Modifica").removeAttr("style");
-                          }
-                          $(document).ready(function(){
-                            $('#Modifica').click(function(){
-                                nomem = document.getElementById('d_name').value
-                                cognomem = document.getElementById('d_surname').value
-                                emailm = document.getElementById('d_email').value
-                                datam = document.getElementById('d_data').value
-
-                                $.ajax({
-                                    type: "Post",
-                                    url: "ajax/modify.php",
-                                    data: {
-                                        nome: nomem,
-                                        cognome: cognomem,
-                                        email: emailm,
-                                        data: datam,
-                                        username: username
-                                    },
-                                    dataType: "json",
-                                    success: function (response) {
-                                        console.log('update')
-                                    },
-                                    error: function (response) {
-                                        console.log(response)
-                                    }
-                                });
-                            });
-                        });
-
-                        </script>
                     </div>
                     <div class="modal_grid_right">
                         <img src="" id="d_image" alt="Profile" style="width: 100px; height: 100px;border-radius: 100px;border:1px solid; object-fit: cover;">
@@ -580,67 +375,7 @@ chat
                         </form>
                         <button id="Mod2" style="display: none; border: none" onclick="modifica_img()">Modifica</button>
                         <script>
-                            document.getElementById('show_Mod').onchange = (e) => {
-                                document.getElementById('view_submit').click();
-                            }
-
-                            $.ajax({
-                                type: "POST",
-                                url: "./ajax/profile.php",
-                                data: {
-                                    "username": username
-                                },
-                                success: function (response) {
-                                    document.getElementById('d_image').src = response
-                                }
-                            });
-
-                            $(document).ready(function (e) {
-                                $("#view-form").on('submit', (function (e) {
-                                    e.preventDefault();
-                                    $.ajax({
-                                        url: "./ajax/new_profile_photo.php",
-                                        type: "POST",
-                                        data: new FormData(this),
-                                        contentType: false,
-                                        cache: false,
-                                        processData: false,
-                                        success: function (data) {
-                                            console.log(data);
-                                            temp_path = data;
-                                            document.getElementById("d_image").src = temp_path;
-                                            document.getElementById("Mod2").removeAttribute("style");
-                                        },
-                                        error: function (data) {
-                                            console.log("error");
-                                            console.log(data);
-                                        }
-                                    });
-                                }));
-                            });
-                            function modifica_img(){
-                                var imaage
-                                split = temp_path.split("/");
-                                $.ajax({
-                                    type: "POST",
-                                    url: "./ajax/new_profile.php",
-                                    data: {
-                                        "username": username,
-                                        "img": split[1],
-                                        "temp": temp_path
-                                    },
-                                    success: function (response) {
-                                        console.log(response)
-                                        imaage = response
-                                        document.getElementById("profile_img").src = response
-                                        document.getElementById('img_profile').src = response
-                                    },
-                                    error: function (response) {
-                                        console.log(response)
-                                    }
-                                });
-                                
-                            }
+                            
                         </script>
                     </div>
                 </div>
@@ -650,83 +385,9 @@ chat
               </div>
             </div>
           </div>
-          <script>
-                $.ajax({
-                    type: "POST",
-                    url: "./ajax/profile_post.php",
-                    data: {
-                        "username": username,
-                        "view": "post",
-                    },
-                    dataType: "json",
-                    success: function (response) {
-                        var foto_profilo = response
-                        var prof_view = document.getElementById('table')
-                        prof_view.innerHTML = ""
-                        var table = document.createElement("table")
-                        document.getElementById('profile_npost').innerHTML = "Post: " + response.length
-                        for (let i = 0; i < foto_profilo.length; i++) {
-                            if(i==0 || i%3==0)var tr = document.createElement("tr")
-                            var td = document.createElement("td")
-                            var button = document.createElement("button")
-                            button.setAttribute("data-bs-toggle", "modal");
-                            button.setAttribute("data-bs-target", "#Profile_post_Modal");
-                            var img = document.createElement("img")
-                            img.src = foto_profilo[i]['foto']
-                            button.appendChild(img)
-                            button.id="pro_b" + i
-                            td.appendChild(button)
-                            tr.appendChild(td)
-                            table.appendChild(tr)
-                            table.classList.add("post_profile")
-                            prof_view.appendChild(table)
-                            $(document).ready(function(){
-                                $('#pro_b' + i).click(function(){
-                                    var foto_view = foto_profilo[i]['foto']
-                                    var descrizione_view = foto_profilo[i]['descrizione']
-                                    var data_view = foto_profilo[i]['data']
-                                    var like_view = foto_profilo[i]['piace']
-                                    var prefer_view = foto_profilo[i]['prefer']
-                                    var modello_view = foto_profilo[i]['marca']
-                                    var hashtag_view = foto_profilo[i]['hashtag']
-                                    var vendita_view = foto_profilo[i]['vendita']
-                                    console.log(modello_view)
-
-                                    var view_header = document.getElementById("view_header");
-                                    var view_body = document.getElementById("view_body");
-                                    var view_descr = document.getElementById("view_descr");
-                                    var view_like_prefer = document.getElementById("view_like_prefer");
-                                    var view_data = document.getElementById("view_data");
-
-                                    view_header.innerHTML = modello_view
-                                    view_data.innerHTML = data_view
-                                    view_body.innerHTML = "<img src='" + foto_view + "' height='400px' width='400px' style='object-fit: cover;'>"
-                                    view_like_prefer.innerHTML = "<p>" + descrizione_view + "<b>" + hashtag_view + "</b>" + "</p>"
-                                    view_descr.innerHTML = "<br><p>Like:" + like_view + "</p><p>Prefer:" + prefer_view + "</p>"
-                                });
-                            });
-                        }
-                    },
-                    error: function (response) {
-                        console.log(response)
-                    }
-                });
-
-                $.ajax({
-                    type: "POST",
-                    url: "ajax/profile_followers.php",
-                    data: {
-                        follower: username,
-                    },
-                    dataType: "json",
-                    success: function (response) {
-                        document.getElementById('profile_follower').innerHTML = "Followers: " + response['followers']
-                        document.getElementById('profile_followed').innerHTML = "Following: " + response['following']
-                    },
-                    error: function (response) {
-                        console.log(response)
-                    }
-                });
-        </script>
+    <script src="script/script_home.js"></script>
+    <script src="script/script_dark.js"></script>
+    <script src="script/script_media.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </body>
 </html>
