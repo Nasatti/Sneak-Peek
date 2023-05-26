@@ -11,7 +11,7 @@ The users to use this Social have to signing in and then log in. Once done, you 
 Allows users to see the posts of their followers or of all the world
 
 ### Search
-People can search Users, Shoes and Shoes on Sale - this function is not implement for mobile phone yet)
+People can search Users, Shoes and Shoes on Sale
 
 ### Message
 To write to other users for send or buy shoes
@@ -29,3 +29,8 @@ To see your own profile, with your posts and your liked posts
 <li>HTML, CSS, JavaScript, jQuery(AJAX)</li>
 <li>PHP</li>
 <li>MySQL for Database</li>
+
+## 🎯Future goals
+<li>Implement the chat</li>
+<li>Implement the search for mobile phone</li>
+<li>Improve backend in PHP, using MVC pattern</li>
